@@ -24,7 +24,7 @@ public abstract class Search<E> extends ActionCommand {
 
     /**
      * Executes a search operation based on the specified search type and filters,
-     * then populates the searchResults list with the names of the matching audio objects.
+     * then populates the searchResults list with the names of the matching entities.audio objects.
      *
      * @param type    The type of search to be performed
      * @param filters The filters used for searching

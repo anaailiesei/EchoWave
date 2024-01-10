@@ -1,9 +1,9 @@
-package audio;
+package entities.audio;
 
 import fileio.input.SongInput;
 import lombok.Getter;
 import statistics.ListenTrackerNormalUser;
-import user.NormalUser;
+import entities.user.NormalUser;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -82,7 +82,7 @@ public final class Song implements Audio {
      */
     @Override
     public boolean nameStartsWith(final String searchString) {
-        return songInput.getName().startsWith(searchString);
+        return songInput.getName().toLowerCase().startsWith(searchString.toLowerCase());
     }
 
     @Override
@@ -250,7 +250,7 @@ public final class Song implements Audio {
     }
 
     /**
-     * Removes the like from the given user
+     * Removes the like from the given entities.user
      *
      * @param user The liker
      */
@@ -261,7 +261,7 @@ public final class Song implements Audio {
     }
 
     /**
-     * Adds a like from the given user
+     * Adds a like from the given entities.user
      *
      * @param user The liker
      */

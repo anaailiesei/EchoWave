@@ -1,8 +1,8 @@
 package statistics;
 
-import audio.Song;
-import audio.collections.Album;
-import user.NormalUser;
+import entities.audio.Song;
+import entities.audio.collections.Album;
+import entities.user.NormalUser;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -33,13 +33,13 @@ public final class ListenTrackerArtist {
     }
 
     /**
-     * Adds a listen for the specified user
+     * Adds a listen for the specified entities.user
      *
-     * @param user The user for which we add a listen
+     * @param user The entities.user for which we add a listen
      * @see NormalUser
      */
     public void addListen(final NormalUser user) {
-        fansListenTracker.addListen(user.getUsername());
+        fansListenTracker.addListen(user.getName());
     }
 
     /**
@@ -65,14 +65,14 @@ public final class ListenTrackerArtist {
     }
 
     /**
-     * Adds the specified number of listens for the specified user
+     * Adds the specified number of listens for the specified entities.user
      *
-     * @param user  The user for which we add a listen
+     * @param user  The entities.user for which we add a listen
      * @param count The number of listens that should be added
      * @see NormalUser
      */
     public void addListen(final NormalUser user, final int count) {
-        fansListenTracker.addListen(user.getUsername(), count);
+        fansListenTracker.addListen(user.getName(), count);
     }
 
     /**
@@ -97,7 +97,7 @@ public final class ListenTrackerArtist {
      *
      * @param album The album for which we add a listen
      * @param song  The song for which we add a listen
-     * @param user  The user for which we add a listen
+     * @param user  The entities.user for which we add a listen
      * @see Song
      * @see NormalUser
      * @see Album
@@ -113,7 +113,7 @@ public final class ListenTrackerArtist {
      *
      * @param albumName The name of the album for which we add a listen
      * @param song      The song for which we add a listen
-     * @param user      The user for which we add a listen
+     * @param user      The entities.user for which we add a listen
      * @see Song
      * @see NormalUser
      */
@@ -126,7 +126,7 @@ public final class ListenTrackerArtist {
      * Adds a listen for the following categories: Song and User
      *
      * @param song The song for which we add a listen
-     * @param user The user for which we add a listen
+     * @param user The entities.user for which we add a listen
      * @see Song
      * @see NormalUser
      */
@@ -139,7 +139,7 @@ public final class ListenTrackerArtist {
      * Adds the specified number of listens for the following categories: Song and User
      *
      * @param song  The song for which we add a listen
-     * @param user  The user for which we add a listen
+     * @param user  The entities.user for which we add a listen
      * @param count The number of listens we add
      * @see Song
      * @see NormalUser

@@ -1,20 +1,14 @@
-package audio;
+package entities.audio;
 
+import entities.Entity;
 import statistics.ListenTrackerNormalUser;
 
 /**
- * Interface for an audio file
+ * Interface for an entities.audio file
  */
-public interface Audio extends Cloneable {
+public interface Audio extends Cloneable, Entity {
     /**
-     * Gets the name of the audio object
-     *
-     * @return the name
-     */
-    String getName();
-
-    /**
-     * Gets the duration of the audio object
+     * Gets the duration of the entities.audio object
      *
      * @return the duration;
      */
@@ -39,25 +33,25 @@ public interface Audio extends Cloneable {
     <E extends Audio> E copyObject();
 
     /**
-     * Adds a listen for the current audio file in the specified listen tracker
-     * (owned by a user)
+     * Adds a listen for the current entities.audio file in the specified listen tracker
+     * (owned by a entities.user)
      *
-     * @param listenTracker The user's listen tracker
+     * @param listenTracker The entities.user's listen tracker
      */
     default void addListen(ListenTrackerNormalUser listenTracker) {
     }
 
     /**
-     * Adds the specified number of listens for the current audio file
-     * in the specified listen tracker (owned by a normal user)
+     * Adds the specified number of listens for the current entities.audio file
+     * in the specified listen tracker (owned by a normal entities.user)
      *
-     * @param listenTracker The user's listen tracker
+     * @param listenTracker The entities.user's listen tracker
      */
     default void addListen(ListenTrackerNormalUser listenTracker, int count) {
     }
 
     /**
-     * Gets the name of the owner for the audio file
+     * Gets the name of the owner for the entities.audio file
      *
      * @return A {@code String} with the name of the owner
      */

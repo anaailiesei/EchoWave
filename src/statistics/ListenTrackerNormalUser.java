@@ -1,9 +1,9 @@
 package statistics;
 
-import audio.Audio;
-import audio.Episode;
-import audio.Song;
-import audio.collections.Album;
+import entities.audio.Audio;
+import entities.audio.Episode;
+import entities.audio.Song;
+import entities.audio.collections.Album;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -70,12 +70,12 @@ public final class ListenTrackerNormalUser {
     }
 
     /**
-     * Adds a listen for an audio file
+     * Adds a listen for an entities.audio file
      * (this is used to add a listen for a Song, an Episode or on Album,
-     * for the other types of audio files, this does nothing)
+     * for the other types of entities.audio files, this does nothing)
      *
-     * @param audio The audio file for which we want to add a listen
-     * @param <E>   The class of the audio file (Important ones are Song, Episode and Album)
+     * @param audio The entities.audio file for which we want to add a listen
+     * @param <E>   The class of the entities.audio file (Important ones are Song, Episode and Album)
      * @see Song
      * @see Episode
      * @see Album
@@ -99,5 +99,18 @@ public final class ListenTrackerNormalUser {
         result.put("topAlbums", albumsListenTracker.getTopFiveListens());
         result.put("topEpisodes", episodesListenTracker.getTopFiveListens());
         return result;
+    }
+
+    /**
+     * Checks if the entities.user hasn't listened to anything yet
+     *
+     * @return {@code true} if the entities.user hasn't listened anything, {@code false} otherwise
+     */
+    public boolean noListens() {
+        return artistsListenTracker.isEmpty()
+                && genresListenTracker.isEmpty()
+                && songsListenTracker.isEmpty()
+                && albumsListenTracker.isEmpty()
+                && episodesListenTracker.isEmpty();
     }
 }

@@ -1,6 +1,6 @@
 package managers.artist;
 
-import audio.Song;
+import entities.audio.Song;
 import commands.CommandType;
 import commands.artist.*;
 import fileio.input.CommandInput;

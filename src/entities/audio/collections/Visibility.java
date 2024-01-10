@@ -1,4 +1,4 @@
-package audio.collections;
+package entities.audio.collections;
 
 import lombok.Getter;
 

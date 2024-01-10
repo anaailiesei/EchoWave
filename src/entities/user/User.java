@@ -1,10 +1,11 @@
-package user;
+package entities.user;
 
+import entities.Entity;
 import fileio.input.UserInput;
 
 import java.util.HashMap;
 
-public abstract class User {
+public abstract class User implements Entity {
     private UserInput userInput;
 
     public User(final UserInput userInput) {
@@ -15,9 +16,9 @@ public abstract class User {
     }
 
     /**
-     * Sets the suer input for this user
+     * Sets the suer input for this entities.user
      *
-     * @param userInput the user input ot be set
+     * @param userInput the entities.user input ot be set
      */
 
     public void setUserInput(final UserInput userInput) {
@@ -29,7 +30,7 @@ public abstract class User {
      *
      * @return the username
      */
-    public String getUsername() {
+    public String getName() {
         return userInput.getUsername();
     }
 
@@ -43,7 +44,7 @@ public abstract class User {
     }
 
     /**
-     * Get the age of the user
+     * Get the age of the entities.user
      *
      * @return the age
      */
@@ -52,7 +53,7 @@ public abstract class User {
     }
 
     /**
-     * Set the age of the user
+     * Set the age of the entities.user
      *
      * @param age The age to be set
      */
@@ -61,7 +62,7 @@ public abstract class User {
     }
 
     /**
-     * Get the city of the user
+     * Get the city of the entities.user
      *
      * @return The city
      */
@@ -70,7 +71,7 @@ public abstract class User {
     }
 
     /**
-     * Set the city of the user
+     * Set the city of the entities.user
      *
      * @param city The city to be set
      */
@@ -89,17 +90,25 @@ public abstract class User {
     }
 
     /**
-     * Checks if the user is deletable
+     * Checks if the entities.user is deletable
      *
-     * @return {@code true} if the user is deletable, {@code false} otherwise
+     * @return {@code true} if the entities.user is deletable, {@code false} otherwise
      */
     public abstract boolean isDeletable();
 
     /**
-     * Execute the wrapped command for the current user
+     * Execute the wrapped command for the current entities.user
      *
-     * @return A map with he results of the wrapped command specific to each user
+     * @return A map with he results of the wrapped command specific to each entities.user
      */
     public abstract HashMap<String, Object> wrapped();
 
+    /**
+     * Checks if the entities.user doesn't have any stats to show
+     *
+     * @return {@code true} if the entities.user doesn't have stats to show, {@code false} otherwise
+     */
+    public boolean noStats() {
+        return false;
+    }
 }

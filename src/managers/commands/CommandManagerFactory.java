@@ -10,7 +10,7 @@ import managers.host.HostCommandManager;
 import managers.normalUser.AppManager;
 import managers.normalUser.ConnectionStatusManager;
 import managers.normalUser.PageSystemManager;
-import user.NormalUser;
+import entities.user.NormalUser;
 
 public final class CommandManagerFactory {
     private CommandManagerFactory() {

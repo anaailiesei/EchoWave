@@ -1,9 +1,9 @@
 package commands.normalUser.player;
 
-import audio.Audio;
-import audio.Song;
-import audio.collections.Collection;
-import audio.collections.Playlist;
+import entities.audio.Audio;
+import entities.audio.Song;
+import entities.audio.collections.Collection;
+import entities.audio.collections.Playlist;
 import commands.ActionCommand;
 import managers.CheckClass;
 import managers.normalUser.PlayerManager;

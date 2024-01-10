@@ -1,8 +1,8 @@
 package managers;
 
-import audio.Song;
-import audio.collections.Album;
-import audio.collections.Playlist;
+import entities.audio.Song;
+import entities.audio.collections.Album;
+import entities.audio.collections.Playlist;
 import commands.CommandType;
 import fileio.input.CommandInput;
 import fileio.output.Output;
@@ -13,7 +13,7 @@ import libraries.users.ArtistsLibrary;
 import libraries.users.NormalUsersLibrary;
 import libraries.users.UsersLibrariesStats;
 import managers.commands.CommandHandler;
-import user.Artist;
+import entities.user.Artist;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -128,11 +128,11 @@ public final class GeneralStatisticsManager implements CommandHandler {
         ArrayList<Artist> artists = ArtistsLibrary.getInstance().getItems();
         List<Artist> top5Artists = artists.stream()
                 .sorted(Comparator.comparingInt(Artist::getTotalLikes).reversed()
-                        .thenComparing(Artist::getUsername))
+                        .thenComparing(Artist::getName))
                 .limit(NUMBER_TOP_RESULTS)
                 .toList();
         ArrayList<Object> result = top5Artists.stream()
-                .map(Artist::getUsername)
+                .map(Artist::getName)
                 .collect(Collectors.toCollection(ArrayList::new));
         return new Output(command, result);
     }

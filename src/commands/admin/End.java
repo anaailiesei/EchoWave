@@ -2,9 +2,10 @@ package commands.admin;
 
 import fileio.output.Output;
 import libraries.users.ArtistsLibrary;
-import user.Artist;
+import entities.user.Artist;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.LinkedHashMap;
 
 import static commands.CommandType.endProgram;
@@ -20,6 +21,7 @@ public final class End {
      */
     public static Output performEndProgram() {
         ArrayList<Artist> artists = ArtistsLibrary.getInstance().getItems();
+        artists.sort(Comparator.comparing(Artist::getName));
         LinkedHashMap<String, Object> result = new LinkedHashMap<>();
         for (Artist artist : artists) {
             if (!artist.getListenTracker().wasListened()) {
@@ -35,7 +37,7 @@ public final class End {
             if (artist.getSongsRevenue().isEmpty()) {
                 stats.put("mostProfitableSong", "N/A");
             }
-            result.put(artist.getUsername(), stats);
+            result.put(artist.getName(), stats);
         }
         return new Output(endProgram, result);
     }

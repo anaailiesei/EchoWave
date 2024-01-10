@@ -1,12 +1,12 @@
-package audio.collections;
+package entities.audio.collections;
 
-import audio.Audio;
+import entities.audio.Audio;
 import lombok.Getter;
 
 import java.util.ArrayList;
 
 /**
- * Class for an audio collection
+ * Class for an entities.audio collection
  */
 @Getter
 public class Collection<E extends Audio> implements Audio {

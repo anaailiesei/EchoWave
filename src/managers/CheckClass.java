@@ -1,16 +1,16 @@
 package managers;
 
-import audio.Audio;
-import audio.Episode;
-import audio.Song;
-import audio.collections.Album;
-import audio.collections.Collection;
-import audio.collections.Playlist;
-import audio.collections.Podcast;
-import user.Artist;
-import user.Host;
-import user.NormalUser;
-import user.User;
+import entities.audio.Audio;
+import entities.audio.Episode;
+import entities.audio.Song;
+import entities.audio.collections.Album;
+import entities.audio.collections.Collection;
+import entities.audio.collections.Playlist;
+import entities.audio.collections.Podcast;
+import entities.user.Artist;
+import entities.user.Host;
+import entities.user.NormalUser;
+import entities.user.User;
 
 public final class CheckClass {
     private CheckClass() {

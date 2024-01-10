@@ -1,8 +1,8 @@
 package commands.normalUser.searchBar.filter.filterAudio.filterCollections;
 
-import audio.Audio;
-import audio.collections.Collection;
-import audio.collections.Playlist;
+import entities.audio.Audio;
+import entities.audio.collections.Collection;
+import entities.audio.collections.Playlist;
 import commands.normalUser.searchBar.filter.Filters;
 import commands.normalUser.searchBar.filter.filterAudio.FilterAudio;
 
@@ -24,11 +24,11 @@ public class FilterPlaylists extends FilterCollections<Playlist> {
     }
 
     /**
-     * Filters playlists by visibility for a specified user
-     * It filters out private playlists that the user doesn't own
-     * (Meaning owned playlists by the specified user are being kept)
+     * Filters playlists by visibility for a specified entities.user
+     * It filters out private playlists that the entities.user doesn't own
+     * (Meaning owned playlists by the specified entities.user are being kept)
      *
-     * @param username The name of the user that performs the action
+     * @param username The name of the entities.user that performs the action
      * @return the current instance
      */
     public FilterAudio<Collection<? extends Audio>> byVisibilityForUser(final Object username) {

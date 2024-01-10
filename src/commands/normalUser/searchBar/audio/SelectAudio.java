@@ -1,6 +1,6 @@
 package commands.normalUser.searchBar.audio;
 
-import audio.Audio;
+import entities.audio.Audio;
 import commands.normalUser.searchBar.Select;
 import managers.normalUser.SearchBarManager;
 

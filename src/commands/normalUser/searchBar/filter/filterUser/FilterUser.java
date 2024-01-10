@@ -2,7 +2,7 @@ package commands.normalUser.searchBar.filter.filterUser;
 
 import commands.normalUser.searchBar.filter.Filter;
 import commands.normalUser.searchBar.filter.Filters;
-import user.User;
+import entities.user.User;
 
 import java.util.HashMap;
 

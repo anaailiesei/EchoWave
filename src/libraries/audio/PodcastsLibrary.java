@@ -1,6 +1,6 @@
 package libraries.audio;
 
-import audio.collections.Podcast;
+import entities.audio.collections.Podcast;
 import libraries.GenericLibrary;
 
 public final class PodcastsLibrary extends GenericLibrary<Podcast> {

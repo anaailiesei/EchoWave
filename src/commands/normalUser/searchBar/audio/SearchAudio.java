@@ -1,6 +1,6 @@
 package commands.normalUser.searchBar.audio;
 
-import audio.Audio;
+import entities.audio.Audio;
 import commands.normalUser.searchBar.Search;
 import commands.normalUser.searchBar.SearchType;
 import commands.normalUser.searchBar.filter.Filter;
@@ -33,7 +33,7 @@ public final class SearchAudio extends Search<Audio> {
                 new FilterPlaylists(PlaylistsLibrary.getInstance().getItems()));
         if (AlbumsLibrary.getInstance().getItems() != null) {
             putFilter(SearchType.album,
-                    new FilterAlbums(AlbumsLibrary.getInstance().getItems()));
+                    new FilterAlbums(AlbumsLibrary.getInstance().sortAlbumsByArtistOrder()));
         }
     }
 

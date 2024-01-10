@@ -25,9 +25,9 @@ public final class ConnectionStatusManager implements CommandHandler {
     }
 
     /**
-     * Performs the switch connection status command, toggling the connection status of a user.
+     * Performs the switch connection status command, toggling the connection status of a entities.user.
      * This method executes the necessary operation to switch the connection status (online/offline)
-     * of the user identified by the provided username.
+     * of the entities.user identified by the provided username.
      *
      * @param command The input command containing the username for which to switch
      *                the connection status.

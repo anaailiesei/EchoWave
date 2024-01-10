@@ -1,8 +1,8 @@
 package managers.admin;
 
-import audio.Song;
-import audio.collections.Album;
-import audio.collections.Podcast;
+import entities.audio.Song;
+import entities.audio.collections.Album;
+import entities.audio.collections.Podcast;
 import commands.CommandType;
 import commands.admin.AddUser;
 import commands.admin.DeleteUser;
@@ -12,9 +12,9 @@ import fileio.output.PodcastOutput;
 import libraries.users.ArtistsLibrary;
 import libraries.users.HostsLibrary;
 import managers.commands.CommandHandler;
-import user.Artist;
-import user.Host;
-import user.UserType;
+import entities.user.Artist;
+import entities.user.Host;
+import entities.user.UserType;
 
 import java.util.*;
 
@@ -37,9 +37,9 @@ public final class AdminCommandManager implements CommandHandler {
     }
 
     /**
-     * Performs the add user command based on the provided input.
+     * Performs the add entities.user command based on the provided input.
      *
-     * @param command The input containing user details.
+     * @param command The input containing entities.user details.
      * @return An Output object with the result of the operation.
      */
     public static Output performAddUser(final CommandInput command) {
@@ -73,7 +73,7 @@ public final class AdminCommandManager implements CommandHandler {
     }
 
     /**
-     * Performs the delete user command based on the provided input.
+     * Performs the delete entities.user command based on the provided input.
      *
      * @param command The input containing the username to be deleted.
      * @return An Output object with the result of the operation.

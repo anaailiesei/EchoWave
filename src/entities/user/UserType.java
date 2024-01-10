@@ -1,4 +1,4 @@
-package user;
+package entities.user;
 
 public enum UserType {
     user("user"), artist("artist"), host("host");

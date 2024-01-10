@@ -1,10 +1,10 @@
 package managers.normalUser;
 
-import audio.Audio;
-import audio.collections.Collection;
+import entities.audio.Audio;
+import entities.audio.collections.Collection;
 import managers.CheckClass;
 import playables.PlayingAudioCollection;
-import user.NormalUser;
+import entities.user.NormalUser;
 
 import java.util.ArrayList;
 
@@ -32,10 +32,10 @@ public final class ProgressManager {
 
     /**
      * Searches for a collection (loaded) that's still in progress
-     * Must be checked before if the loaded audio is a collection
+     * Must be checked before if the loaded entities.audio is a collection
      *
      * @param loadedAudio The loaded track
-     * @return the playable audio collection found
+     * @return the playable entities.audio collection found
      */
     public PlayingAudioCollection<? extends Collection<? extends Audio>>
     findInProgressCollections(final Audio loadedAudio) {

@@ -1,9 +1,9 @@
 package libraries.users;
 
-import audio.collections.Podcast;
+import entities.audio.collections.Podcast;
 import libraries.GenericLibrary;
 import libraries.audio.PodcastsLibrary;
-import user.Host;
+import entities.user.Host;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -39,7 +39,7 @@ public final class HostsLibrary extends GenericLibrary<Host> {
             return false;
         }
         for (Host host : hosts) {
-            if (host.getUsername().equals(username)) {
+            if (host.getName().equals(username)) {
                 return true;
             }
         }
@@ -58,7 +58,7 @@ public final class HostsLibrary extends GenericLibrary<Host> {
             return null;
         }
         for (Host host : hosts) {
-            if (host.getUsername().equals(username)) {
+            if (host.getName().equals(username)) {
                 return host;
             }
         }

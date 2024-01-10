@@ -1,7 +1,7 @@
 package commands.normalUser.playlist;
 
-import audio.Song;
-import audio.collections.Playlist;
+import entities.audio.Song;
+import entities.audio.collections.Playlist;
 import commands.ActionCommand;
 import libraries.audio.PlaylistsLibrary;
 import libraries.users.NormalUsersLibrary;

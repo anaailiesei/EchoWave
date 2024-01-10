@@ -1,7 +1,7 @@
 package libraries.audio;
 
-import audio.Song;
-import audio.collections.Album;
+import entities.audio.Song;
+import entities.audio.collections.Album;
 import libraries.GenericLibrary;
 
 import java.util.ArrayList;

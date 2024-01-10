@@ -1,7 +1,7 @@
 package fileio.output;
 
-import audio.Episode;
-import audio.collections.Podcast;
+import entities.audio.Episode;
+import entities.audio.collections.Podcast;
 import lombok.Getter;
 
 import java.util.ArrayList;

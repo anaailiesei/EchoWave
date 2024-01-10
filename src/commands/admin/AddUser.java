@@ -4,10 +4,10 @@ import libraries.users.ArtistsLibrary;
 import libraries.users.HostsLibrary;
 import libraries.users.NormalUsersLibrary;
 import libraries.users.UsersLibrariesStats;
-import user.Artist;
-import user.Host;
-import user.NormalUser;
-import user.UserType;
+import entities.user.Artist;
+import entities.user.Host;
+import entities.user.NormalUser;
+import entities.user.UserType;
 
 public final class AddUser {
     private static State state;
@@ -16,12 +16,12 @@ public final class AddUser {
     }
 
     /**
-     * Execute the command for adding a user
+     * Execute the command for adding a entities.user
      *
-     * @param type     The type of the user that should be added
-     * @param username The username of the user that should be added
-     * @param age      The age of the user
-     * @param city     The city of the user
+     * @param type     The type of the entities.user that should be added
+     * @param username The username of the entities.user that should be added
+     * @param age      The age of the entities.user
+     * @param city     The city of the entities.user
      */
     public static void execute(final UserType type,
                                final String username,
@@ -45,7 +45,7 @@ public final class AddUser {
 
     /**
      * Check the conditions for performing this operation
-     * The user shouldn't already exist for a successful operation.
+     * The entities.user shouldn't already exist for a successful operation.
      *
      * @param username The username that should be added
      */
@@ -60,7 +60,7 @@ public final class AddUser {
     /**
      * Function for the output message of this command
      *
-     * @param username The username of the added user
+     * @param username The username of the added entities.user
      * @return A string with the message
      */
     public static String toString(final String username) {

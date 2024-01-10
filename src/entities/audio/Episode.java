@@ -1,4 +1,4 @@
-package audio;
+package entities.audio;
 
 import fileio.input.EpisodeInput;
 import statistics.ListenTrackerNormalUser;

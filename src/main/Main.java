@@ -1,7 +1,7 @@
 package main;
 
-import audio.Song;
-import audio.collections.Podcast;
+import entities.audio.Song;
+import entities.audio.collections.Podcast;
 import checker.Checker;
 import checker.CheckerConstants;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -27,7 +27,7 @@ import libraries.users.NormalUsersLibrary;
 import managers.TimeManager;
 import managers.commands.CommandHandler;
 import managers.commands.CommandManagerFactory;
-import user.NormalUser;
+import entities.user.NormalUser;
 
 import java.io.File;
 import java.io.IOException;
@@ -81,7 +81,9 @@ public final class Main {
                 action(file.getName(), filepath);
             }
         }
-//        String fileName = "test00_etapa3_wrapped_one_user_one_artist.json";
+        // test00_etapa3_wrapped_one_user_one_artist.json
+
+//        String fileName = "test01_etapa3_wrapped_one_user_n_artist.json";
 //        String filepath = CheckerConstants.OUT_PATH + fileName;
 //        File out = new File(filepath);
 //        boolean isCreated = out.createNewFile();
@@ -192,7 +194,7 @@ public final class Main {
      * Resets the NormalUsersLibrary by creating new NormalUser instances
      * based on the input library.
      *
-     * @param library The source library containing initial user data.
+     * @param library The source library containing initial entities.user data.
      */
     private static void resetUsers(final LibraryInput library) {
         ArrayList<NormalUser> users = new ArrayList<>();

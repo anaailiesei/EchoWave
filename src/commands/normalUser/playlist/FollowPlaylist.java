@@ -1,13 +1,13 @@
 package commands.normalUser.playlist;
 
-import audio.Audio;
-import audio.collections.Playlist;
+import entities.audio.Audio;
+import entities.audio.collections.Playlist;
 import commands.ActionCommand;
 import commands.normalUser.searchBar.audio.SelectAudio;
 import managers.CheckClass;
 import managers.normalUser.PlayerManager;
 import playables.PlayingAudioCollection;
-import user.NormalUser;
+import entities.user.NormalUser;
 
 /**
  * Implementation for the followPlaylist operation
@@ -29,7 +29,7 @@ public final class FollowPlaylist extends ActionCommand {
      * If the playlist was previously followed, it unfollows it (removes the
      * playlist from the users list of followed playlist)
      * Otherwise it follows the playlist and adds it to the followed playlists list
-     * for the specified user
+     * for the specified entities.user
      */
     public void execute() {
         sameUser = false;
@@ -51,7 +51,7 @@ public final class FollowPlaylist extends ActionCommand {
             playlist = (Playlist) selectedAudio;
         }
         String playlistOwner = playlist.getOwner();
-        String username = user.getUsername();
+        String username = user.getName();
         if (playlistOwner.equals(username)) {
             sameUser = true;
             setMessage(toString());
@@ -87,9 +87,9 @@ public final class FollowPlaylist extends ActionCommand {
     }
 
     /**
-     * Sets the user for the follow playlist operation (the user that performs the operation)
+     * Sets the entities.user for the follow playlist operation (the entities.user that performs the operation)
      *
-     * @param newUser the user to be set
+     * @param newUser the entities.user to be set
      * @return the current instance
      */
     public FollowPlaylist setUser(final NormalUser newUser) {

@@ -1,6 +1,6 @@
-package audio.collections;
+package entities.audio.collections;
 
-import audio.Song;
+import entities.audio.Song;
 import lombok.Getter;
 import statistics.ListenTrackerNormalUser;
 
@@ -47,9 +47,9 @@ public final class Album extends Collection<Song> {
 
     /**
      * Checks if the album is deletable
-     * To be deletable, it shouldn't have any of its songs playing in a user's player,
-     * the album itself shouldn't be played by a user,
-     * and neither of its songs should be part of a user's playlist
+     * To be deletable, it shouldn't have any of its songs playing in a entities.user's player,
+     * the album itself shouldn't be played by a entities.user,
+     * and neither of its songs should be part of a entities.user's playlist
      *
      * @return {@code true} if the album is deletable, {@code false} otherwise
      */

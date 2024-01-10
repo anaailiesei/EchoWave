@@ -5,10 +5,10 @@ import libraries.users.NormalUsersLibrary;
 import managers.CheckClass;
 import managers.normalUser.AppManager;
 import managers.normalUser.SearchBarManager;
-import user.Artist;
-import user.Host;
-import user.NormalUser;
-import user.User;
+import entities.user.Artist;
+import entities.user.Host;
+import entities.user.NormalUser;
+import entities.user.User;
 
 import java.util.ArrayList;
 
@@ -24,7 +24,7 @@ public final class SelectUser extends Select<User> {
         } else if (!isValid(itemNumber, selectFrom)) {
             return "The selected ID is too high.";
         } else {
-            return "Successfully selected " + selectedObject.getUsername() + "'s page.";
+            return "Successfully selected " + selectedObject.getName() + "'s page.";
         }
     }
 
@@ -36,13 +36,13 @@ public final class SelectUser extends Select<User> {
             artist.incrementPageViewersCount();
             assert user != null;
             user.getApp().setPage(AppManager.Page.artistPage);
-            user.getApp().setPageOwner(artist.getUsername());
+            user.getApp().setPageOwner(artist.getName());
         } else if (selectedObject != null && CheckClass.isHost(selectedObject.getClass())) {
             Host host = (Host) selectedObject;
             host.incrementPageViewersCount();
             assert user != null;
             user.getApp().setPage(AppManager.Page.hostPage);
-            user.getApp().setPageOwner(host.getUsername());
+            user.getApp().setPageOwner(host.getName());
         }
     }
 }

@@ -1,15 +1,15 @@
 package commands.normalUser.player;
 
-import audio.Song;
-import audio.collections.Album;
+import entities.audio.Song;
+import entities.audio.collections.Album;
 import commands.ActionCommand;
 import libraries.audio.AlbumsLibrary;
 import libraries.users.ArtistsLibrary;
 import managers.CheckClass;
 import managers.normalUser.PlayerManager;
 import playables.PlayingAudio;
-import user.Artist;
-import user.NormalUser;
+import entities.user.Artist;
+import entities.user.NormalUser;
 
 /**
  * Implements the like operation
@@ -26,7 +26,7 @@ public final class Like extends ActionCommand {
     /**
      * Set the suer for the Like command
      *
-     * @param newUser the user to be set
+     * @param newUser the entities.user to be set
      * @return the current instance
      */
     public Like setUser(final NormalUser newUser) {
@@ -36,8 +36,8 @@ public final class Like extends ActionCommand {
 
     /**
      * Execute the like operation for the current playing song
-     * If song is already liked, unlike it and erase it from the user's list of liked songs
-     * Otherwise, like the song and add it to user's list of liked songs
+     * If song is already liked, unlike it and erase it from the entities.user's list of liked songs
+     * Otherwise, like the song and add it to entities.user's list of liked songs
      */
     public void execute() {
         PlayingAudio<?> playingAudio = playerManager.getPlayingAudio();

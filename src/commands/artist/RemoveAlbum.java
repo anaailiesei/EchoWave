@@ -1,9 +1,9 @@
 package commands.artist;
 
-import audio.collections.Album;
+import entities.audio.collections.Album;
 import libraries.users.ArtistsLibrary;
 import libraries.users.UsersLibrariesStats;
-import user.Artist;
+import entities.user.Artist;
 
 public final class RemoveAlbum {
     private static State state;
@@ -15,7 +15,7 @@ public final class RemoveAlbum {
      * Executes the remove album command
      *
      * @param albumName The name of the album that should be added
-     * @param username  The name of the user that wants to add an album
+     * @param username  The name of the entities.user that wants to add an album
      */
     public static void execute(final String albumName,
                                final String username) {
@@ -30,11 +30,11 @@ public final class RemoveAlbum {
 
     /**
      * Check the conditions for performing this operation
-     * For a successful operation, the user should exist, and they should be an artist,
-     * the album should exist, and it should be deletable (no user has this album or any song
+     * For a successful operation, the entities.user should exist, and they should be an artist,
+     * the album should exist, and it should be deletable (no entities.user has this album or any song
      * from it playing or added to a playlist)
      *
-     * @param username The username for the user that wants to remove an album
+     * @param username The username for the entities.user that wants to remove an album
      */
     private static void checkConditions(final String albumName,
                                         final String username,
@@ -55,7 +55,7 @@ public final class RemoveAlbum {
     /**
      * Function for the output message of this command
      *
-     * @param username The username user that removes an album
+     * @param username The username entities.user that removes an album
      * @return A string with the message
      */
     public static String toString(final String username) {

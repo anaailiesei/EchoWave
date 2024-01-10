@@ -1,8 +1,8 @@
-package audio.collections;
+package entities.audio.collections;
 
-import audio.Song;
+import entities.audio.Song;
 import lombok.Getter;
-import user.NormalUser;
+import entities.user.NormalUser;
 
 import java.util.ArrayList;
 import java.util.Iterator;

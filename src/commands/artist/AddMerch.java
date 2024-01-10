@@ -3,7 +3,7 @@ package commands.artist;
 import libraries.users.ArtistsLibrary;
 import libraries.users.UsersLibrariesStats;
 import profile.artist.Merch;
-import user.Artist;
+import entities.user.Artist;
 
 public final class AddMerch {
     private static State state;
@@ -15,7 +15,7 @@ public final class AddMerch {
      * Executes the add merch operation
      *
      * @param merchName   The name of the merch to be added
-     * @param username    The name of the user that wants to add the merch
+     * @param username    The name of the entities.user that wants to add the merch
      * @param description The description of the merch
      * @param price       The price of the merch
      */
@@ -34,12 +34,12 @@ public final class AddMerch {
 
     /**
      * Checks the conditions for performing this operation
-     * The merch can be successfully added if the given user exists,
+     * The merch can be successfully added if the given entities.user exists,
      * it's an artist and there is no other merch with the given name.
      * The price of the merch should also be positive.
      *
      * @param merchName The name of the merch to be added
-     * @param username  The name of the user that perform the operation
+     * @param username  The name of the entities.user that perform the operation
      * @param artist    The artist that wants to add the merch (this should be a non-null
      *                  reference for a successful operation)
      * @param price     The price of the merch (should be greater than 0 for a successful operation)
@@ -64,7 +64,7 @@ public final class AddMerch {
     /**
      * Function for the output message of this command depending on the state variable
      *
-     * @param username The username user that adds the merch
+     * @param username The username entities.user that adds the merch
      * @return A string with the message
      */
     public static String toString(final String username) {

@@ -1,11 +1,11 @@
 package commands.host;
 
-import audio.Episode;
-import audio.collections.Podcast;
+import entities.audio.Episode;
+import entities.audio.collections.Podcast;
 import libraries.audio.PodcastsLibrary;
 import libraries.users.HostsLibrary;
 import libraries.users.UsersLibrariesStats;
-import user.Host;
+import entities.user.Host;
 
 import java.util.ArrayList;
 
@@ -19,7 +19,7 @@ public final class AddPodcast {
      * Execute the add podcast command
      *
      * @param podcastName The name of the podcast that should be added
-     * @param username    The name of th user that want to add a podcast
+     * @param username    The name of th entities.user that want to add a podcast
      * @param episodes    The episodes in the podcast
      */
     public static void execute(final String podcastName,
@@ -37,12 +37,12 @@ public final class AddPodcast {
 
     /**
      * Checks the conditions for performing this operation
-     * For a successful operation, the user should exist, and they should be a host,
+     * For a successful operation, the entities.user should exist, and they should be a host,
      * there shouldn't be another podcast with the same name among their podcast collection,
      * and the new added podcast shouldn't have duplicated episodes
      *
      * @param podcastName The name of the podcast to be checked
-     * @param username    The name of the user
+     * @param username    The name of the entities.user
      * @param host        The host (this should be non-null for a successful operation)
      * @param episodes    The episodes in the podcast (checks if there are duplicates)
      */
@@ -77,7 +77,7 @@ public final class AddPodcast {
     /**
      * Function for the output message of this command
      *
-     * @param username The user that adds the podcast
+     * @param username The entities.user that adds the podcast
      * @return A string with the message
      */
     public static String toString(final String username) {

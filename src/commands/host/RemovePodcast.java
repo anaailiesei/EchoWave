@@ -1,10 +1,10 @@
 package commands.host;
 
-import audio.collections.Podcast;
+import entities.audio.collections.Podcast;
 import libraries.audio.PodcastsLibrary;
 import libraries.users.HostsLibrary;
 import libraries.users.UsersLibrariesStats;
-import user.Host;
+import entities.user.Host;
 
 public final class RemovePodcast {
     private static State state;
@@ -16,7 +16,7 @@ public final class RemovePodcast {
      * Execute the remove announcement command
      *
      * @param podcastName The name of the podcast to be deleted
-     * @param username    The name of th user that wants to delete the podcast
+     * @param username    The name of th entities.user that wants to delete the podcast
      */
     public static void execute(final String podcastName,
                                final String username) {
@@ -32,11 +32,11 @@ public final class RemovePodcast {
 
     /**
      * Checks the conditions for performing this operation
-     * For a successful operation, the user should exist, and they should be a host,
+     * For a successful operation, the entities.user should exist, and they should be a host,
      * the podcast should exist, and it should be deletable
      *
      * @param podcastName The name of the podcast to be checked
-     * @param username    The name of the user that wants to add the podcast
+     * @param username    The name of the entities.user that wants to add the podcast
      * @param host        The host (this should be a non-null reference for a successful operation)
      */
     private static void checkConditions(final String podcastName,
@@ -58,7 +58,7 @@ public final class RemovePodcast {
     /**
      * Function for the output message of this command based on the state variable
      *
-     * @param username The name of the user that performs the operation
+     * @param username The name of the entities.user that performs the operation
      * @return A string with the message
      */
     public static String toString(final String username) {

@@ -2,7 +2,7 @@ package commands.artist;
 
 import libraries.users.ArtistsLibrary;
 import libraries.users.UsersLibrariesStats;
-import user.Artist;
+import entities.user.Artist;
 
 public final class RemoveEvent {
     private static State state;
@@ -14,7 +14,7 @@ public final class RemoveEvent {
      * Executes the add event command
      *
      * @param eventName The name of the event that should be added
-     * @param username  The name of the user that wants to add an event
+     * @param username  The name of the entities.user that wants to add an event
      */
     public static void execute(final String eventName,
                                final String username) {
@@ -28,10 +28,10 @@ public final class RemoveEvent {
 
     /**
      * Check the conditions for performing this operation
-     * For a successful operation the user soul exist, and they should be an artist,
+     * For a successful operation the entities.user soul exist, and they should be an artist,
      * and the event should exist
      *
-     * @param username The username for the user that wants to add an album
+     * @param username The username for the entities.user that wants to add an album
      */
     private static void checkConditions(final String eventName,
                                         final String username,
@@ -50,7 +50,7 @@ public final class RemoveEvent {
     /**
      * Function for the output message of this command depending on the state variable
      *
-     * @param username The username user that adds an event
+     * @param username The username entities.user that adds an event
      * @return A string with the message
      */
     public static String toString(final String username) {

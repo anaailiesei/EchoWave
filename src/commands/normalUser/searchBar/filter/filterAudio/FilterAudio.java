@@ -1,6 +1,6 @@
 package commands.normalUser.searchBar.filter.filterAudio;
 
-import audio.Audio;
+import entities.audio.Audio;
 import commands.normalUser.searchBar.filter.Filter;
 
 

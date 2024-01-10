@@ -1,14 +1,14 @@
 package playables;
 
-import audio.Audio;
-import audio.Song;
-import audio.collections.Album;
-import audio.collections.Collection;
+import entities.audio.Audio;
+import entities.audio.Song;
+import entities.audio.collections.Album;
+import entities.audio.collections.Collection;
 import commands.normalUser.player.RepeatType;
 import commands.normalUser.player.StatusFields;
 import libraries.users.ArtistsLibrary;
-import user.Artist;
-import user.NormalUser;
+import entities.user.Artist;
+import entities.user.NormalUser;
 
 import java.util.ArrayList;
 import java.util.List;

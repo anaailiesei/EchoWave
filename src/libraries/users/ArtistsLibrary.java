@@ -1,10 +1,10 @@
 package libraries.users;
 
-import audio.collections.Album;
+import entities.audio.collections.Album;
 import libraries.GenericLibrary;
 import libraries.audio.AlbumsLibrary;
 import libraries.audio.SongsLibrary;
-import user.Artist;
+import entities.user.Artist;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -40,7 +40,7 @@ public final class ArtistsLibrary extends GenericLibrary<Artist> {
             return false;
         }
         for (Artist artist : artists) {
-            if (artist.getUsername().equals(username)) {
+            if (artist.getName().equals(username)) {
                 return true;
             }
         }
@@ -62,7 +62,7 @@ public final class ArtistsLibrary extends GenericLibrary<Artist> {
             return null;
         }
         for (Artist artist : artists) {
-            if (artist.getUsername().equals(username)) {
+            if (artist.getName().equals(username)) {
                 return artist;
             }
         }

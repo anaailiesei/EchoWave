@@ -1,9 +1,9 @@
 package managers.normalUser;
 
-import audio.Audio;
-import audio.Song;
-import audio.collections.Collection;
-import audio.collections.Playlist;
+import entities.audio.Audio;
+import entities.audio.Song;
+import entities.audio.collections.Collection;
+import entities.audio.collections.Playlist;
 import commands.CommandType;
 import commands.normalUser.player.*;
 import commands.normalUser.playlist.SwitchVisibility;
@@ -17,7 +17,7 @@ import managers.TimeManager;
 import managers.commands.CommandHandler;
 import playables.PlayingAudio;
 import playables.PlayingAudioCollection;
-import user.NormalUser;
+import entities.user.NormalUser;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -40,7 +40,7 @@ public final class PlayerManager implements TimeChangeListener, CommandHandler {
     private Audio loadedObject;
     /**
      * -- GETTER --
-     * Get the current playing audio file
+     * Get the current playing entities.audio file
      */
     @Getter
     private PlayingAudio<? extends Audio> playingAudio;
@@ -96,9 +96,9 @@ public final class PlayerManager implements TimeChangeListener, CommandHandler {
     }
 
     /**
-     * Set the current playing audio file
+     * Set the current playing entities.audio file
      *
-     * @param playingAudio the audio file to be set
+     * @param playingAudio the entities.audio file to be set
      */
     public void setPlayingAudio(final PlayingAudio<? extends Audio> playingAudio) {
         this.playingAudio = playingAudio;
@@ -370,7 +370,7 @@ public final class PlayerManager implements TimeChangeListener, CommandHandler {
 
     /**
      * Resets the player to default
-     * Playing/loaded audio is set to null
+     * Playing/loaded entities.audio is set to null
      * Playing/loaded collection is set to null
      * If the playing collection was a podcast, pause it
      */

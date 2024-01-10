@@ -1,6 +1,6 @@
 package managers.normalUser;
 
-import audio.collections.Playlist;
+import entities.audio.collections.Playlist;
 import commands.CommandType;
 import commands.normalUser.playlist.CreatePlaylist;
 import commands.normalUser.playlist.FollowPlaylist;
@@ -9,7 +9,7 @@ import fileio.output.Output;
 import fileio.output.PlaylistOutput;
 import libraries.users.NormalUsersLibrary;
 import managers.commands.CommandHandler;
-import user.NormalUser;
+import entities.user.NormalUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +29,7 @@ public final class PlaylistManager implements CommandHandler {
      *
      * @param command the command input that specifies the parameters for the command
      * @return an {@code Output} object with the command and the result (a list of names with
-     * the songs liked by the user)
+     * the songs liked by the entities.user)
      */
     public static Output performShowPreferredSongs(final CommandInput command) {
         NormalUser user = NormalUsersLibrary.getInstance().getUserByName(command.getUsername());
@@ -64,7 +64,7 @@ public final class PlaylistManager implements CommandHandler {
      *
      * @param command the command input that specifies the parameters for the command
      * @return an {@code Output} object with the command and result (a list of owned playlists
-     * by the user that made the action)
+     * by the entities.user that made the action)
      */
     public Output performShowPlaylists(final CommandInput command) {
         CommandManager commandManager = app.getCommandManager();

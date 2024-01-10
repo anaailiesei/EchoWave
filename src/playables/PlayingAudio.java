@@ -1,12 +1,12 @@
 package playables;
 
-import audio.Audio;
-import audio.Song;
+import entities.audio.Audio;
+import entities.audio.Song;
 import commands.normalUser.player.RepeatType;
 import commands.normalUser.player.StatusFields;
 import libraries.users.ArtistsLibrary;
-import user.Artist;
-import user.NormalUser;
+import entities.user.Artist;
+import entities.user.NormalUser;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -24,18 +24,18 @@ public final class PlayingAudio<T extends Audio> implements Playing {
     }
 
     /**
-     * Gets the current playing audio
+     * Gets the current playing entities.audio
      *
-     * @return The playing audio
+     * @return The playing entities.audio
      */
     public Audio getPlayingObject() {
         return playingObject;
     }
 
     /**
-     * Sets the current playing audio
+     * Sets the current playing entities.audio
      *
-     * @param playingObject The audio object to be set
+     * @param playingObject The entities.audio object to be set
      */
     public void setPlayingObject(final T playingObject) {
         this.playingObject = playingObject;
@@ -60,7 +60,7 @@ public final class PlayingAudio<T extends Audio> implements Playing {
     }
 
     /**
-     * Initialize the stats for a playing audio to the default values
+     * Initialize the stats for a playing entities.audio to the default values
      */
     public void initStatsDefault() {
         stats = new LinkedHashMap<>();
@@ -191,7 +191,7 @@ public final class PlayingAudio<T extends Audio> implements Playing {
     }
 
     /**
-     * Reset the remained time for the current playing audio
+     * Reset the remained time for the current playing entities.audio
      * (sets it to the value of the total duration of the track)
      */
     public void resetRemainedTime() {
@@ -200,7 +200,7 @@ public final class PlayingAudio<T extends Audio> implements Playing {
     }
 
     /**
-     * Sets the shuffle parameter (that specifies if the playing audio
+     * Sets the shuffle parameter (that specifies if the playing entities.audio
      * is part of a collection that's shuffled)
      *
      * @param shuffle the shuffle value to be set (true or false)
@@ -210,7 +210,7 @@ public final class PlayingAudio<T extends Audio> implements Playing {
     }
 
     /**
-     * Gets the name for the current playing audio
+     * Gets the name for the current playing entities.audio
      *
      * @return the name
      */
@@ -219,7 +219,7 @@ public final class PlayingAudio<T extends Audio> implements Playing {
     }
 
     /**
-     * Gets the time elapsed for the current playing audio
+     * Gets the time elapsed for the current playing entities.audio
      *
      * @return the elapsed time
      */

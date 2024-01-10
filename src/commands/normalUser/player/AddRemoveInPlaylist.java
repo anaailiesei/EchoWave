@@ -1,8 +1,8 @@
 package commands.normalUser.player;
 
-import audio.Audio;
-import audio.Song;
-import audio.collections.Playlist;
+import entities.audio.Audio;
+import entities.audio.Song;
+import entities.audio.collections.Playlist;
 import commands.ActionCommand;
 import managers.CheckClass;
 import managers.normalUser.PlayerManager;
@@ -27,7 +27,7 @@ public final class AddRemoveInPlaylist extends ActionCommand {
     }
 
     /**
-     * Executes the add/remove operation in the playlist based on the currently playing audio.
+     * Executes the add/remove operation in the playlist based on the currently playing entities.audio.
      * If the source is valid, and it's a playlist, if the song is not in the playlist
      * it adds it, otherwise it removes it
      */

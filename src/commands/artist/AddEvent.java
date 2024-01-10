@@ -4,7 +4,7 @@ import libraries.users.ArtistsLibrary;
 import libraries.users.UsersLibrariesStats;
 import profile.artist.DateValidation;
 import profile.artist.Event;
-import user.Artist;
+import entities.user.Artist;
 
 public final class AddEvent {
     private static State state;
@@ -35,12 +35,12 @@ public final class AddEvent {
 
     /**
      * Checks the conditions for performing this operation
-     * For a successful operation, the user should exist, and they should be an artist,
+     * For a successful operation, the entities.user should exist, and they should be an artist,
      * the artist can't already have an event with the same name, and the date
      * of the event should be valid (between year 1900 and 2023, with a valid month and month day)
      *
      * @param eventName The name of the event
-     * @param username  The user that want to add the event
+     * @param username  The entities.user that want to add the event
      * @param artist    The artist (this should be non-null for a successful operation)
      * @param date      The dat eof the event
      */
@@ -64,7 +64,7 @@ public final class AddEvent {
     /**
      * Function for the output message of this command depending on the state variable
      *
-     * @param username The username user that adds the event
+     * @param username The username entities.user that adds the event
      * @return A string with the message
      */
     public static String toString(final String username) {

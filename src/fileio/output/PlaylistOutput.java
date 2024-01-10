@@ -1,6 +1,6 @@
 package fileio.output;
 
-import audio.collections.Visibility;
+import entities.audio.collections.Visibility;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package commands.normalUser.player;
 
-import audio.Audio;
+import entities.audio.Audio;
 import commands.ActionCommand;
 import managers.normalUser.PlayerManager;
 import playables.PlayingAudio;

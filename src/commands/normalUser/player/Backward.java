@@ -1,6 +1,6 @@
 package commands.normalUser.player;
 
-import audio.collections.Collection;
+import entities.audio.collections.Collection;
 import commands.ActionCommand;
 import managers.CheckClass;
 import managers.normalUser.PlayerManager;

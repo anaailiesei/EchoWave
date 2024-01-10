@@ -1,6 +1,6 @@
 package managers.host;
 
-import audio.Episode;
+import entities.audio.Episode;
 import commands.CommandType;
 import commands.host.AddAnnouncement;
 import commands.host.AddPodcast;

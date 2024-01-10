@@ -1,6 +1,6 @@
-package audio.collections;
+package entities.audio.collections;
 
-import audio.Episode;
+import entities.audio.Episode;
 import fileio.input.EpisodeInput;
 import fileio.input.PodcastInput;
 

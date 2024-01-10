@@ -1,6 +1,6 @@
 package commands.normalUser.searchBar.filter.filterAudio.filterCollections;
 
-import audio.collections.Podcast;
+import entities.audio.collections.Podcast;
 import commands.normalUser.searchBar.filter.Filters;
 
 import java.util.ArrayList;

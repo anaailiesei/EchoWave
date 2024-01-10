@@ -7,9 +7,9 @@ import commands.normalUser.searchBar.filter.filterUser.FilterArtists;
 import commands.normalUser.searchBar.filter.filterUser.FilterHosts;
 import libraries.users.ArtistsLibrary;
 import libraries.users.HostsLibrary;
-import user.Artist;
-import user.Host;
-import user.User;
+import entities.user.Artist;
+import entities.user.Host;
+import entities.user.User;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,7 +37,7 @@ public final class SearchUser extends Search<User> {
     @Override
     public void addResults() {
         for (User user : filteredObjects) {
-            searchResults.add(user.getUsername());
+            searchResults.add(user.getName());
             if (searchResults.size() >= Search.MAX_NUM_OF_RESULTS) {
                 break;
             }

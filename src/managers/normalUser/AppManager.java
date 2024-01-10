@@ -1,6 +1,7 @@
 package managers.normalUser;
 
 import lombok.Getter;
+import statistics.ListenTracker;
 import statistics.ListenTrackerNormalUser;
 
 @Getter
@@ -11,6 +12,7 @@ public final class AppManager {
     private final PlayerManager playerManager = new PlayerManager(this);
     private final SearchBarManager searchBarManager = new SearchBarManager(this);
     private final ListenTrackerNormalUser listenTracker = new ListenTrackerNormalUser();
+    private final ListenTracker premiumListenTracker = new ListenTracker();
     private String pageOwner;
     private Page page = Page.homePage;
     private AppStatus status = AppStatus.online;
@@ -24,7 +26,7 @@ public final class AppManager {
     }
 
     /**
-     * Toggle the status of the app (user) between online and offline
+     * Toggle the status of the app (entities.user) between online and offline
      */
     public void toggleStatus() {
         this.status = status.toggle();

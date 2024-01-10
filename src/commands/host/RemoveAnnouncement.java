@@ -2,7 +2,7 @@ package commands.host;
 
 import libraries.users.HostsLibrary;
 import libraries.users.UsersLibrariesStats;
-import user.Host;
+import entities.user.Host;
 
 public final class RemoveAnnouncement {
     private static State state;
@@ -14,7 +14,7 @@ public final class RemoveAnnouncement {
      * Execute the remove announcement command
      *
      * @param announcementName The name of the announcement to be removed
-     * @param username         The name of the user that wants to delete an announcement
+     * @param username         The name of the entities.user that wants to delete an announcement
      */
     public static void execute(final String announcementName,
                                final String username) {
@@ -28,11 +28,11 @@ public final class RemoveAnnouncement {
 
     /**
      * Checks the conditions for performing this operation
-     * For a successful operation, the user should exist, and they should be a host,
+     * For a successful operation, the entities.user should exist, and they should be a host,
      * and the announcement should exist
      *
      * @param announcementName The name of the announcement
-     * @param username         The name of the user that wants to delete the announcement
+     * @param username         The name of the entities.user that wants to delete the announcement
      * @param host             The host (this should be non-null for a successful operation)
      */
     private static void checkConditions(final String announcementName,
@@ -52,7 +52,7 @@ public final class RemoveAnnouncement {
     /**
      * Function for the output message of this command based on the state variable
      *
-     * @param username The name of the user that performs the operation
+     * @param username The name of the entities.user that performs the operation
      * @return A string with the message
      */
     public static String toString(final String username) {

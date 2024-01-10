@@ -1,6 +1,6 @@
 package commands.normalUser.playlist;
 
-import audio.collections.Playlist;
+import entities.audio.collections.Playlist;
 import commands.ActionCommand;
 
 public final class SwitchVisibility extends ActionCommand {

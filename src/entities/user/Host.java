@@ -1,6 +1,6 @@
-package user;
+package entities.user;
 
-import audio.collections.Podcast;
+import entities.audio.collections.Podcast;
 import fileio.input.UserInput;
 import lombok.Getter;
 import profile.host.Announcement;

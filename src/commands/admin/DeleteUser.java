@@ -4,10 +4,10 @@ import libraries.users.ArtistsLibrary;
 import libraries.users.HostsLibrary;
 import libraries.users.NormalUsersLibrary;
 import libraries.users.UsersLibrariesStats;
-import user.Artist;
-import user.Host;
-import user.NormalUser;
-import user.User;
+import entities.user.Artist;
+import entities.user.Host;
+import entities.user.NormalUser;
+import entities.user.User;
 
 public final class DeleteUser {
     private static State state;
@@ -16,9 +16,9 @@ public final class DeleteUser {
     }
 
     /**
-     * Execute the command for deleting a user
+     * Execute the command for deleting a entities.user
      *
-     * @param username The name of the user that should be deleted
+     * @param username The name of the entities.user that should be deleted
      */
     public static void execute(final String username) {
         checkConditions(username);
@@ -41,7 +41,7 @@ public final class DeleteUser {
     /**
      * Check the conditions for performing this operation
      *
-     * @param username The username for the user that should be added
+     * @param username The username for the entities.user that should be added
      */
     private static void checkConditions(final String username) {
         if (!UsersLibrariesStats.userExists(username)) {
@@ -54,11 +54,11 @@ public final class DeleteUser {
     }
 
     /**
-     * Checks if the user deletion is possible for the given username
-     * The user should be deletable for a successful operation
+     * Checks if the entities.user deletion is possible for the given username
+     * The entities.user should be deletable for a successful operation
      *
-     * @param username The user's name we check for
-     * @return {@code true} if the user can be deleted, {@code false} otherwise
+     * @param username The entities.user's name we check for
+     * @return {@code true} if the entities.user can be deleted, {@code false} otherwise
      */
     private static boolean deletePossible(final String username) {
         User user = UsersLibrariesStats.getUserByName(username);
@@ -68,7 +68,7 @@ public final class DeleteUser {
     /**
      * Function for the output message of this command
      *
-     * @param username The username of the deleted user
+     * @param username The username of the deleted entities.user
      * @return A string with the message
      */
     public static String toString(final String username) {

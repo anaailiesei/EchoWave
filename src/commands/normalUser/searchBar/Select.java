@@ -42,9 +42,9 @@ public abstract class Select<E> extends ActionCommand {
 
     /**
      * Method used when there are additional steps to be done in the selection process
-     * for the specified user (this should be Overridden when making a user selection)
+     * for the specified entities.user (this should be Overridden when making a entities.user selection)
      *
-     * @param username The name of the user
+     * @param username The name of the entities.user
      */
     public void updateUser(final String username) {
     }
@@ -53,8 +53,8 @@ public abstract class Select<E> extends ActionCommand {
      * Executes the select operation selecting from the results of the search operation
      * Search must be performed beforehand
      *
-     * @param itemNumber the index of the audio file to be selected
-     * @param selectFrom the list of audio files we should select from
+     * @param itemNumber the index of the entities.audio file to be selected
+     * @param selectFrom the list of entities.audio files we should select from
      */
     public final void execute(final int itemNumber,
                               final ArrayList<? extends E> selectFrom,

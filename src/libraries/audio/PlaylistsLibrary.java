@@ -1,7 +1,7 @@
 package libraries.audio;
 
-import audio.collections.Collection;
-import audio.collections.Playlist;
+import entities.audio.collections.Collection;
+import entities.audio.collections.Playlist;
 import commands.normalUser.searchBar.filter.filterAudio.filterCollections.FilterPlaylists;
 import libraries.GenericLibrary;
 
@@ -37,10 +37,10 @@ public final class PlaylistsLibrary extends GenericLibrary<Playlist> {
     }
 
     /**
-     * Checks if the specified playlist already exists in user's created playlists list
+     * Checks if the specified playlist already exists in entities.user's created playlists list
      *
      * @param playlistName The playlist to check for
-     * @param username     The user in whose list of playlists we search in
+     * @param username     The entities.user in whose list of playlists we search in
      * @return {@code true} if the playlist already exists, {@code false} otherwise
      */
     public boolean playlistForUserExists(final String playlistName, final String username) {
@@ -55,10 +55,10 @@ public final class PlaylistsLibrary extends GenericLibrary<Playlist> {
     }
 
     /**
-     * Gets the playlists that the specified user owns
+     * Gets the playlists that the specified entities.user owns
      *
-     * @param username The user for whose playlists we search
-     * @return an array list with the user's playlists
+     * @param username The entities.user for whose playlists we search
+     * @return an array list with the entities.user's playlists
      */
     public ArrayList<? extends Collection<?>> getPlaylistsForUser(final String username) {
         if (getItems() == null) {

@@ -1,10 +1,10 @@
 package libraries.users;
 
-import audio.Song;
-import audio.collections.Playlist;
+import entities.audio.Song;
+import entities.audio.collections.Playlist;
 import libraries.GenericLibrary;
 import libraries.audio.PlaylistsLibrary;
-import user.NormalUser;
+import entities.user.NormalUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,10 +29,10 @@ public final class NormalUsersLibrary extends GenericLibrary<NormalUser> {
     }
 
     /**
-     * Gets the user by the specified username
+     * Gets the entities.user by the specified username
      *
      * @param username The username to seacrh for
-     * @return The user
+     * @return The entities.user
      */
     public NormalUser getUserByName(final String username) {
         if (getItems() == null) {
@@ -40,7 +40,7 @@ public final class NormalUsersLibrary extends GenericLibrary<NormalUser> {
         }
         return getItems()
                 .stream()
-                .filter(user -> user.getUsername().equals(username))
+                .filter(user -> user.getName().equals(username))
                 .findFirst()
                 .orElse(null);
     }
@@ -48,28 +48,28 @@ public final class NormalUsersLibrary extends GenericLibrary<NormalUser> {
     public List<String> getOnlineUsers() {
         return getItems().stream()
                 .filter(NormalUser::isOnline)
-                .map(NormalUser::getUsername)
+                .map(NormalUser::getName)
                 .toList();
     }
 
     /**
-     * Checks fi the specified user exists
+     * Checks fi the specified entities.user exists
      *
-     * @param username The name of the user to be searched
-     * @return {@code true} if the user exists, {@code false} otherwise
+     * @param username The name of the entities.user to be searched
+     * @return {@code true} if the entities.user exists, {@code false} otherwise
      */
     public boolean userExists(final String username) {
         return getUserByName(username) != null;
     }
 
     /**
-     * Deletes the given user
-     *  - Removes likes from songs liked by the user
-     *  - Deletes playlists owned by the user
-     *  - Removes followers associated with the user
-     *  - Removes follows from playlists followed by the user
+     * Deletes the given entities.user
+     *  - Removes likes from songs liked by the entities.user
+     *  - Deletes playlists owned by the entities.user
+     *  - Removes followers associated with the entities.user
+     *  - Removes follows from playlists followed by the entities.user
      *
-     * @param user The user to be deleted
+     * @param user The entities.user to be deleted
      */
     public void deleteUser(final NormalUser user) {
         ArrayList<Playlist> playlists = user.getPlaylists();

@@ -83,7 +83,7 @@ public final class CommandInput {
     }
 
     /**
-     * Get the username of the user that used the command
+     * Get the username of the entities.user that used the command
      *
      * @return The username
      */
@@ -92,7 +92,7 @@ public final class CommandInput {
     }
 
     /**
-     * Set the username of the user that used the command
+     * Set the username of the entities.user that used the command
      *
      * @param username The username to be set
      */

@@ -1,6 +1,6 @@
-package user;
+package entities.user;
 
-import audio.collections.Album;
+import entities.audio.collections.Album;
 import fileio.input.UserInput;
 import libraries.audio.AlbumsLibrary;
 import lombok.Getter;
@@ -120,7 +120,7 @@ public final class Artist extends User {
     /**
      * Checks if the artist is deletable
      * To be deletable, an artist shouldn't have any of their songs playing or part of a
-     * user's playlist, an album that's playing in a user's player, or a viewer on their page
+     * entities.user's playlist, an album that's playing in a entities.user's player, or a viewer on their page
      *
      * @return {@code true} if the artist is deletable, {@code false} otherwise
      */

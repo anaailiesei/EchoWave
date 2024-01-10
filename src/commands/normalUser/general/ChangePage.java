@@ -4,9 +4,9 @@ import libraries.users.ArtistsLibrary;
 import libraries.users.HostsLibrary;
 import libraries.users.NormalUsersLibrary;
 import managers.normalUser.AppManager;
-import user.Artist;
-import user.Host;
-import user.NormalUser;
+import entities.user.Artist;
+import entities.user.Host;
+import entities.user.NormalUser;
 
 public final class ChangePage {
     private static final String HOME = "Home";
@@ -18,7 +18,7 @@ public final class ChangePage {
     /**
      * Execute the change page command
      *
-     * @param username The user that wants to change the page
+     * @param username The entities.user that wants to change the page
      * @param page     The page to be changed
      */
     public static void execute(final String username, final String page) {
@@ -61,7 +61,7 @@ public final class ChangePage {
     /**
      * Function for the output message of this command
      *
-     * @param username the name of the user that performs this command
+     * @param username the name of the entities.user that performs this command
      * @param page     The page they switched on
      * @return A string with the message
      */

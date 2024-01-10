@@ -1,6 +1,6 @@
 package commands.normalUser.searchBar.filter.filterUser;
 
-import user.Host;
+import entities.user.Host;
 
 import java.util.ArrayList;
 

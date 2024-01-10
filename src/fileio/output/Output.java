@@ -71,7 +71,7 @@ public final class Output {
     }
 
     /**
-     * Get the username of the user that performed the action
+     * Get the username of the entities.user that performed the action
      *
      * @return The username
      */
@@ -80,7 +80,7 @@ public final class Output {
     }
 
     /**
-     * Set the username of the user that performed the action
+     * Set the username of the entities.user that performed the action
      *
      * @param user The username to be set
      */

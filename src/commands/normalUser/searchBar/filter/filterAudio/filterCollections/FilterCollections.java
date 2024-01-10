@@ -1,7 +1,7 @@
 package commands.normalUser.searchBar.filter.filterAudio.filterCollections;
 
-import audio.Audio;
-import audio.collections.Collection;
+import entities.audio.Audio;
+import entities.audio.collections.Collection;
 import commands.normalUser.searchBar.filter.filterAudio.FilterAudio;
 
 public abstract class FilterCollections<E extends Collection<? extends Audio>>
