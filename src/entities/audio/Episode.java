@@ -1,7 +1,7 @@
 package entities.audio;
 
 import fileio.input.EpisodeInput;
-import statistics.ListenTrackerNormalUser;
+import statistics.listenTrackers.ListenTrackerNormalUser;
 
 /**
  * Implementation for an episode object

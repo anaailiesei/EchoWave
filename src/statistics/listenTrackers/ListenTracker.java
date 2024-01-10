@@ -1,6 +1,7 @@
-package statistics;
+package statistics.listenTrackers;
 
 import entities.Entity;
+import lombok.Getter;
 
 import java.util.Comparator;
 import java.util.LinkedHashMap;
@@ -9,9 +10,10 @@ import java.util.Map.Entry;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
-public class ListenTracker {
+@Getter
+public class ListenTracker<E extends Entity> {
     private static final int NUMBER_TOP_RESULTS = 5;
-    private final TreeMap<Entity, Integer> listens = new TreeMap<>(Comparator.comparing(Entity::getName));
+    private final TreeMap<E, Integer> listens = new TreeMap<>(Comparator.comparing(E::getName));
 
 
     /**
@@ -19,7 +21,7 @@ public class ListenTracker {
      *
      * @param entity The name fo the entity for which we add listens
      */
-    public void addListen(final Entity entity) {
+    public void addListen(final E entity) {
         listens.put(entity, listens.getOrDefault(entity, 0) + 1);
     }
 
@@ -29,7 +31,7 @@ public class ListenTracker {
      * @param entity The name fo the entity for which we add listens
      * @param count  The number of listens to add
      */
-    public void addListen(final Entity entity, final int count) {
+    public void addListen(final E entity, final int count) {
         listens.put(entity, listens.getOrDefault(entity, 0) + count);
     }
 
@@ -39,7 +41,7 @@ public class ListenTracker {
      * @param entity The entity name
      * @return The number of listens
      */
-    public int getListenCount(final Entity entity) {
+    public int getListenCount(final E entity) {
         return listens.getOrDefault(entity, 0);
     }
 
@@ -52,7 +54,7 @@ public class ListenTracker {
     public LinkedHashMap<String, Integer> getTopFiveListens() {
         return listens.entrySet().stream()
                 .sorted(Map.Entry
-                        .<Entity, Integer>comparingByValue()
+                        .<E, Integer>comparingByValue()
                         .reversed()
                         .thenComparing(entry -> entry.getKey().getName()))
                 .limit(NUMBER_TOP_RESULTS)

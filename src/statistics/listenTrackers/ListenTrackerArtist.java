@@ -1,4 +1,4 @@
-package statistics;
+package statistics.listenTrackers;
 
 import entities.audio.Song;
 import entities.audio.collections.Album;
@@ -9,9 +9,9 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 public final class ListenTrackerArtist {
-    private final ListenTracker albumsListenTracker = new ListenTracker();
-    private final ListenTracker songsListenTracker = new ListenTracker();
-    private final ListenTracker fansListenTracker = new ListenTracker();
+    private final ListenTracker<Album> albumsListenTracker = new ListenTracker<>();
+    private final ListenTracker<Song> songsListenTracker = new ListenTracker<>();
+    private final ListenTracker<NormalUser> fansListenTracker = new ListenTracker<>();
 
     /**
      * Adds a listen for the specified album

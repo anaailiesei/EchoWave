@@ -1,5 +1,7 @@
 package managers.admin;
 
+import commands.admin.AddPremiumUser;
+import commands.admin.RemovePremiumUser;
 import entities.audio.Song;
 import entities.audio.collections.Album;
 import entities.audio.collections.Podcast;
@@ -101,6 +103,32 @@ public final class AdminCommandManager implements CommandHandler {
         return new Output(command, result);
     }
 
+    /**
+     * Performs the buy premium command for the specified user.
+     *
+     * @param command The input containing the user's username.
+     * @return An Output object with the result of the operation.
+     */
+    public static Output performAddPremiumUser(final CommandInput command) {
+        String username = command.getUsername();
+        AddPremiumUser.execute(username);
+        String message = AddPremiumUser.toString(username);
+        return new Output(command, message);
+    }
+
+    /**
+     * Performs the remove premium command for the specified user.
+     *
+     * @param command The input containing the user's username.
+     * @return An Output object with the result of the operation.
+     */
+    public static Output performRemovePremiumUser(final CommandInput command) {
+        String username = command.getUsername();
+        RemovePremiumUser.execute(username);
+        String message = RemovePremiumUser.toString(username);
+        return new Output(command, message);
+    }
+
     @Override
     public Output performCommand(final CommandInput command) {
         CommandType commandType = command.getCommand();
@@ -110,6 +138,8 @@ public final class AdminCommandManager implements CommandHandler {
             case showAlbums -> performShowAlbums(command);
             case deleteUser -> performDeleteUser(command);
             case showPodcasts -> performShowPodcasts(command);
+            case buyPremium -> performAddPremiumUser(command);
+            case cancelPremium -> performRemovePremiumUser(command);
             default -> throw new IllegalStateException("Unexpected command for "
                     + this.getClass().getSimpleName() + ": " + commandType);
         };

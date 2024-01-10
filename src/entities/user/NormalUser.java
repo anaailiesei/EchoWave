@@ -26,6 +26,8 @@ public final class NormalUser extends User {
     private ArrayList<Playlist> followedPlaylists;
     private ProgressManager progressManager;
     private AppManager app;
+    @Getter
+    private boolean isPremium;
 
     public NormalUser(final UserInput userInput) {
         super(userInput);
@@ -385,5 +387,29 @@ public final class NormalUser extends User {
     @Override
     public boolean noStats() {
         return getApp().getListenTracker().noListens();
+    }
+
+    /**
+     * This method updates the premium status of the user to the specified value.
+     * It also updates the users listen tracker to premium
+     *
+     * @param premium {@code true} if the user is to be set as premium, {@code false} otherwise.
+     */
+    public void setPremium(boolean premium) {
+        isPremium = premium;
+        getApp().getListenTracker().setPremium(premium);
+    }
+
+    @Override
+    public String getNoStatsMessage() {
+        return "No data to show for user " + getName() + ".";
+    }
+
+    /**
+     * Gets the songs listened during premium subscription and their corresponding listen count
+     * @return A tree map with songs and their listen count
+     */
+    public TreeMap<Song, Integer> getPremiumSongs() {
+        return getApp().getListenTracker().getPremiumSongs();
     }
 }

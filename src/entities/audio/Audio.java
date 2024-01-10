@@ -1,7 +1,7 @@
 package entities.audio;
 
 import entities.Entity;
-import statistics.ListenTrackerNormalUser;
+import statistics.listenTrackers.ListenTrackerNormalUser;
 
 /**
  * Interface for an entities.audio file

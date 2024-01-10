@@ -2,7 +2,7 @@ package entities.audio.collections;
 
 import entities.audio.Song;
 import lombok.Getter;
-import statistics.ListenTrackerNormalUser;
+import statistics.listenTrackers.ListenTrackerNormalUser;
 
 import java.util.ArrayList;
 

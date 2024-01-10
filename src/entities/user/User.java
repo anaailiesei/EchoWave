@@ -111,4 +111,11 @@ public abstract class User implements Entity {
     public boolean noStats() {
         return false;
     }
+
+    /**
+     * The message being shown when a user doesn't have any stats to show
+     *
+     * @return The message
+     */
+    public abstract String getNoStatsMessage();
 }

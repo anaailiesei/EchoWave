@@ -2,7 +2,7 @@ package entities.audio;
 
 import fileio.input.SongInput;
 import lombok.Getter;
-import statistics.ListenTrackerNormalUser;
+import statistics.listenTrackers.ListenTrackerNormalUser;
 import entities.user.NormalUser;
 
 import java.util.ArrayList;
@@ -13,6 +13,8 @@ import java.util.Iterator;
  */
 public final class Song implements Audio {
     private final SongInput songInput;
+    @Getter
+    private float revenue = 0;
     private final ArrayList<NormalUser> likedBy = new ArrayList<>();
     /**
      * -- GETTER --
@@ -304,5 +306,14 @@ public final class Song implements Audio {
 
     public String getGenre() {
         return songInput.getGenre();
+    }
+
+    /**
+     * Adds the specified amount of money to the revenue for this song
+     *
+     * @param amount The amount of money to addd
+     */
+    public void addRevenue(float amount) {
+        revenue += amount;
     }
 }

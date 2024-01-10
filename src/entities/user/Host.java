@@ -150,4 +150,9 @@ public final class Host extends User {
     public HashMap<String, Object> wrapped() {
         return new HashMap<>();
     }
+
+    @Override
+    public String getNoStatsMessage() {
+        return "No data to show for host " + getName() + ".";
+    }
 }

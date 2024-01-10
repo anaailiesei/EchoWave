@@ -35,7 +35,7 @@ public final class UserCommandManager implements CommandHandler {
     public static Output performWrapped(final CommandInput command) {
         User user = UsersLibrariesStats.getUserByName(command.getUsername());
         if (user.noStats()) {
-            String message = "No data to show for user " + command.getUsername() + ".";
+            String message = user.getNoStatsMessage();
             return new Output(command, message);
         }
         Object result = user.wrapped();

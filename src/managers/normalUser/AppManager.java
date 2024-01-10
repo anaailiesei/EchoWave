@@ -1,8 +1,9 @@
 package managers.normalUser;
 
+import entities.audio.Song;
 import lombok.Getter;
-import statistics.ListenTracker;
-import statistics.ListenTrackerNormalUser;
+import statistics.listenTrackers.ListenTracker;
+import statistics.listenTrackers.ListenTrackerNormalUser;
 
 @Getter
 public final class AppManager {
@@ -12,7 +13,7 @@ public final class AppManager {
     private final PlayerManager playerManager = new PlayerManager(this);
     private final SearchBarManager searchBarManager = new SearchBarManager(this);
     private final ListenTrackerNormalUser listenTracker = new ListenTrackerNormalUser();
-    private final ListenTracker premiumListenTracker = new ListenTracker();
+    private final boolean premium = false;
     private String pageOwner;
     private Page page = Page.homePage;
     private AppStatus status = AppStatus.online;

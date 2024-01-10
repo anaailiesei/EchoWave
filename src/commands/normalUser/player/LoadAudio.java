@@ -14,8 +14,8 @@ import managers.normalUser.ProgressManager;
 import managers.normalUser.SearchBarManager;
 import playables.PlayingAudio;
 import playables.PlayingAudioCollection;
-import statistics.ListenTrackerArtist;
-import statistics.ListenTrackerNormalUser;
+import statistics.listenTrackers.ListenTrackerArtist;
+import statistics.listenTrackers.ListenTrackerNormalUser;
 import entities.user.Artist;
 import entities.user.NormalUser;
 

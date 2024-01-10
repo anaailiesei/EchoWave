@@ -6,7 +6,7 @@ import libraries.audio.AlbumsLibrary;
 import lombok.Getter;
 import profile.artist.Event;
 import profile.artist.Merch;
-import statistics.ListenTrackerArtist;
+import statistics.listenTrackers.ListenTrackerArtist;
 
 import java.util.*;
 
@@ -192,4 +192,13 @@ public final class Artist extends User {
         totalLikes--;
     }
 
+    @Override
+    public boolean noStats() {
+        return !listenTracker.wasListened();
+    }
+
+    @Override
+    public String getNoStatsMessage() {
+        return "No data to show for artist " + getName() + ".";
+    }
 }
