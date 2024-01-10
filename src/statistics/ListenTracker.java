@@ -1,5 +1,8 @@
 package statistics;
 
+import entities.Entity;
+
+import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -8,14 +11,15 @@ import java.util.stream.Collectors;
 
 public class ListenTracker {
     private static final int NUMBER_TOP_RESULTS = 5;
-    private final TreeMap<String, Integer> listens = new TreeMap<>();
+    private final TreeMap<Entity, Integer> listens = new TreeMap<>(Comparator.comparing(Entity::getName));
+
 
     /**
      * Adds a listen to the specified entity
      *
      * @param entity The name fo the entity for which we add listens
      */
-    public void addListen(final String entity) {
+    public void addListen(final Entity entity) {
         listens.put(entity, listens.getOrDefault(entity, 0) + 1);
     }
 
@@ -25,7 +29,7 @@ public class ListenTracker {
      * @param entity The name fo the entity for which we add listens
      * @param count  The number of listens to add
      */
-    public void addListen(final String entity, final int count) {
+    public void addListen(final Entity entity, final int count) {
         listens.put(entity, listens.getOrDefault(entity, 0) + count);
     }
 
@@ -35,7 +39,7 @@ public class ListenTracker {
      * @param entity The entity name
      * @return The number of listens
      */
-    public int getListenCount(final String entity) {
+    public int getListenCount(final Entity entity) {
         return listens.getOrDefault(entity, 0);
     }
 
@@ -48,12 +52,12 @@ public class ListenTracker {
     public LinkedHashMap<String, Integer> getTopFiveListens() {
         return listens.entrySet().stream()
                 .sorted(Map.Entry
-                        .<String, Integer>comparingByValue()
+                        .<Entity, Integer>comparingByValue()
                         .reversed()
-                        .thenComparing(Map.Entry::getKey))
+                        .thenComparing(entry -> entry.getKey().getName()))
                 .limit(NUMBER_TOP_RESULTS)
                 .collect(Collectors
-                        .toMap(Entry::getKey, Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
+                        .toMap(entry -> entry.getKey().getName(), Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
     }
 
     /**

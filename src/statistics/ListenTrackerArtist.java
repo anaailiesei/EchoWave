@@ -3,6 +3,7 @@ package statistics;
 import entities.audio.Song;
 import entities.audio.collections.Album;
 import entities.user.NormalUser;
+import libraries.audio.AlbumsLibrary;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -19,7 +20,7 @@ public final class ListenTrackerArtist {
      * @see Album
      */
     public void addListen(final Album album) {
-        albumsListenTracker.addListen(album.getName());
+        albumsListenTracker.addListen(album);
     }
 
     /**
@@ -29,17 +30,17 @@ public final class ListenTrackerArtist {
      * @see Song
      */
     public void addListen(final Song song) {
-        songsListenTracker.addListen(song.getName());
+        songsListenTracker.addListen(song);
     }
 
     /**
-     * Adds a listen for the specified entities.user
+     * Adds a listen for the specified user
      *
-     * @param user The entities.user for which we add a listen
+     * @param user The user for which we add a listen
      * @see NormalUser
      */
     public void addListen(final NormalUser user) {
-        fansListenTracker.addListen(user.getName());
+        fansListenTracker.addListen(user);
     }
 
     /**
@@ -50,7 +51,7 @@ public final class ListenTrackerArtist {
      * @see Album
      */
     public void addListen(final Album album, final int count) {
-        albumsListenTracker.addListen(album.getName(), count);
+        albumsListenTracker.addListen(album, count);
     }
 
     /**
@@ -61,7 +62,7 @@ public final class ListenTrackerArtist {
      * @see Song
      */
     public void addListen(final Song song, final int count) {
-        songsListenTracker.addListen(song.getName(), count);
+        songsListenTracker.addListen(song, count);
     }
 
     /**
@@ -72,7 +73,7 @@ public final class ListenTrackerArtist {
      * @see NormalUser
      */
     public void addListen(final NormalUser user, final int count) {
-        fansListenTracker.addListen(user.getName(), count);
+        fansListenTracker.addListen(user, count);
     }
 
     /**
@@ -97,7 +98,7 @@ public final class ListenTrackerArtist {
      *
      * @param album The album for which we add a listen
      * @param song  The song for which we add a listen
-     * @param user  The entities.user for which we add a listen
+     * @param user  The user for which we add a listen
      * @see Song
      * @see NormalUser
      * @see Album
@@ -113,12 +114,13 @@ public final class ListenTrackerArtist {
      *
      * @param albumName The name of the album for which we add a listen
      * @param song      The song for which we add a listen
-     * @param user      The entities.user for which we add a listen
+     * @param user      The user for which we add a listen
      * @see Song
      * @see NormalUser
      */
     public void addListenAll(final String albumName, final Song song, final NormalUser user) {
-        albumsListenTracker.addListen(albumName);
+        Album album = AlbumsLibrary.getInstance().getAlbumByName(albumName);
+        albumsListenTracker.addListen(album);
         addListenAll(song, user);
     }
 
@@ -126,7 +128,7 @@ public final class ListenTrackerArtist {
      * Adds a listen for the following categories: Song and User
      *
      * @param song The song for which we add a listen
-     * @param user The entities.user for which we add a listen
+     * @param user The user for which we add a listen
      * @see Song
      * @see NormalUser
      */

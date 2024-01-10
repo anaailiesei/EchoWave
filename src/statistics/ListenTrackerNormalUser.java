@@ -1,9 +1,11 @@
 package statistics;
 
+import entities.NeamableEntity;
 import entities.audio.Audio;
 import entities.audio.Episode;
 import entities.audio.Song;
 import entities.audio.collections.Album;
+import libraries.audio.AlbumsLibrary;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -22,7 +24,7 @@ public final class ListenTrackerNormalUser {
      * @see Album
      */
     public void addListen(final Album album) {
-        albumsListenTracker.addListen(album.getName());
+        albumsListenTracker.addListen(album);
     }
 
     /**
@@ -31,7 +33,8 @@ public final class ListenTrackerNormalUser {
      * @param albumName The name of the album for which we want to add a listen
      */
     public void addListen(final String albumName) {
-        albumsListenTracker.addListen(albumName);
+        Album album = AlbumsLibrary.getInstance().getAlbumByName(albumName);
+        albumsListenTracker.addListen(album);
     }
 
     /**
@@ -41,9 +44,9 @@ public final class ListenTrackerNormalUser {
      * @see Song
      */
     public void addListen(final Song song) {
-        songsListenTracker.addListen(song.getName());
-        genresListenTracker.addListen(song.getGenre());
-        artistsListenTracker.addListen(song.getArtist());
+        songsListenTracker.addListen(song);
+        genresListenTracker.addListen(new NeamableEntity(song.getGenre()));
+        artistsListenTracker.addListen(new NeamableEntity(song.getArtist()));
     }
 
     /**
@@ -54,9 +57,9 @@ public final class ListenTrackerNormalUser {
      * @see Song
      */
     public void addListen(final Song song, final int count) {
-        songsListenTracker.addListen(song.getName(), count);
-        genresListenTracker.addListen(song.getGenre(), count);
-        artistsListenTracker.addListen(song.getArtist(), count);
+        songsListenTracker.addListen(song, count);
+        genresListenTracker.addListen(new NeamableEntity(song.getGenre()), count);
+        artistsListenTracker.addListen(new NeamableEntity(song.getArtist()), count);
     }
 
     /**
@@ -66,16 +69,16 @@ public final class ListenTrackerNormalUser {
      * @see Episode
      */
     public void addListen(final Episode episode) {
-        episodesListenTracker.addListen(episode.getName());
+        episodesListenTracker.addListen(episode);
     }
 
     /**
-     * Adds a listen for an entities.audio file
+     * Adds a listen for an audio file
      * (this is used to add a listen for a Song, an Episode or on Album,
-     * for the other types of entities.audio files, this does nothing)
+     * for the other types of audio files, this does nothing)
      *
-     * @param audio The entities.audio file for which we want to add a listen
-     * @param <E>   The class of the entities.audio file (Important ones are Song, Episode and Album)
+     * @param audio The audio file for which we want to add a listen
+     * @param <E>   The class of the audio file (Important ones are Song, Episode and Album)
      * @see Song
      * @see Episode
      * @see Album
