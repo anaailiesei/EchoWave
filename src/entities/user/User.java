@@ -16,9 +16,9 @@ public abstract class User implements Entity {
     }
 
     /**
-     * Sets the suer input for this entities.user
+     * Sets the suer input for this user
      *
-     * @param userInput the entities.user input ot be set
+     * @param userInput the user input ot be set
      */
 
     public void setUserInput(final UserInput userInput) {
@@ -44,7 +44,7 @@ public abstract class User implements Entity {
     }
 
     /**
-     * Get the age of the entities.user
+     * Get the age of the user
      *
      * @return the age
      */
@@ -53,7 +53,7 @@ public abstract class User implements Entity {
     }
 
     /**
-     * Set the age of the entities.user
+     * Set the age of the user
      *
      * @param age The age to be set
      */
@@ -62,7 +62,7 @@ public abstract class User implements Entity {
     }
 
     /**
-     * Get the city of the entities.user
+     * Get the city of the user
      *
      * @return The city
      */
@@ -71,7 +71,7 @@ public abstract class User implements Entity {
     }
 
     /**
-     * Set the city of the entities.user
+     * Set the city of the user
      *
      * @param city The city to be set
      */
@@ -90,23 +90,23 @@ public abstract class User implements Entity {
     }
 
     /**
-     * Checks if the entities.user is deletable
+     * Checks if the user is deletable
      *
-     * @return {@code true} if the entities.user is deletable, {@code false} otherwise
+     * @return {@code true} if the user is deletable, {@code false} otherwise
      */
     public abstract boolean isDeletable();
 
     /**
-     * Execute the wrapped command for the current entities.user
+     * Execute the wrapped command for the current user
      *
-     * @return A map with he results of the wrapped command specific to each entities.user
+     * @return A map with he results of the wrapped command specific to each user
      */
     public abstract HashMap<String, Object> wrapped();
 
     /**
-     * Checks if the entities.user doesn't have any stats to show
+     * Checks if the user doesn't have any stats to show
      *
-     * @return {@code true} if the entities.user doesn't have stats to show, {@code false} otherwise
+     * @return {@code true} if the user doesn't have stats to show, {@code false} otherwise
      */
     public boolean noStats() {
         return false;

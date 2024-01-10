@@ -30,12 +30,12 @@ public final class UserCommandManager implements CommandHandler {
      *
      * @param command the command that specifies the wrapped command parameters
      * @return an {@code Output} object with the command and result
-     * (with top 5 listens for each category based on entities.user)
+     * (with top 5 listens for each category based on user)
      */
     public static Output performWrapped(final CommandInput command) {
         User user = UsersLibrariesStats.getUserByName(command.getUsername());
         if (user.noStats()) {
-            String message = "No data to show for entities.user " + command.getUsername() + ".";
+            String message = "No data to show for user " + command.getUsername() + ".";
             return new Output(command, message);
         }
         Object result = user.wrapped();
