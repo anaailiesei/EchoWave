@@ -7,6 +7,7 @@ import entities.audio.Song;
 import entities.audio.collections.Album;
 import entities.user.Artist;
 import libraries.audio.AlbumsLibrary;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,11 +17,16 @@ import java.util.TreeMap;
 public final class ListenTrackerNormalUser {
     private boolean isPremium;
     private final ListenTracker<NeamableEntity> artistsListenTracker = new ListenTracker<>();
+    //TODO: Take out getters
     private final ListenTracker<Album> albumsListenTracker = new ListenTracker<>();
+    @Getter
     private final ListenTracker<Song> songsListenTracker = new ListenTracker<>();
     private final ListenTracker<Episode> episodesListenTracker = new ListenTracker<>();
     private final ListenTracker<NeamableEntity> genresListenTracker = new ListenTracker<>();
     private final ListenTracker<Song> premiumListenTracker = new ListenTracker<>();
+
+    @Getter
+    private final ListenTracker<Song> freeListenTracker = new ListenTracker<>();
 
     /**
      * Adds a listen or the specified album
@@ -53,13 +59,12 @@ public final class ListenTrackerNormalUser {
     public void addListen(final Song song) {
         if (isPremium) {
             premiumListenTracker.addListen(song);
+        } else {
+            freeListenTracker.addListen(song);
         }
         songsListenTracker.addListen(song);
         genresListenTracker.addListen(new NeamableEntity(song.getGenre()));
         artistsListenTracker.addListen(new NeamableEntity(song.getArtist()));
-        if (isPremium) {
-            premiumListenTracker.addListen(song);
-        }
     }
 
     /**
@@ -72,6 +77,11 @@ public final class ListenTrackerNormalUser {
      * @see Song
      */
     public void addListen(final Song song, final int count) {
+        if (isPremium) {
+            premiumListenTracker.addListen(song, count);
+        } else {
+            freeListenTracker.addListen(song, count);
+        }
         songsListenTracker.addListen(song, count);
         genresListenTracker.addListen(new NeamableEntity(song.getGenre()), count);
         artistsListenTracker.addListen(new NeamableEntity(song.getArtist()), count);
@@ -141,7 +151,27 @@ public final class ListenTrackerNormalUser {
         this.isPremium = premium;
     }
 
+    /**
+     * Get a map with the songs listened during premium subscription
+     *
+     * @return A tree map with the premium listened songs ordered by their name
+     */
     public TreeMap<Song, Integer> getPremiumSongs() {
         return premiumListenTracker.getListens();
+    }
+    /**
+     * Get a map with the free songs listened between two ad breaks
+     *
+     * @return A tree map with the free listened songs ordered by their name
+     */
+    public TreeMap<Song, Integer> getFreeSongs() {
+        return freeListenTracker.getListens();
+    }
+
+    /**
+     * Empties the free songs tracker
+     */
+    public void emptyFreeSongs() {
+        freeListenTracker.clear();
     }
 }

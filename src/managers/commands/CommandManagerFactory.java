@@ -31,7 +31,8 @@ public final class CommandManagerFactory {
             case getTop5Playlists, getTop5Songs, getOnlineUsers, getAllUsers, getTop5Albums,
                     getTop5Artists
                     -> GeneralStatisticsManager.getInstance();
-            case addUser, deleteUser, showPodcasts, showAlbums, buyPremium, cancelPremium
+            case addUser, deleteUser, showPodcasts, showAlbums, buyPremium, cancelPremium,
+                    adBreak
                     -> AdminCommandManager.getInstance();
             case addAlbum, addEvent, addMerch, removeAlbum, removeEvent
                     -> ArtistCommandManager.getInstance();
@@ -43,7 +44,7 @@ public final class CommandManagerFactory {
                     removePodcast
                     -> HostCommandManager.getInstance();
             case wrapped -> UserCommandManager.getInstance();
-            case adBreak, subscribe, getNotifications,
+            case subscribe, getNotifications,
                     buyMerch, seeMerch, updateRecommendations, previousPage, topAlbums, listeners,
                     topSongs, topFans, topEpisodes, songRevenue, merchRevenue, ranking,
                     mostProfitableSong, loadRecommendations, nextPage -> null;

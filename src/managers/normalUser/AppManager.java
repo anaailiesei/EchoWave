@@ -13,10 +13,10 @@ public final class AppManager {
     private final PlayerManager playerManager = new PlayerManager(this);
     private final SearchBarManager searchBarManager = new SearchBarManager(this);
     private final ListenTrackerNormalUser listenTracker = new ListenTrackerNormalUser();
-    private final boolean premium = false;
     private String pageOwner;
     private Page page = Page.homePage;
     private AppStatus status = AppStatus.online;
+    private boolean premium;
 
     public AppManager(final String username) {
         this.userOfflineMessage = username + " is offline.";
@@ -55,5 +55,9 @@ public final class AppManager {
         private AppStatus toggle() {
             return this == online ? offline : online;
         }
+    }
+
+    public void setPremium(boolean premium) {
+        this.premium = premium;
     }
 }

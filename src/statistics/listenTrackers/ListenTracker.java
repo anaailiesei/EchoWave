@@ -79,4 +79,11 @@ public class ListenTracker<E extends Entity> {
     public boolean isEmpty() {
         return listens.isEmpty();
     }
+
+    /**
+     * Empties the tracker
+     */
+    public void clear() {
+        listens.clear();
+    }
 }

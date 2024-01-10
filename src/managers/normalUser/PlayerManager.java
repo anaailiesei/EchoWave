@@ -18,10 +18,13 @@ import managers.commands.CommandHandler;
 import playables.PlayingAudio;
 import playables.PlayingAudioCollection;
 import entities.user.NormalUser;
+import statistics.calculator.FreeSongCalculateRevenue;
+import statistics.calculator.RevenueCalculator;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Class for managing the player
@@ -30,6 +33,9 @@ public final class PlayerManager implements TimeChangeListener, CommandHandler {
     private static Map<StatusFields, Object> emptyStats = null;
     private final AppManager app;
     private final CommandManager commandManager;
+    private boolean adBreak = false;
+    private Integer adPrice = 0;
+    private final RevenueCalculator calculator;
     /**
      * -- GETTER --
      * Gets the current status of player
@@ -40,7 +46,7 @@ public final class PlayerManager implements TimeChangeListener, CommandHandler {
     private Audio loadedObject;
     /**
      * -- GETTER --
-     * Get the current playing entities.audio file
+     * Get the current playing audio file
      */
     @Getter
     private PlayingAudio<? extends Audio> playingAudio;
@@ -51,6 +57,7 @@ public final class PlayerManager implements TimeChangeListener, CommandHandler {
         this.app = parentApp;
         this.commandManager = app.getCommandManager();
         TimeManager.getInstance().addTimeChangeListener(this);
+        calculator = new RevenueCalculator();
     }
 
     /**
@@ -64,6 +71,35 @@ public final class PlayerManager implements TimeChangeListener, CommandHandler {
         if (!app.isOnline()) {
             return;
         }
+
+        if (playingAudio == null) {
+            return;
+        }
+        Map<StatusFields, Object> stats = playingAudio.getStats();
+        int remainedTime = (int) stats.get(StatusFields.remainedTime);
+
+        if (!adBreak || timeDifference < remainedTime) {
+            onTimeChangedHelper(timeDifference);
+            return;
+        }
+
+        onTimeChangedHelper(remainedTime);
+        TreeMap<Song, Integer> freeSongs = app.getListenTracker().getFreeSongs();
+        calculator.calculateRevenue(new FreeSongCalculateRevenue(freeSongs, adPrice));
+        removeAd();
+        adBreak = false;
+        adPrice = 0;
+        app.getListenTracker().emptyFreeSongs();
+        onTimeChangedHelper(timeDifference - remainedTime);
+    }
+
+    /**
+     * Method that's used for implementing some of timeChanged logic
+     * (to avoid recursive method)
+     *
+     * @param timeDifference The time passed that should be added
+     */
+    public void onTimeChangedHelper(final int timeDifference) {
         if (playingAudio != null) {
             Map<StatusFields, Object> stats = playingAudio.getStats();
             int remainedTime = (int) stats.get(StatusFields.remainedTime);
@@ -91,14 +127,16 @@ public final class PlayerManager implements TimeChangeListener, CommandHandler {
             int remainedTime = (int) stats.get(StatusFields.remainedTime);
             if (remainedTime > 0) {
                 incrementLoadedCountForAudio();
+            } else {
+                playingAudio = null;
             }
         }
     }
 
     /**
-     * Set the current playing entities.audio file
+     * Set the current playing audio file
      *
-     * @param playingAudio the entities.audio file to be set
+     * @param playingAudio the audio file to be set
      */
     public void setPlayingAudio(final PlayingAudio<? extends Audio> playingAudio) {
         this.playingAudio = playingAudio;
@@ -446,6 +484,21 @@ public final class PlayerManager implements TimeChangeListener, CommandHandler {
             default -> throw new IllegalStateException("Unexpected command for "
                     + this.getClass().getSimpleName() + ": " + commandType);
         };
+    }
+
+    /**
+     * Inserts an add
+     */
+    public void insertAd(int adPrice) {
+        if (!app.isPremium()){
+            adBreak = true;
+            this.adPrice = adPrice;
+        }
+    }
+
+    public void removeAd() {
+        adBreak = false;
+        adPrice = 0;
     }
 
     /**

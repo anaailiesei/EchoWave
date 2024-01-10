@@ -1,18 +1,17 @@
 package managers.admin;
 
-import commands.admin.AddPremiumUser;
-import commands.admin.RemovePremiumUser;
+import commands.admin.*;
 import entities.audio.Song;
 import entities.audio.collections.Album;
 import entities.audio.collections.Podcast;
 import commands.CommandType;
-import commands.admin.AddUser;
-import commands.admin.DeleteUser;
+import entities.user.NormalUser;
 import fileio.input.CommandInput;
 import fileio.output.Output;
 import fileio.output.PodcastOutput;
 import libraries.users.ArtistsLibrary;
 import libraries.users.HostsLibrary;
+import libraries.users.NormalUsersLibrary;
 import managers.commands.CommandHandler;
 import entities.user.Artist;
 import entities.user.Host;
@@ -128,6 +127,18 @@ public final class AdminCommandManager implements CommandHandler {
         String message = RemovePremiumUser.toString(username);
         return new Output(command, message);
     }
+    /**
+     * Performs the ad break command for the specified user.
+     *
+     * @param command The input containing the user's username and the ad price
+     * @return An Output object with the result of the operation.
+     */
+    private Output performAdBreak(final CommandInput command) {
+        String username = command.getUsername();
+        AdBreak.execute(username, command.getPrice());
+        String message = AdBreak.toString(username);
+        return new Output(command, message);
+    }
 
     @Override
     public Output performCommand(final CommandInput command) {
@@ -140,6 +151,7 @@ public final class AdminCommandManager implements CommandHandler {
             case showPodcasts -> performShowPodcasts(command);
             case buyPremium -> performAddPremiumUser(command);
             case cancelPremium -> performRemovePremiumUser(command);
+            case adBreak -> performAdBreak(command);
             default -> throw new IllegalStateException("Unexpected command for "
                     + this.getClass().getSimpleName() + ": " + commandType);
         };

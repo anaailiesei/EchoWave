@@ -1,8 +1,13 @@
 package commands.admin;
 
+import entities.user.NormalUser;
 import fileio.output.Output;
 import libraries.users.ArtistsLibrary;
 import entities.user.Artist;
+import libraries.users.NormalUsersLibrary;
+import statistics.calculator.ArtistCalculateRevenue;
+import statistics.calculator.NormalUserCalculateRevenue;
+import statistics.calculator.RevenueCalculator;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -20,8 +25,18 @@ public final class End {
      * @return an Output object with the command output
      */
     public static Output performEndProgram() {
+        RevenueCalculator calculator = new RevenueCalculator();
+        ArrayList<NormalUser> users = NormalUsersLibrary.getInstance().getItems();
+        for (NormalUser user : users) {
+            calculator.calculateRevenue(new NormalUserCalculateRevenue(user));
+        }
+
         ArrayList<Artist> artists = ArtistsLibrary.getInstance().getItems();
-        artists.sort(Comparator.comparing(Artist::getName));
+        for (Artist artist : artists) {
+            calculator.calculateRevenue(new ArtistCalculateRevenue(artist));
+        }
+        artists.sort(Comparator.comparing(Artist::getSongsRevenue).reversed()
+                .thenComparing(Artist::getName));
         LinkedHashMap<String, Object> result = new LinkedHashMap<>();
         for (Artist artist : artists) {
             if (!artist.getListenTracker().wasListened()) {
@@ -29,14 +44,13 @@ public final class End {
             }
             LinkedHashMap<String, Object> stats = new LinkedHashMap<>();
             stats.put("merchRevenue", artist.getMerchRevenue());
-            if (artist.getSongsRevenue().isEmpty()) {
-                stats.put("songRevenue", 0.0);
-            }
+            double songsRevenue = Math.round(artist.getSongsRevenue() * 100.0) / 100.0;
+            stats.put("songRevenue", songsRevenue);
+//            stats.put("songRevenue", artist.getSongsRevenueList());
 
             stats.put("ranking", result.size() + 1);
-            if (artist.getSongsRevenue().isEmpty()) {
-                stats.put("mostProfitableSong", "N/A");
-            }
+            String mostProfitableSong = artist.getMostProfitableSong();
+            stats.put("mostProfitableSong", mostProfitableSong);
             result.put(artist.getName(), stats);
         }
         return new Output(endProgram, result);

@@ -18,10 +18,13 @@ public final class Artist extends User {
     private final LinkedHashSet<Merch> merchandise = new LinkedHashSet<>();
     @Getter
     private final ListenTrackerArtist listenTracker = new ListenTrackerArtist();
+    // TODO: Get out this getter
     @Getter
-    private final Map<String, Float> songsRevenue = new TreeMap<>();
+    private LinkedHashMap<String, Double> songsRevenueList;
     @Getter
-    private float merchRevenue = 0;
+    private double merchRevenue = 0;
+    @Getter
+    private double songsRevenue = 0;
     private int pageViewers = 0;
     @Getter
     private int totalLikes;
@@ -200,5 +203,34 @@ public final class Artist extends User {
     @Override
     public String getNoStatsMessage() {
         return "No data to show for artist " + getName() + ".";
+    }
+
+    /**
+     * Adds the specified amount to the song revenue
+     *
+     * @param amount The amount to be added
+     */
+    public void addSongRevenue(double amount) {
+        songsRevenue += amount;
+    }
+
+    /**
+     * Adds the specified amount to the merch revenue
+     *
+     * @param amount The amount to be added
+     */
+    public void addMerchRevenue(double amount) {
+        merchRevenue += amount;
+    }
+
+    public void setSongsRevenueList(LinkedHashMap<String, Double> songsRevenueList) {
+        this.songsRevenueList = songsRevenueList;
+    }
+
+    public String getMostProfitableSong() {
+        if (songsRevenueList == null || songsRevenueList.isEmpty() || songsRevenue == 0) {
+            return "N/A";
+        }
+        return songsRevenueList.keySet().iterator().next();
     }
 }

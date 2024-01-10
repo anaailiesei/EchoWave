@@ -20,6 +20,13 @@ import java.util.*;
 
 public final class NormalUser extends User {
     private static final long MAX_SIZE = 5;
+    /**
+     * -- GETTER --
+     *  Gets the playlists for this user
+     *
+     * @return a list of playlists
+     */
+    @Getter
     private ArrayList<Playlist> playlists;
     private Playlist liked;
     @Getter
@@ -39,11 +46,12 @@ public final class NormalUser extends User {
     }
 
     /**
-     * Gets the progress manager for the current entities.user that tracks podcasts
+     * Gets the progress manager for the current user that tracks podcasts
      * That were not finished adn can be continued (saves the progress)
      * If it's not initialized yet, it initializes it too
      *
-     * @return
+     * @return The instance for the {@code Progress Manager}
+     * @see ProgressManager
      */
     public synchronized ProgressManager getProgressManager() {
         if (progressManager == null) {
@@ -53,10 +61,11 @@ public final class NormalUser extends User {
     }
 
     /**
-     * Gets the app manager for the current entities.user
+     * Gets the app manager for the current user
      * If it's not initialized yet, it initializes it too
      *
-     * @return
+     * @return The instance for the {@code AppManager}
+     * @see AppManager
      */
     public synchronized AppManager getApp() {
         if (app == null) {
@@ -87,16 +96,7 @@ public final class NormalUser extends User {
     }
 
     /**
-     * Gets the playlists for this entities.user
-     *
-     * @return a list of playlists
-     */
-    public ArrayList<Playlist> getPlaylists() {
-        return playlists;
-    }
-
-    /**
-     * Sets the playlists for this entities.user
+     * Sets the playlists for this user
      *
      * @param playlists The list of playlists to be set
      */
@@ -109,7 +109,7 @@ public final class NormalUser extends User {
     }
 
     /**
-     * Adds a new playlist into the entities.user's list of playlists
+     * Adds a new playlist into the user's list of playlists
      *
      * @param newPlaylist the playlist to be added
      */
@@ -122,7 +122,7 @@ public final class NormalUser extends User {
 
     /**
      * Likes a song
-     * Adds a song to the liked songs list for this entities.user
+     * Adds a song to the liked songs list for this user
      *
      * @param song The song to be added to the list
      */
@@ -137,7 +137,7 @@ public final class NormalUser extends User {
 
     /**
      * Follows the playlist
-     * Adds a playlist to the followed playlists list for this entities.user
+     * Adds a playlist to the followed playlists list for this user
      *
      * @param playlist The playlist to be added
      */
@@ -397,6 +397,7 @@ public final class NormalUser extends User {
      */
     public void setPremium(boolean premium) {
         isPremium = premium;
+        getApp().setPremium(premium);
         getApp().getListenTracker().setPremium(premium);
     }
 
@@ -411,5 +412,12 @@ public final class NormalUser extends User {
      */
     public TreeMap<Song, Integer> getPremiumSongs() {
         return getApp().getListenTracker().getPremiumSongs();
+    }
+
+    /**
+     * Inserts and add in the player
+     */
+    public void insertAd(int adPrice) {
+        getApp().getPlayerManager().insertAd(adPrice);
     }
 }

@@ -122,6 +122,7 @@ public final class LoadAudio extends ActionCommand {
                 }
             }
             playerManager.getPlayingAudio().resume();
+            playerManager.removeAd();
             successfullyLoaded = true;
             shuffle.setShuffledIndexes(null);
         }
