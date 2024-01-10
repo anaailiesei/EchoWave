@@ -16,17 +16,18 @@ import java.util.Map;
 
 public final class PlayingAudioCollection<T extends Collection<? extends Audio>>
         implements Playing {
-    private T playingCollection;
-    private ArrayList<PlayingAudio<? extends Audio>> playableObjects;
+    private final T playingCollection;
+    private final ArrayList<PlayingAudio<? extends Audio>> playableObjects;
     private int playingNowIndex = 0;
     private boolean repeatCollection = false;
     private boolean shuffleCollection = false;
     private List<Integer> shuffledIndexes = null;
     private boolean finished = false;
     private final NormalUser user;
-    private Artist artist;
+    private final Artist artist;
 
-    public PlayingAudioCollection(final Collection<? extends Audio> collection, final NormalUser user) {
+    public PlayingAudioCollection(final Collection<? extends Audio> collection,
+                                  final NormalUser user) {
         playingCollection = (T) collection;
         playableObjects = new ArrayList<>();
         for (Audio item : collection.getCollection()) {
@@ -220,7 +221,8 @@ public final class PlayingAudioCollection<T extends Collection<? extends Audio>>
                 int newPlayingNowIndex = playingNowIndex;
                 // TODO: add listends here
                 if (oldPlayingNowIndex != newPlayingNowIndex) {
-                    getPlayingNowObject().getPlayingObject().addListen(user.getApp().getListenTracker());
+                    getPlayingNowObject().getPlayingObject()
+                            .addListen(user.getApp().getListenTracker());
                     playingCollection.addListen(user.getApp().getListenTracker());
                     if (artist != null) {
                         artist.getListenTracker().addListenAll((Album) playingCollection,

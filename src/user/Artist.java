@@ -1,6 +1,5 @@
 package user;
 
-import audio.Song;
 import audio.collections.Album;
 import fileio.input.UserInput;
 import libraries.audio.AlbumsLibrary;
@@ -22,7 +21,7 @@ public final class Artist extends User {
     @Getter
     private final Map<String, Float> songsRevenue = new TreeMap<>();
     @Getter
-    float merchRevenue = 0;
+    private float merchRevenue = 0;
     private int pageViewers = 0;
     @Getter
     private int totalLikes;
@@ -31,6 +30,7 @@ public final class Artist extends User {
         UserInput userInput = new UserInput(username, age, city);
         setUserInput(userInput);
     }
+
     /**
      * Adds an album to the artist's collection of albums.
      *
@@ -53,18 +53,21 @@ public final class Artist extends User {
     public HashSet<Album> getAlbums() {
         return albums;
     }
+
     /**
      * Increments the counter for the number of viewers on the artist's page.
      */
     public void incrementPageViewersCount() {
         pageViewers++;
     }
+
     /**
      * Decrements the counter for the number of viewers on the artist's page.
      */
     public void decrementPageViewersCount() {
         pageViewers--;
     }
+
     /**
      * Adds an event to the artist's collection of events.
      *
@@ -73,6 +76,7 @@ public final class Artist extends User {
     public void addEvent(final Event event) {
         events.add(event);
     }
+
     /**
      * Checks if an event with the given name exists in the artist's events.
      *
@@ -82,6 +86,7 @@ public final class Artist extends User {
     public boolean eventExists(final String eventName) {
         return events.stream().anyMatch(event -> event.getName().equals(eventName));
     }
+
     /**
      * Adds merchandise to the artist's collection of merchandise.
      *
@@ -150,6 +155,7 @@ public final class Artist extends User {
         return albums.stream().filter(album -> album.getName().equals(albumName))
                 .findFirst().orElse(null);
     }
+
     /**
      * Retrieves an event by its name from the artist's events.
      *
@@ -171,12 +177,14 @@ public final class Artist extends User {
         Event event = getEventByName(eventName);
         events.remove(event);
     }
+
     /**
      * Increments the total likes count for the artist.
      */
     public void addLike() {
         totalLikes++;
     }
+
     /**
      * Decrements the total likes count for the artist.
      */

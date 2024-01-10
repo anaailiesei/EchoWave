@@ -95,6 +95,11 @@ public abstract class User {
      */
     public abstract boolean isDeletable();
 
+    /**
+     * Execute the wrapped command for the current user
+     *
+     * @return A map with he results of the wrapped command specific to each user
+     */
     public abstract HashMap<String, Object> wrapped();
 
 }

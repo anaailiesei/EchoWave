@@ -12,7 +12,7 @@ import managers.normalUser.ConnectionStatusManager;
 import managers.normalUser.PageSystemManager;
 import user.NormalUser;
 
-public final class CommandManagerFactory{
+public final class CommandManagerFactory {
     private CommandManagerFactory() {
     }
 
@@ -46,7 +46,7 @@ public final class CommandManagerFactory{
             case buyPremium, cancelPremium, adBreak, subscribe, getNotifications,
                     buyMerch, seeMerch, updateRecommendations, previousPage, topAlbums, listeners,
                     topSongs, topFans, topEpisodes, songRevenue, merchRevenue, ranking,
-                    mostProfitableSong, loadRecommendations, nextPage-> null;
+                    mostProfitableSong, loadRecommendations, nextPage -> null;
             default -> {
                 NormalUser user = NormalUsersLibrary.getInstance().getUserByName(username);
                 assert user != null;

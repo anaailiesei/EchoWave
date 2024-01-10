@@ -43,7 +43,8 @@ public abstract class Search<E> extends ActionCommand {
             if (filter.getFilterMethods() == null) {
                 break;
             }
-            Function<Object, ? extends Filter<E>> function = (Function<Object, ? extends Filter<E>>) filter.getFilterMethods().get(key);
+            Function<Object, ? extends Filter<E>> function =
+                    (Function<Object, ? extends Filter<E>>) filter.getFilterMethods().get(key);
             if (function == null) {
                 break;
             }

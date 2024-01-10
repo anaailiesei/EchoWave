@@ -5,7 +5,6 @@ import fileio.input.UserInput;
 import lombok.Getter;
 import profile.host.Announcement;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 

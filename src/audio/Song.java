@@ -86,12 +86,12 @@ public final class Song implements Audio {
     }
 
     @Override
-    public void addListen(ListenTrackerNormalUser listenTracker) {
+    public void addListen(final ListenTrackerNormalUser listenTracker) {
         listenTracker.addListen(this);
     }
 
     @Override
-    public void addListen(ListenTrackerNormalUser listenTracker, int count) {
+    public void addListen(final ListenTrackerNormalUser listenTracker, final int count) {
         listenTracker.addListen(this, count);
     }
 

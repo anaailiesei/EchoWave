@@ -7,10 +7,7 @@ import libraries.users.UsersLibrariesStats;
 import managers.commands.CommandHandler;
 import user.User;
 
-import java.util.ArrayList;
-
-public class UserCommandManager implements CommandHandler {
-    private static final int NUMBER_TOP_RESULTS = 5;
+public final class UserCommandManager implements CommandHandler {
     private static UserCommandManager instance;
 
     private UserCommandManager() {

@@ -1,6 +1,7 @@
 package managers;
 
 import audio.Audio;
+import audio.Episode;
 import audio.Song;
 import audio.collections.Album;
 import audio.collections.Collection;
@@ -108,8 +109,14 @@ public final class CheckClass {
     public static boolean isNormalUser(final Class<? extends User> unknownClass) {
         return unknownClass == NormalUser.class;
     }
-
-    public static boolean isEpisode(Class<? extends Audio> aClass) {
-        return aClass == Podcast.class;
+    /**
+     * Checks if the specified class is an {@code Episode}
+     *
+     * @param aClass The class to be checked
+     * @return {@code true} if the class is {@code Episode}, {@code false} otherwise
+     * @see Episode
+     */
+    public static boolean isEpisode(final Class<? extends Audio> aClass) {
+        return aClass == Episode.class;
     }
 }

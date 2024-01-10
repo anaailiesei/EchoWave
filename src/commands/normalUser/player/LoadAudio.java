@@ -6,7 +6,6 @@ import audio.collections.Album;
 import audio.collections.Collection;
 import commands.ActionCommand;
 import commands.normalUser.searchBar.audio.SelectAudio;
-import libraries.audio.AlbumsLibrary;
 import libraries.users.ArtistsLibrary;
 import lombok.Getter;
 import managers.CheckClass;
@@ -95,11 +94,13 @@ public final class LoadAudio extends ActionCommand {
                 playingCollection.getPlayingCollection().addListen(listenTracker);
                 playingAudio.addListen(listenTracker);
 
-                Artist artist = ArtistsLibrary.getInstance().getArtistByName(playingCollection.getPlayingCollection().getOwner());
+                Artist artist = ArtistsLibrary.getInstance()
+                        .getArtistByName(playingCollection.getPlayingCollection().getOwner());
                 if (artist != null) {
                     ListenTrackerArtist listenTrackerArtist = artist.getListenTracker();
-                    listenTrackerArtist.addListenAll((Album) playingCollection.getPlayingCollection(),
-                            (Song)playingAudio,
+                    listenTrackerArtist
+                            .addListenAll((Album) playingCollection.getPlayingCollection(),
+                            (Song) playingAudio,
                             user);
                 }
             } else {
@@ -109,11 +110,13 @@ public final class LoadAudio extends ActionCommand {
 
                 // TODO: add listens here
                 playingAudio.getPlayingObject().addListen(listenTracker);
-                Artist artist = ArtistsLibrary.getInstance().getArtistByName(playingAudio.getPlayingObject().getOwner());
+                Artist artist = ArtistsLibrary.getInstance()
+                        .getArtistByName(playingAudio.getPlayingObject().getOwner());
                 if (artist != null) {
                     String albumName = ((Song) playingAudio.getPlayingObject()).getAlbum();
                     ListenTrackerArtist listenTrackerArtist = artist.getListenTracker();
-                    listenTrackerArtist.addListenAll(albumName, (Song)playingAudio.getPlayingObject(),
+                    listenTrackerArtist.addListenAll(albumName,
+                            (Song) playingAudio.getPlayingObject(),
                             user);
                     user.getApp().getListenTracker().addListen(albumName);
                 }

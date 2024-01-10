@@ -9,7 +9,15 @@ import java.util.LinkedHashMap;
 
 import static commands.CommandType.endProgram;
 
-public class End {
+public final class End {
+    private End() {
+    }
+
+    /**
+     * Perform the endProgram command (show stats for listened artists)
+     *
+     * @return an Output object with the command output
+     */
     public static Output performEndProgram() {
         ArrayList<Artist> artists = ArtistsLibrary.getInstance().getItems();
         LinkedHashMap<String, Object> result = new LinkedHashMap<>();

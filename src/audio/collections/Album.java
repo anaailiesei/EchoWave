@@ -85,7 +85,7 @@ public final class Album extends Collection<Song> {
     }
 
     @Override
-    public void addListen(ListenTrackerNormalUser listenTracker) {
+    public void addListen(final ListenTrackerNormalUser listenTracker) {
         listenTracker.addListen(this);
     }
 }

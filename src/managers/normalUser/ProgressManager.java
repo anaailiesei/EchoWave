@@ -9,9 +9,9 @@ import user.NormalUser;
 import java.util.ArrayList;
 
 public final class ProgressManager {
-    private NormalUser user;
+    private final NormalUser user;
 
-    public ProgressManager(NormalUser user) {
+    public ProgressManager(final NormalUser user) {
         this.user = user;
     }
     private ArrayList<PlayingAudioCollection<? extends Collection<?>>> inProgressCollections;

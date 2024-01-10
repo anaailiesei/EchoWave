@@ -50,7 +50,7 @@ public final class Episode implements Audio {
     }
 
     @Override
-    public void addListen(ListenTrackerNormalUser listenTracker) {
+    public void addListen(final ListenTrackerNormalUser listenTracker) {
         listenTracker.addListen(this);
     }
 

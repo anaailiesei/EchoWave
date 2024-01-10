@@ -102,9 +102,11 @@ public final class PlayingAudio<T extends Audio> implements Playing {
                 || getRepeatValue().equals(RepeatType.repeatCurrent.getValue())) {
             if (newRemainedTime < 0) {
                 // TODO: this doesnt add the album
-                playingObject.addListen(user.getApp().getListenTracker(), (newRemainedTime / duration));
+                playingObject.addListen(user.getApp().getListenTracker(),
+                        (newRemainedTime / duration));
                 if (artist != null) {
-                    artist.getListenTracker().addListenAll((Song) playingObject, user, newRemainedTime / duration);
+                    artist.getListenTracker()
+                            .addListenAll((Song) playingObject, user, newRemainedTime / duration);
                 }
                 newRemainedTime = (newRemainedTime % duration + duration) % duration;
 
@@ -256,7 +258,7 @@ public final class PlayingAudio<T extends Audio> implements Playing {
         return (boolean) stats.get(StatusFields.paused);
     }
 
-    public void setUser(NormalUser user) {
+    public void setUser(final NormalUser user) {
         this.user = user;
     }
 }
