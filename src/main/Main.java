@@ -84,10 +84,11 @@ public final class Main {
         // test00_etapa3_wrapped_one_user_one_artist.json
         // test01_etapa3_wrapped_one_user_n_artist.json
         // test04_etapa3_monetization_premium.json
+        // test05_etapa3_monetization_free.json
 
 
 
-//        String fileName = "test05_etapa3_monetization_free.json";
+//        String fileName = "test06_etapa3_monetization_all.json";
 //        String filepath = CheckerConstants.OUT_PATH + fileName;
 //        File out = new File(filepath);
 //        boolean isCreated = out.createNewFile();
@@ -174,6 +175,8 @@ public final class Main {
         ArrayList<Song> songs = new ArrayList<>();
         library.getSongs().forEach(songInput -> songs.add(new Song(songInput)));
         SongsLibrary.getInstance().setItems(songs);
+        int adDuration = songs.get(0).getDuration();
+        SongsLibrary.setAdDuration(adDuration);
     }
 
     /**

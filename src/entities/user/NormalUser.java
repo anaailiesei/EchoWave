@@ -34,6 +34,8 @@ public final class NormalUser extends User {
     private ProgressManager progressManager;
     private AppManager app;
     @Getter
+    private int subsciptionsBought = 0;
+    @Getter
     private boolean isPremium;
 
     public NormalUser(final UserInput userInput) {
@@ -399,6 +401,10 @@ public final class NormalUser extends User {
         isPremium = premium;
         getApp().setPremium(premium);
         getApp().getListenTracker().setPremium(premium);
+        if (premium) {
+            subsciptionsBought++;
+            getApp().getPlayerManager().removeAd();
+        }
     }
 
     @Override

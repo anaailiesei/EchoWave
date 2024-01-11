@@ -9,6 +9,7 @@ import commands.normalUser.player.*;
 import commands.normalUser.playlist.SwitchVisibility;
 import fileio.input.CommandInput;
 import fileio.output.Output;
+import libraries.audio.SongsLibrary;
 import libraries.users.NormalUsersLibrary;
 import lombok.Getter;
 import managers.CheckClass;
@@ -35,6 +36,8 @@ public final class PlayerManager implements TimeChangeListener, CommandHandler {
     private final CommandManager commandManager;
     private boolean adBreak = false;
     private Integer adPrice = 0;
+    private int adRemainedTime = 0;
+    private final int adDuration = SongsLibrary.getAdDuration();
     private final RevenueCalculator calculator;
     /**
      * -- GETTER --
@@ -75,7 +78,7 @@ public final class PlayerManager implements TimeChangeListener, CommandHandler {
         if (playingAudio == null) {
             return;
         }
-        Map<StatusFields, Object> stats = playingAudio.getStats();
+        Map<StatusFields, Object> stats = getPlayingAudio().getStats();
         int remainedTime = (int) stats.get(StatusFields.remainedTime);
 
         if (!adBreak || timeDifference < remainedTime) {
@@ -83,14 +86,32 @@ public final class PlayerManager implements TimeChangeListener, CommandHandler {
             return;
         }
 
-        onTimeChangedHelper(remainedTime);
-        TreeMap<Song, Integer> freeSongs = app.getListenTracker().getFreeSongs();
-        calculator.calculateRevenue(new FreeSongCalculateRevenue(freeSongs, adPrice));
-        removeAd();
+        // TODO: this is shitty, change this cus on corner cases it will fail
+        onTimeChangedHelper(remainedTime - 1);
+
+//        if (getPlayingAudio() != null) {
+//            stats = getPlayingAudio().getStats();
+//            int newRemainedTime = (int) stats.get(StatusFields.remainedTime);
+//            if (newRemainedTime > timeDifference - remainedTime + 1 && newRemainedTime != 0) {
+//                onTimeChanged(timeDifference - remainedTime);
+//            }
+//        }
+
+        if (adRemainedTime == adDuration) {
+            TreeMap<Song, Integer> freeSongs = app.getListenTracker().getFreeSongs();
+            calculator.calculateRevenue(new FreeSongCalculateRevenue(freeSongs, adPrice));
+            app.getListenTracker().emptyFreeSongs();
+        }
+
+        int timeDiffRemainedTime = timeDifference - remainedTime;
+        if (timeDiffRemainedTime < adRemainedTime) {
+            adRemainedTime -= timeDiffRemainedTime;
+            return;
+        }
         adBreak = false;
         adPrice = 0;
-        app.getListenTracker().emptyFreeSongs();
-        onTimeChangedHelper(timeDifference - remainedTime);
+        adRemainedTime = 0;
+        onTimeChangedHelper(timeDiffRemainedTime - adDuration + 1);
     }
 
     /**
@@ -493,12 +514,14 @@ public final class PlayerManager implements TimeChangeListener, CommandHandler {
         if (!app.isPremium()){
             adBreak = true;
             this.adPrice = adPrice;
+            adRemainedTime = adDuration;
         }
     }
 
     public void removeAd() {
         adBreak = false;
         adPrice = 0;
+        adRemainedTime = 0;
     }
 
     /**

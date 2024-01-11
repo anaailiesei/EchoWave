@@ -2,6 +2,8 @@ package commands.admin;
 
 import entities.user.NormalUser;
 import libraries.users.NormalUsersLibrary;
+import statistics.calculator.NormalUserCalculateRevenue;
+import statistics.calculator.RevenueCalculator;
 
 public final class RemovePremiumUser {
     private static State state;
@@ -22,6 +24,9 @@ public final class RemovePremiumUser {
         }
         assert user != null;
         user.setPremium(false);
+        RevenueCalculator calculator = new RevenueCalculator();
+        calculator.calculateRevenue(new NormalUserCalculateRevenue(user));
+        user.getApp().getListenTracker().emptyPremiumSongs();
     }
 
     /**

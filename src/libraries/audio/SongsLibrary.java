@@ -3,12 +3,15 @@ package libraries.audio;
 import entities.audio.Song;
 import entities.audio.collections.Album;
 import libraries.GenericLibrary;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 
 public final class SongsLibrary extends GenericLibrary<Song> {
     private static SongsLibrary instance = null;
+    @Getter
+    private static int adDuration;
 
     private SongsLibrary() {
     }
@@ -64,5 +67,9 @@ public final class SongsLibrary extends GenericLibrary<Song> {
         for (Song song : album.getCollection()) {
             removeItem(song);
         }
+    }
+
+    public static void setAdDuration(int adDuration) {
+        SongsLibrary.adDuration = adDuration;
     }
 }

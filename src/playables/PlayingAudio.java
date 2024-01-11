@@ -7,12 +7,20 @@ import commands.normalUser.player.StatusFields;
 import libraries.users.ArtistsLibrary;
 import entities.user.Artist;
 import entities.user.NormalUser;
+import lombok.Getter;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 public final class PlayingAudio<T extends Audio> implements Playing {
     private T playingObject;
+    /**
+     * -- GETTER --
+     *  Gets the stats for the playing object
+     *
+     * @return the stats
+     */
+    @Getter
     private Map<StatusFields, Object> stats;
     private Artist artist;
     private NormalUser user;
@@ -39,15 +47,6 @@ public final class PlayingAudio<T extends Audio> implements Playing {
      */
     public void setPlayingObject(final T playingObject) {
         this.playingObject = playingObject;
-    }
-
-    /**
-     * Gets the stats for the playing object
-     *
-     * @return the stats
-     */
-    public Map<StatusFields, Object> getStats() {
-        return stats;
     }
 
     /**

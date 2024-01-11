@@ -17,15 +17,12 @@ import java.util.TreeMap;
 public final class ListenTrackerNormalUser {
     private boolean isPremium;
     private final ListenTracker<NeamableEntity> artistsListenTracker = new ListenTracker<>();
-    //TODO: Take out getters
     private final ListenTracker<Album> albumsListenTracker = new ListenTracker<>();
-    @Getter
     private final ListenTracker<Song> songsListenTracker = new ListenTracker<>();
     private final ListenTracker<Episode> episodesListenTracker = new ListenTracker<>();
     private final ListenTracker<NeamableEntity> genresListenTracker = new ListenTracker<>();
     private final ListenTracker<Song> premiumListenTracker = new ListenTracker<>();
 
-    @Getter
     private final ListenTracker<Song> freeListenTracker = new ListenTracker<>();
 
     /**
@@ -173,5 +170,12 @@ public final class ListenTrackerNormalUser {
      */
     public void emptyFreeSongs() {
         freeListenTracker.clear();
+    }
+
+    /**
+     * Empties the premium songs tracker
+     */
+    public void emptyPremiumSongs() {
+        premiumListenTracker.clear();
     }
 }
