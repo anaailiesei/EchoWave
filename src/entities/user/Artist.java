@@ -8,7 +8,10 @@ import profile.artist.Event;
 import profile.artist.Merch;
 import statistics.listenTrackers.ListenTrackerArtist;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 
 public final class Artist extends User {
     private final LinkedHashSet<Album> albums = new LinkedHashSet<>();
@@ -18,8 +21,6 @@ public final class Artist extends User {
     private final LinkedHashSet<Merch> merchandise = new LinkedHashSet<>();
     @Getter
     private final ListenTrackerArtist listenTracker = new ListenTrackerArtist();
-    // TODO: Get out this getter
-    @Getter
     private LinkedHashMap<String, Double> songsRevenueList;
     @Getter
     private double merchRevenue = 0;
@@ -123,7 +124,7 @@ public final class Artist extends User {
     /**
      * Checks if the artist is deletable
      * To be deletable, an artist shouldn't have any of their songs playing or part of a
-     * entities.user's playlist, an album that's playing in a entities.user's player, or a viewer on their page
+     * user's playlist, an album that's playing in a user's player, or a viewer on their page
      *
      * @return {@code true} if the artist is deletable, {@code false} otherwise
      */
@@ -210,7 +211,7 @@ public final class Artist extends User {
      *
      * @param amount The amount to be added
      */
-    public void addSongRevenue(double amount) {
+    public void addSongRevenue(final double amount) {
         songsRevenue += amount;
     }
 
@@ -219,14 +220,20 @@ public final class Artist extends User {
      *
      * @param amount The amount to be added
      */
-    public void addMerchRevenue(double amount) {
+    public void addMerchRevenue(final double amount) {
         merchRevenue += amount;
     }
 
-    public void setSongsRevenueList(LinkedHashMap<String, Double> songsRevenueList) {
+    public void setSongsRevenueList(final LinkedHashMap<String, Double> songsRevenueList) {
         this.songsRevenueList = songsRevenueList;
     }
 
+    /**
+     * Gets the name of the most profitable song
+     * If there is no songs' revenue, return N/A
+     *
+     * @return The most profitable song's name
+     */
     public String getMostProfitableSong() {
         if (songsRevenueList == null || songsRevenueList.isEmpty() || songsRevenue == 0) {
             return "N/A";

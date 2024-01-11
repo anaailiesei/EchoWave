@@ -1,8 +1,12 @@
 package managers.artist;
 
-import entities.audio.Song;
 import commands.CommandType;
-import commands.artist.*;
+import commands.artist.AddAlbum;
+import commands.artist.AddEvent;
+import commands.artist.AddMerch;
+import commands.artist.RemoveAlbum;
+import commands.artist.RemoveEvent;
+import entities.audio.Song;
 import fileio.input.CommandInput;
 import fileio.output.Output;
 import managers.commands.CommandHandler;

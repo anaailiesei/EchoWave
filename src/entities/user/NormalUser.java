@@ -16,7 +16,14 @@ import profile.artist.Event;
 import profile.artist.Merch;
 import profile.host.Announcement;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.TreeMap;
 
 public final class NormalUser extends User {
     private static final long MAX_SIZE = 5;
@@ -397,7 +404,7 @@ public final class NormalUser extends User {
      *
      * @param premium {@code true} if the user is to be set as premium, {@code false} otherwise.
      */
-    public void setPremium(boolean premium) {
+    public void setPremium(final boolean premium) {
         isPremium = premium;
         getApp().setPremium(premium);
         getApp().getListenTracker().setPremium(premium);
@@ -423,7 +430,7 @@ public final class NormalUser extends User {
     /**
      * Inserts and add in the player
      */
-    public void insertAd(int adPrice) {
+    public void insertAd(final int adPrice) {
         getApp().getPlayerManager().insertAd(adPrice);
     }
 }

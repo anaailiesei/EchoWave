@@ -1,12 +1,24 @@
 package managers.normalUser;
 
+import commands.CommandType;
+import commands.normalUser.player.AddRemoveInPlaylist;
+import commands.normalUser.player.Backward;
+import commands.normalUser.player.Forward;
+import commands.normalUser.player.Like;
+import commands.normalUser.player.LoadAudio;
+import commands.normalUser.player.Next;
+import commands.normalUser.player.PlayPause;
+import commands.normalUser.player.Prev;
+import commands.normalUser.player.Repeat;
+import commands.normalUser.player.RepeatType;
+import commands.normalUser.player.Shuffle;
+import commands.normalUser.player.StatusFields;
+import commands.normalUser.playlist.SwitchVisibility;
 import entities.audio.Audio;
 import entities.audio.Song;
 import entities.audio.collections.Collection;
 import entities.audio.collections.Playlist;
-import commands.CommandType;
-import commands.normalUser.player.*;
-import commands.normalUser.playlist.SwitchVisibility;
+import entities.user.NormalUser;
 import fileio.input.CommandInput;
 import fileio.output.Output;
 import libraries.audio.SongsLibrary;
@@ -18,7 +30,6 @@ import managers.TimeManager;
 import managers.commands.CommandHandler;
 import playables.PlayingAudio;
 import playables.PlayingAudioCollection;
-import entities.user.NormalUser;
 import statistics.calculator.FreeSongCalculateRevenue;
 import statistics.calculator.RevenueCalculator;
 
@@ -34,11 +45,11 @@ public final class PlayerManager implements TimeChangeListener, CommandHandler {
     private static Map<StatusFields, Object> emptyStats = null;
     private final AppManager app;
     private final CommandManager commandManager;
+    private final int adDuration = SongsLibrary.getAdDuration();
+    private final RevenueCalculator calculator;
     private boolean adBreak = false;
     private Integer adPrice = 0;
     private int adRemainedTime = 0;
-    private final int adDuration = SongsLibrary.getAdDuration();
-    private final RevenueCalculator calculator;
     /**
      * -- GETTER --
      * Gets the current status of player
@@ -508,16 +519,19 @@ public final class PlayerManager implements TimeChangeListener, CommandHandler {
     }
 
     /**
-     * Inserts an add
+     * Inserts an ad
      */
-    public void insertAd(int adPrice) {
-        if (!app.isPremium()){
+    public void insertAd(final int price) {
+        if (!app.isPremium()) {
             adBreak = true;
-            this.adPrice = adPrice;
+            this.adPrice = price;
             adRemainedTime = adDuration;
         }
     }
 
+    /**
+     * Removes an ad
+     */
     public void removeAd() {
         adBreak = false;
         adPrice = 0;

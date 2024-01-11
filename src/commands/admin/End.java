@@ -6,7 +6,7 @@ import libraries.users.ArtistsLibrary;
 import entities.user.Artist;
 import libraries.users.NormalUsersLibrary;
 import statistics.calculator.ArtistCalculateRevenue;
-import statistics.calculator.NormalUserCalculateRevenue;
+import statistics.calculator.PremiumSongCalculateRevenue;
 import statistics.calculator.RevenueCalculator;
 
 import java.util.ArrayList;
@@ -16,6 +16,7 @@ import java.util.LinkedHashMap;
 import static commands.CommandType.endProgram;
 
 public final class End {
+    private final static double PERCENT = 100;
     private End() {
     }
 
@@ -28,7 +29,7 @@ public final class End {
         RevenueCalculator calculator = new RevenueCalculator();
         ArrayList<NormalUser> users = NormalUsersLibrary.getInstance().getItems();
         for (NormalUser user : users) {
-            calculator.calculateRevenue(new NormalUserCalculateRevenue(user));
+            calculator.calculateRevenue(new PremiumSongCalculateRevenue(user));
         }
 
         ArrayList<Artist> artists = ArtistsLibrary.getInstance().getItems();
@@ -45,7 +46,7 @@ public final class End {
             }
             LinkedHashMap<String, Object> stats = new LinkedHashMap<>();
             stats.put("merchRevenue", artist.getMerchRevenue());
-            double songsRevenue = Math.round(artist.getSongsRevenue() * 100.0) / 100.0;
+            double songsRevenue = roundTwoDecimals(artist.getSongsRevenue());
             stats.put("songRevenue", songsRevenue);
 //            stats.put("songRevenue", artist.getSongsRevenueList());
 
@@ -55,5 +56,15 @@ public final class End {
             result.put(artist.getName(), stats);
         }
         return new Output(endProgram, result);
+    }
+
+    /**
+     * Round a number to 2 decimals places
+     * @param number The number to be rounded
+     *
+     * @return The rounded number
+     */
+    private static double roundTwoDecimals(final double number) {
+        return Math.round(number * PERCENT) / PERCENT;
     }
 }

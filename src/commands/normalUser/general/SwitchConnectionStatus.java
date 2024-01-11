@@ -29,9 +29,9 @@ public final class SwitchConnectionStatus {
 
     /**
      * Checks the conditions for performing this operation
-     * For a successful operation, the entities.user should exist adn they should be a regular entities.user
+     * For a successful operation, the user should exist adn they should be a regular entities.user
      *
-     * @param username The name of the entities.user
+     * @param username The name of the user
      */
     private static void checkConditions(final String username) {
         if (!UsersLibrariesStats.userExists(username)) {

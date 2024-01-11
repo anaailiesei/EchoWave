@@ -27,7 +27,7 @@ public final class AddRemoveInPlaylist extends ActionCommand {
     }
 
     /**
-     * Executes the add/remove operation in the playlist based on the currently playing entities.audio.
+     * Executes the add/remove operation in the playlist based on the currently playing audio
      * If the source is valid, and it's a playlist, if the song is not in the playlist
      * it adds it, otherwise it removes it
      */

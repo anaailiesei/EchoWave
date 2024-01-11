@@ -1,6 +1,15 @@
 package managers.normalUser;
 
-import commands.normalUser.player.*;
+import commands.normalUser.player.AddRemoveInPlaylist;
+import commands.normalUser.player.Backward;
+import commands.normalUser.player.Forward;
+import commands.normalUser.player.Like;
+import commands.normalUser.player.LoadAudio;
+import commands.normalUser.player.Next;
+import commands.normalUser.player.PlayPause;
+import commands.normalUser.player.Prev;
+import commands.normalUser.player.Repeat;
+import commands.normalUser.player.Shuffle;
 import commands.normalUser.playlist.CreatePlaylist;
 import commands.normalUser.playlist.FollowPlaylist;
 import commands.normalUser.playlist.SwitchVisibility;

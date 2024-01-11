@@ -30,11 +30,11 @@ public final class RemoveAlbum {
 
     /**
      * Check the conditions for performing this operation
-     * For a successful operation, the entities.user should exist, and they should be an artist,
-     * the album should exist, and it should be deletable (no entities.user has this album or any song
+     * For a successful operation, the user should exist, and they should be an artist,
+     * the album should exist, and it should be deletable (no user has this album or any song
      * from it playing or added to a playlist)
      *
-     * @param username The username for the entities.user that wants to remove an album
+     * @param username The username for the user that wants to remove an album
      */
     private static void checkConditions(final String albumName,
                                         final String username,

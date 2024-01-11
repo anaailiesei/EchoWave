@@ -1,8 +1,8 @@
 package entities;
 
-public class NeamableEntity implements Entity {
+public final class NameableEntity implements Entity {
     private final String name;
-    public NeamableEntity(final String name) {
+    public NameableEntity(final String name) {
         this.name = name;
     }
 

@@ -311,9 +311,9 @@ public final class Song implements Audio {
     /**
      * Adds the specified amount of money to the revenue for this song
      *
-     * @param amount The amount of money to addd
+     * @param amount The amount of money to add
      */
-    public void addRevenue(double amount) {
+    public void addRevenue(final double amount) {
         revenue += amount;
     }
 }

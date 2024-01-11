@@ -1,8 +1,6 @@
 package managers.normalUser;
 
-import entities.audio.Song;
 import lombok.Getter;
-import statistics.listenTrackers.ListenTracker;
 import statistics.listenTrackers.ListenTrackerNormalUser;
 
 @Getter
@@ -45,6 +43,10 @@ public final class AppManager {
         this.pageOwner = pageOwner;
     }
 
+    public void setPremium(boolean premium) {
+        this.premium = premium;
+    }
+
     public enum Page {
         homePage, likedContentPage, artistPage, hostPage
     }
@@ -55,9 +57,5 @@ public final class AppManager {
         private AppStatus toggle() {
             return this == online ? offline : online;
         }
-    }
-
-    public void setPremium(boolean premium) {
-        this.premium = premium;
     }
 }

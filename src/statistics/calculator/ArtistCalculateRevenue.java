@@ -3,16 +3,21 @@ package statistics.calculator;
 import entities.audio.Song;
 import entities.audio.collections.Album;
 import entities.user.Artist;
-import entities.user.User;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 
-public class ArtistCalculateRevenue implements CalculateRevenueStrategy{
+public final class ArtistCalculateRevenue implements CalculateRevenueStrategy {
     private final Artist artist;
+
     public ArtistCalculateRevenue(final Artist artist) {
         this.artist = artist;
     }
+
     @Override
     public void calculateRevenue() {
         TreeMap<String, Double> songsRevenueList = new TreeMap<>();

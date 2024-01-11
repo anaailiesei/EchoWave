@@ -1,23 +1,29 @@
 package managers.admin;
 
-import commands.admin.*;
+import commands.CommandType;
+import commands.admin.AdBreak;
+import commands.admin.AddPremiumUser;
+import commands.admin.AddUser;
+import commands.admin.DeleteUser;
+import commands.admin.RemovePremiumUser;
 import entities.audio.Song;
 import entities.audio.collections.Album;
 import entities.audio.collections.Podcast;
-import commands.CommandType;
-import entities.user.NormalUser;
+import entities.user.Artist;
+import entities.user.Host;
+import entities.user.UserType;
 import fileio.input.CommandInput;
 import fileio.output.Output;
 import fileio.output.PodcastOutput;
 import libraries.users.ArtistsLibrary;
 import libraries.users.HostsLibrary;
-import libraries.users.NormalUsersLibrary;
 import managers.commands.CommandHandler;
-import entities.user.Artist;
-import entities.user.Host;
-import entities.user.UserType;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.List;
 
 public final class AdminCommandManager implements CommandHandler {
     private static AdminCommandManager instance;
@@ -127,6 +133,7 @@ public final class AdminCommandManager implements CommandHandler {
         String message = RemovePremiumUser.toString(username);
         return new Output(command, message);
     }
+
     /**
      * Performs the ad break command for the specified user.
      *

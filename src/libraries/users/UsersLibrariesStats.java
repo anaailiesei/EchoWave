@@ -13,10 +13,10 @@ public final class UsersLibrariesStats {
     }
 
     /**
-     * Checks if the specified entities.user exists (in any entities.user library aka hosts, normal suers, artists)
+     * Checks if the specified user exists (in any user library aka hosts, normal suers, artists)
      *
-     * @param username The name of the entities.user to search for
-     * @return The entities.user or {@code null} if it wasn't found
+     * @param username The name of the user to search for
+     * @return The user or {@code null} if it wasn't found
      */
     public static boolean userExists(final String username) {
         for (NormalUser normalUser : NormalUsersLibrary.getInstance().getItems()) {

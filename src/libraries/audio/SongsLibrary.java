@@ -69,7 +69,7 @@ public final class SongsLibrary extends GenericLibrary<Song> {
         }
     }
 
-    public static void setAdDuration(int adDuration) {
+    public static void setAdDuration(final int adDuration) {
         SongsLibrary.adDuration = adDuration;
     }
 }

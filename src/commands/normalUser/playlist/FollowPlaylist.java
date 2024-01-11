@@ -87,9 +87,9 @@ public final class FollowPlaylist extends ActionCommand {
     }
 
     /**
-     * Sets the entities.user for the follow playlist operation (the entities.user that performs the operation)
+     * Sets the user for the follow playlist operation (the user that performs the operation)
      *
-     * @param newUser the entities.user to be set
+     * @param newUser the user to be set
      * @return the current instance
      */
     public FollowPlaylist setUser(final NormalUser newUser) {

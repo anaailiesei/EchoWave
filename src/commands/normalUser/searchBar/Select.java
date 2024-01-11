@@ -42,9 +42,9 @@ public abstract class Select<E> extends ActionCommand {
 
     /**
      * Method used when there are additional steps to be done in the selection process
-     * for the specified entities.user (this should be Overridden when making a entities.user selection)
+     * for the specified user (this should be Overridden when making a entities.user selection)
      *
-     * @param username The name of the entities.user
+     * @param username The name of the user
      */
     public void updateUser(final String username) {
     }

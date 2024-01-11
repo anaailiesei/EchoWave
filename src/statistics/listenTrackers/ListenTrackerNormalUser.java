@@ -1,29 +1,25 @@
 package statistics.listenTrackers;
 
-import entities.NeamableEntity;
+import entities.NameableEntity;
 import entities.audio.Audio;
 import entities.audio.Episode;
 import entities.audio.Song;
 import entities.audio.collections.Album;
-import entities.user.Artist;
 import libraries.audio.AlbumsLibrary;
-import lombok.Getter;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.TreeMap;
 
 public final class ListenTrackerNormalUser {
-    private boolean isPremium;
-    private final ListenTracker<NeamableEntity> artistsListenTracker = new ListenTracker<>();
+    private final ListenTracker<NameableEntity> artistsListenTracker = new ListenTracker<>();
     private final ListenTracker<Album> albumsListenTracker = new ListenTracker<>();
     private final ListenTracker<Song> songsListenTracker = new ListenTracker<>();
     private final ListenTracker<Episode> episodesListenTracker = new ListenTracker<>();
-    private final ListenTracker<NeamableEntity> genresListenTracker = new ListenTracker<>();
+    private final ListenTracker<NameableEntity> genresListenTracker = new ListenTracker<>();
     private final ListenTracker<Song> premiumListenTracker = new ListenTracker<>();
-
     private final ListenTracker<Song> freeListenTracker = new ListenTracker<>();
+    private boolean isPremium;
 
     /**
      * Adds a listen or the specified album
@@ -60,13 +56,14 @@ public final class ListenTrackerNormalUser {
             freeListenTracker.addListen(song);
         }
         songsListenTracker.addListen(song);
-        genresListenTracker.addListen(new NeamableEntity(song.getGenre()));
-        artistsListenTracker.addListen(new NeamableEntity(song.getArtist()));
+        genresListenTracker.addListen(new NameableEntity(song.getGenre()));
+        artistsListenTracker.addListen(new NameableEntity(song.getArtist()));
     }
 
     /**
      * Add the specified number of listens for the song
-     * If the song is premium, it also adds the specified number of listens for this song in the premium
+     * If the song is premium, it also adds the specified
+     * number of listens for this song in the premium
      * listened songs
      *
      * @param song  The song for which we want to add the listens
@@ -80,8 +77,8 @@ public final class ListenTrackerNormalUser {
             freeListenTracker.addListen(song, count);
         }
         songsListenTracker.addListen(song, count);
-        genresListenTracker.addListen(new NeamableEntity(song.getGenre()), count);
-        artistsListenTracker.addListen(new NeamableEntity(song.getArtist()), count);
+        genresListenTracker.addListen(new NameableEntity(song.getGenre()), count);
+        artistsListenTracker.addListen(new NameableEntity(song.getArtist()), count);
     }
 
     /**
@@ -144,7 +141,7 @@ public final class ListenTrackerNormalUser {
      *
      * @param premium {@code true} if the user is to be set as premium, {@code false} otherwise.
      */
-    public void setPremium(boolean premium) {
+    public void setPremium(final boolean premium) {
         this.isPremium = premium;
     }
 
@@ -156,6 +153,7 @@ public final class ListenTrackerNormalUser {
     public TreeMap<Song, Integer> getPremiumSongs() {
         return premiumListenTracker.getListens();
     }
+
     /**
      * Get a map with the free songs listened between two ad breaks
      *

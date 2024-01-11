@@ -6,7 +6,6 @@ import lombok.Getter;
 import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
@@ -59,7 +58,8 @@ public class ListenTracker<E extends Entity> {
                         .thenComparing(entry -> entry.getKey().getName()))
                 .limit(NUMBER_TOP_RESULTS)
                 .collect(Collectors
-                        .toMap(entry -> entry.getKey().getName(), Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
+                        .toMap(entry -> entry.getKey().getName(),
+                                Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
     }
 
     /**
