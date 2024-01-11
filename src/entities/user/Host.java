@@ -3,16 +3,20 @@ package entities.user;
 import entities.audio.collections.Podcast;
 import fileio.input.UserInput;
 import lombok.Getter;
+import notifications.Notifiable;
+import notifications.Notifier;
 import profile.host.Announcement;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 
-public final class Host extends User {
+public final class Host extends User implements Notifier {
     @Getter
     private final LinkedHashSet<Podcast> podcasts = new LinkedHashSet<>();
     @Getter
     private final LinkedHashSet<Announcement> announcements = new LinkedHashSet<>();
+    private final ArrayList<Notifiable> subscribers = new ArrayList<>();
     private int pageViewersCount = 0;
 
     public Host(final String username, final int age, final String city) {
@@ -154,5 +158,22 @@ public final class Host extends User {
     @Override
     public String getNoStatsMessage() {
         return "No data to show for host " + getName() + ".";
+    }
+
+    @Override
+    public void addObserver(final Notifiable observer) {
+        subscribers.add(observer);
+    }
+
+    @Override
+    public void removeObserver(final Notifiable observer) {
+        subscribers.remove(observer);
+    }
+
+    @Override
+    public void notifyObservers(final HashMap<String, String> notification) {
+        for (Notifiable notifiable : subscribers) {
+            notifiable.update(notification);
+        }
     }
 }

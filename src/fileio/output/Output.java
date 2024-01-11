@@ -5,6 +5,8 @@ import commands.normalUser.player.StatusFields;
 import fileio.input.CommandInput;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -18,6 +20,7 @@ public final class Output {
     private ArrayList<String> results;
     private Map<StatusFields, Object> stats;
     private Object result;
+    private List<HashMap<String, String>> notifications;
 
     private Output(final CommandInput command) {
         setUser(command.getUsername());
@@ -35,6 +38,13 @@ public final class Output {
     public Output(final CommandInput command, final String message) {
         this(command);
         setMessage(message);
+    }
+
+    public Output(final CommandInput command,
+                  final ArrayList<HashMap<String, String>> notifications,
+                  final int ceva) {
+        this(command);
+        setNotifications(notifications);
     }
 
     public Output(final CommandInput command, final Map<StatusFields, Object> stats) {
@@ -176,5 +186,13 @@ public final class Output {
      */
     public void setResult(final Object result) {
         this.result = result;
+    }
+
+    public List<HashMap<String, String>> getNotifications() {
+        return notifications;
+    }
+
+    public void setNotifications(final List<HashMap<String, String>> notifications) {
+        this.notifications = notifications;
     }
 }

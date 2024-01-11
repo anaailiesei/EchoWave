@@ -6,8 +6,11 @@ import libraries.audio.PodcastsLibrary;
 import libraries.users.HostsLibrary;
 import libraries.users.UsersLibrariesStats;
 import entities.user.Host;
+import notifications.Notification;
+import notifications.NotificationType;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public final class AddPodcast {
     private static State state;
@@ -31,8 +34,12 @@ public final class AddPodcast {
             return;
         }
         Podcast podcast = new Podcast(podcastName, username, episodes);
+        assert host != null;
         host.addPodcast(podcast);
         PodcastsLibrary.getInstance().addPodcast(podcast);
+        HashMap<String, String> notification = Notification
+                .getNotification(NotificationType.Announcement, username);
+        host.notifyObservers(notification);
     }
 
     /**

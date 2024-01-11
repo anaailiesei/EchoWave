@@ -2,8 +2,12 @@ package commands.artist;
 
 import libraries.users.ArtistsLibrary;
 import libraries.users.UsersLibrariesStats;
+import notifications.Notification;
+import notifications.NotificationType;
 import profile.artist.Merch;
 import entities.user.Artist;
+
+import java.util.HashMap;
 
 public final class AddMerch {
     private static State state;
@@ -30,6 +34,9 @@ public final class AddMerch {
         }
         Merch merch = new Merch(merchName, price, description);
         artist.addMerch(merch);
+        HashMap<String, String> notification = Notification
+                .getNotification(NotificationType.Merchandise, username);
+        artist.notifyObservers(notification);
     }
 
     /**

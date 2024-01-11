@@ -1,13 +1,19 @@
 package commands.normalUser.playlist;
 
 import entities.audio.Audio;
+import entities.audio.collections.Collection;
 import entities.audio.collections.Playlist;
 import commands.ActionCommand;
 import commands.normalUser.searchBar.audio.SelectAudio;
+import libraries.users.NormalUsersLibrary;
 import managers.CheckClass;
 import managers.normalUser.PlayerManager;
+import notifications.Notification;
+import notifications.NotificationType;
 import playables.PlayingAudioCollection;
 import entities.user.NormalUser;
+
+import java.util.HashMap;
 
 /**
  * Implementation for the followPlaylist operation
@@ -34,7 +40,8 @@ public final class FollowPlaylist extends ActionCommand {
     public void execute() {
         sameUser = false;
         Audio selectedAudio = select.getSelectedObject();
-        PlayingAudioCollection playingAudioCollection = playerManager.getPlayingCollection();
+        PlayingAudioCollection<? extends Collection<? extends Audio>> playingAudioCollection =
+                playerManager.getPlayingCollection();
         if ((playerManager.getPlayingAudio() == null && selectedAudio == null)
                 || ((playerManager.getPlayingCollection() == null
                 || !CheckClass.isPlaylist(playerManager.getPlayingCollection()
@@ -60,6 +67,11 @@ public final class FollowPlaylist extends ActionCommand {
         if (!user.isPlaylistFollowed(playlist)) {
             playlist.addFollowFrom(user);
             followedPlaylist = true;
+            NormalUser owner = NormalUsersLibrary.getInstance().getUserByName(playlistOwner);
+            HashMap<String, String> notification = Notification
+                    .getNotification(NotificationType.Follower, playlistOwner);
+            assert owner != null;
+            owner.update(notification);
         } else {
             playlist.removeFollowFrom(user);
             followedPlaylist = false;

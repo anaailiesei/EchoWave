@@ -43,7 +43,7 @@ public final class AppManager {
         this.pageOwner = pageOwner;
     }
 
-    public void setPremium(boolean premium) {
+    public void setPremium(final boolean premium) {
         this.premium = premium;
     }
 

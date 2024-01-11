@@ -7,8 +7,11 @@ import libraries.audio.SongsLibrary;
 import libraries.users.ArtistsLibrary;
 import libraries.users.UsersLibrariesStats;
 import entities.user.Artist;
+import notifications.Notification;
+import notifications.NotificationType;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public final class AddAlbum {
     private static State state;
@@ -37,6 +40,9 @@ public final class AddAlbum {
         }
         Album album = new Album(albumName, username, releaseYear, description, songs);
         artist.addAlbum(album);
+        HashMap<String, String> notification = Notification.getNotification(NotificationType.Album,
+                username);
+        artist.notifyObservers(notification);
         SongsLibrary.getInstance().addSongsFromAlbum(album);
         AlbumsLibrary.getInstance().addAlbum(album);
     }

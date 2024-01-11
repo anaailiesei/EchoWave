@@ -16,7 +16,7 @@ import java.util.LinkedHashMap;
 import static commands.CommandType.endProgram;
 
 public final class End {
-    private final static double PERCENT = 100;
+    private static final double PERCENT = 100;
     private End() {
     }
 

@@ -4,16 +4,19 @@ import entities.audio.collections.Album;
 import fileio.input.UserInput;
 import libraries.audio.AlbumsLibrary;
 import lombok.Getter;
+import notifications.Notifiable;
+import notifications.Notifier;
 import profile.artist.Event;
 import profile.artist.Merch;
 import statistics.listenTrackers.ListenTrackerArtist;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 
-public final class Artist extends User {
+public final class Artist extends User implements Notifier {
     private final LinkedHashSet<Album> albums = new LinkedHashSet<>();
     @Getter
     private final LinkedHashSet<Event> events = new LinkedHashSet<>();
@@ -21,6 +24,7 @@ public final class Artist extends User {
     private final LinkedHashSet<Merch> merchandise = new LinkedHashSet<>();
     @Getter
     private final ListenTrackerArtist listenTracker = new ListenTrackerArtist();
+    private final ArrayList<Notifiable> subscribers = new ArrayList<>();
     private LinkedHashMap<String, Double> songsRevenueList;
     @Getter
     private double merchRevenue = 0;
@@ -239,5 +243,22 @@ public final class Artist extends User {
             return "N/A";
         }
         return songsRevenueList.keySet().iterator().next();
+    }
+
+    @Override
+    public void addObserver(final Notifiable observer) {
+        subscribers.add(observer);
+    }
+
+    @Override
+    public void removeObserver(final Notifiable observer) {
+        subscribers.remove(observer);
+    }
+
+    @Override
+    public void notifyObservers(final HashMap<String, String> notification) {
+        for (Notifiable notifiable : subscribers) {
+            notifiable.update(notification);
+        }
     }
 }

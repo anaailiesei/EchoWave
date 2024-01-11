@@ -88,7 +88,7 @@ public final class Main {
 
 
 
-//        String fileName = "test06_etapa3_monetization_all.json";
+//        String fileName = "test07_etapa3_notifications_simple.json";
 //        String filepath = CheckerConstants.OUT_PATH + fileName;
 //        File out = new File(filepath);
 //        boolean isCreated = out.createNewFile();

@@ -1,5 +1,7 @@
 package notifications;
 
+import java.util.HashMap;
+
 public interface Notifier {
     /**
      * Adds an observer for the notifier
@@ -22,6 +24,6 @@ public interface Notifier {
      *
      * @param notification The notification that should be sent to users
      */
-    void notifyObservers(Notification notification);
+    void notifyObservers(HashMap<String, String> notification);
 }
 

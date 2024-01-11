@@ -1,5 +1,7 @@
 package notifications;
 
+import java.util.HashMap;
+
 public interface Notifiable {
     /**
      * Update the observer (notifiable) once a notification is received
@@ -9,5 +11,5 @@ public interface Notifiable {
      * @see Notification
      * @see Notifier
      */
-    void update(Notification notification);
+    void update(HashMap<String, String> notification);
 }

@@ -12,6 +12,7 @@ import libraries.users.HostsLibrary;
 import lombok.Getter;
 import managers.normalUser.AppManager;
 import managers.normalUser.ProgressManager;
+import notifications.Notifiable;
 import profile.artist.Event;
 import profile.artist.Merch;
 import profile.host.Announcement;
@@ -19,31 +20,32 @@ import profile.host.Announcement;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.TreeMap;
 
-public final class NormalUser extends User {
+public final class NormalUser extends User implements Notifiable {
+    private final List<HashMap<String, String>> notifications = new ArrayList<>();
     private static final long MAX_SIZE = 5;
     /**
      * -- GETTER --
      *  Gets the playlists for this user
-     *
-     * @return a list of playlists
      */
     @Getter
     private ArrayList<Playlist> playlists;
+    @Getter
     private Playlist liked;
     @Getter
     private ArrayList<Playlist> followedPlaylists;
     private ProgressManager progressManager;
     private AppManager app;
     @Getter
-    private int subsciptionsBought = 0;
-    @Getter
     private boolean isPremium;
+    private Set<User> subscriptions = new HashSet<>();
 
     public NormalUser(final UserInput userInput) {
         super(userInput);
@@ -84,14 +86,14 @@ public final class NormalUser extends User {
     }
 
     /**
-     * Initialize the playlists array for the current entities.user
+     * Initialize the playlists array for the current user
      */
     private synchronized void initPlaylists() {
         playlists = new ArrayList<>();
     }
 
     /**
-     * Initialize the liked playlist for the current entities.user
+     * Initialize the liked playlist for the current user
      */
     public synchronized void initLikedPlaylist() {
         liked = new Playlist("Liked", getName(), new ArrayList<>());
@@ -111,10 +113,6 @@ public final class NormalUser extends User {
      */
     public void setPlaylists(final ArrayList<Playlist> playlists) {
         this.playlists = playlists;
-    }
-
-    public Playlist getLiked() {
-        return liked;
     }
 
     /**
@@ -163,7 +161,7 @@ public final class NormalUser extends User {
      * Unfollows the playlist
      * Removes the specified playlist from the followed playlists
      *
-     * @param followedPlaylist
+     * @param followedPlaylist The playlist to be unfollowed
      */
     public void removeFollowedPlaylist(final Playlist followedPlaylist) {
         if (followedPlaylists == null) {
@@ -345,6 +343,7 @@ public final class NormalUser extends User {
      */
     private String printHostsPage() {
         Host host = HostsLibrary.getInstance().getHostByName(app.getPageOwner());
+        assert host != null;
         LinkedHashSet<Podcast> podcasts = host.getPodcasts();
         LinkedHashSet<Announcement> announcements = host.getAnnouncements();
         return "Podcasts:\n\t" + podcastListToString(podcasts)
@@ -371,10 +370,10 @@ public final class NormalUser extends User {
     }
 
     /**
-     * Checks if the entities.user is deletable
-     * The entities.user is not deletable if other entities.user is playing one of their playlists
+     * Checks if the user is deletable
+     * The user is not deletable if other user is playing one of their playlists
      *
-     * @return {@code true} if the entities.user ise deletable, {@code false} otherwise
+     * @return {@code true} if the user ise deletable, {@code false} otherwise
      */
     @Override
     public boolean isDeletable() {
@@ -409,7 +408,6 @@ public final class NormalUser extends User {
         getApp().setPremium(premium);
         getApp().getListenTracker().setPremium(premium);
         if (premium) {
-            subsciptionsBought++;
             getApp().getPlayerManager().removeAd();
         }
     }
@@ -432,5 +430,47 @@ public final class NormalUser extends User {
      */
     public void insertAd(final int adPrice) {
         getApp().getPlayerManager().insertAd(adPrice);
+    }
+
+    @Override
+    public void update(final HashMap<String, String> notification) {
+        notifications.add(notification);
+    }
+
+    /**
+     * Get the notifications for this user
+     * After the notifications were retrieved, delete them
+     *
+     * @return A list with all the notifications
+     */
+    public ArrayList<HashMap<String, String>> getNotifications() {
+        ArrayList<HashMap<String, String>> currentNotifications = new ArrayList<>(notifications);
+        notifications.clear();
+        return currentNotifications;
+    }
+
+    /**
+     * Adds a subscription to the specified user (host/artist)
+     *
+     * @param user The user (host/artist) to subscribe to.
+     */
+    public void addSubscription(final User user) {
+        subscriptions.add(user);
+    }
+    /**
+     * Removes a subscription from the specified user (host/artist)
+     *
+     * @param user The user (host/artist) to unsubscribe from.
+     */
+    public void removeSubscription(final User user) {
+        subscriptions.remove(user);
+    }
+    /**
+     * Checks if this user is subscribed to the specified user (host/artist)
+     *
+     * @param user The user (host/artist) for checking subscription
+     */
+    public boolean isSubscribedTo(final User user) {
+        return subscriptions.contains(user);
     }
 }

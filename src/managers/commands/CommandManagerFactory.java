@@ -9,6 +9,7 @@ import managers.artist.ArtistCommandManager;
 import managers.host.HostCommandManager;
 import managers.normalUser.AppManager;
 import managers.normalUser.ConnectionStatusManager;
+import managers.normalUser.NotificationsManager;
 import managers.normalUser.PageSystemManager;
 import entities.user.NormalUser;
 
@@ -38,13 +39,14 @@ public final class CommandManagerFactory {
                     -> ArtistCommandManager.getInstance();
             case switchConnectionStatus
                     -> ConnectionStatusManager.getInstance();
-            case changePage
+            case changePage, subscribe
                     -> PageSystemManager.getInstance();
             case addAnnouncement, addPodcast, removeAnnouncement,
                     removePodcast
                     -> HostCommandManager.getInstance();
             case wrapped -> UserCommandManager.getInstance();
-            case subscribe, getNotifications,
+            case getNotifications -> NotificationsManager.getInstance();
+            case
                     buyMerch, seeMerch, updateRecommendations, previousPage, topAlbums, listeners,
                     topSongs, topFans, topEpisodes, songRevenue, merchRevenue, ranking,
                     mostProfitableSong, loadRecommendations, nextPage -> null;

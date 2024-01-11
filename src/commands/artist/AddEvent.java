@@ -2,9 +2,13 @@ package commands.artist;
 
 import libraries.users.ArtistsLibrary;
 import libraries.users.UsersLibrariesStats;
+import notifications.Notification;
+import notifications.NotificationType;
 import profile.artist.DateValidation;
 import profile.artist.Event;
 import entities.user.Artist;
+
+import java.util.HashMap;
 
 public final class AddEvent {
     private static State state;
@@ -31,16 +35,19 @@ public final class AddEvent {
         }
         Event event = new Event(eventName, description, date);
         artist.addEvent(event);
+        HashMap<String, String> notification = Notification.getNotification(NotificationType.Event,
+                username);
+        artist.notifyObservers(notification);
     }
 
     /**
      * Checks the conditions for performing this operation
-     * For a successful operation, the entities.user should exist, and they should be an artist,
+     * For a successful operation, the user should exist, and they should be an artist,
      * the artist can't already have an event with the same name, and the date
      * of the event should be valid (between year 1900 and 2023, with a valid month and month day)
      *
      * @param eventName The name of the event
-     * @param username  The entities.user that want to add the event
+     * @param username  The user that want to add the event
      * @param artist    The artist (this should be non-null for a successful operation)
      * @param date      The dat eof the event
      */

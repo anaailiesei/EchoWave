@@ -2,8 +2,12 @@ package commands.host;
 
 import libraries.users.HostsLibrary;
 import libraries.users.UsersLibrariesStats;
+import notifications.Notification;
+import notifications.NotificationType;
 import profile.host.Announcement;
 import entities.user.Host;
+
+import java.util.HashMap;
 
 public final class AddAnnouncement {
     private static State state;
@@ -27,7 +31,11 @@ public final class AddAnnouncement {
             return;
         }
         Announcement announcement = new Announcement(announcementName, description);
+        assert host != null;
         host.addAnnouncement(announcement);
+        HashMap<String, String> notification = Notification
+                .getNotification(NotificationType.Announcement, username);
+        host.notifyObservers(notification);
     }
 
     /**
