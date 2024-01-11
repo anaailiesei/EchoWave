@@ -12,6 +12,7 @@ import managers.normalUser.ConnectionStatusManager;
 import managers.normalUser.NotificationsManager;
 import managers.normalUser.PageSystemManager;
 import entities.user.NormalUser;
+import managers.normalUser.PurchaseManager;
 
 public final class CommandManagerFactory {
     private CommandManagerFactory() {
@@ -46,8 +47,8 @@ public final class CommandManagerFactory {
                     -> HostCommandManager.getInstance();
             case wrapped -> UserCommandManager.getInstance();
             case getNotifications -> NotificationsManager.getInstance();
-            case
-                    buyMerch, seeMerch, updateRecommendations, previousPage, topAlbums, listeners,
+            case buyMerch, seeMerch -> PurchaseManager.getInstance();
+            case updateRecommendations, previousPage, topAlbums, listeners,
                     topSongs, topFans, topEpisodes, songRevenue, merchRevenue, ranking,
                     mostProfitableSong, loadRecommendations, nextPage -> null;
             default -> {

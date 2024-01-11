@@ -51,7 +51,8 @@ public final class Subscribe {
 
     /**
      * Checks the conditions for performing this operation
-     * For a successful operation, the page should be either "home" or the "liked page"
+     * For a successful operation, the user should exist, and
+     * the page they're on should be either "artist" or "host"
      * This also sets the subscribed user if found (host/artist)
      *
      * @param user The user for which we check the conditions

@@ -29,7 +29,7 @@ public final class NotificationsManager implements CommandHandler {
     }
 
     /**
-     * Performs the switch connection get notifications command
+     * Performs the get notifications command
      * After this, notifications for the user are deleted
      *
      * @param command The input command containing the username for which to

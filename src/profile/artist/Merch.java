@@ -5,6 +5,7 @@ import lombok.Getter;
 public final class Merch {
     @Getter
     private final String name;
+    @Getter
     private final int price;
     private final String description;
 

@@ -46,6 +46,8 @@ public final class NormalUser extends User implements Notifiable {
     @Getter
     private boolean isPremium;
     private Set<User> subscriptions = new HashSet<>();
+    @Getter
+    private ArrayList<String> merchandise = new ArrayList<>();
 
     public NormalUser(final UserInput userInput) {
         super(userInput);
@@ -472,5 +474,13 @@ public final class NormalUser extends User implements Notifiable {
      */
     public boolean isSubscribedTo(final User user) {
         return subscriptions.contains(user);
+    }
+
+    /**
+     * Adds a merch bought to this user
+     * @param merchName The name of the bought merch
+     */
+    public void addMerch(final String merchName) {
+        merchandise.add(merchName);
     }
 }

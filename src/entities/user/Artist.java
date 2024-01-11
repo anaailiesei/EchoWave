@@ -228,6 +228,21 @@ public final class Artist extends User implements Notifier {
         merchRevenue += amount;
     }
 
+    /**
+     * Adds the price of the merch to the merch revenue
+     *
+     * @param merchName The name of the merch
+     */
+    public void addMerchRevenue(final String merchName) {
+        Merch boughtMerch = merchandise.stream()
+                .filter(merch -> merch.getName().equals(merchName))
+                .findFirst()
+                .orElse(null);
+        if (boughtMerch != null) {
+            merchRevenue += boughtMerch.getPrice();
+        }
+    }
+
     public void setSongsRevenueList(final LinkedHashMap<String, Double> songsRevenueList) {
         this.songsRevenueList = songsRevenueList;
     }
@@ -260,5 +275,13 @@ public final class Artist extends User implements Notifier {
         for (Notifiable notifiable : subscribers) {
             notifiable.update(notification);
         }
+    }
+
+    /**
+     * Gets the sum of the revenues made by the artist (merch and songs)
+     * @return the total revenue made
+     */
+    public double getTotalRevenue() {
+        return merchRevenue + songsRevenue;
     }
 }

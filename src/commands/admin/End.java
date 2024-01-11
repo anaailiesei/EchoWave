@@ -37,11 +37,11 @@ public final class End {
             calculator.calculateRevenue(new ArtistCalculateRevenue(artist));
         }
 
-        artists.sort(Comparator.comparing(Artist::getSongsRevenue).reversed()
+        artists.sort(Comparator.comparing(Artist::getTotalRevenue).reversed()
                 .thenComparing(Artist::getName));
         LinkedHashMap<String, Object> result = new LinkedHashMap<>();
         for (Artist artist : artists) {
-            if (!artist.getListenTracker().wasListened()) {
+            if (!artist.getListenTracker().wasListened() && artist.getMerchRevenue() == 0) {
                 continue;
             }
             LinkedHashMap<String, Object> stats = new LinkedHashMap<>();
