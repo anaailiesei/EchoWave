@@ -35,6 +35,7 @@ public final class End {
         for (Artist artist : artists) {
             calculator.calculateRevenue(new ArtistCalculateRevenue(artist));
         }
+
         artists.sort(Comparator.comparing(Artist::getSongsRevenue).reversed()
                 .thenComparing(Artist::getName));
         LinkedHashMap<String, Object> result = new LinkedHashMap<>();

@@ -22,7 +22,7 @@ public class ArtistCalculateRevenue implements CalculateRevenueStrategy{
             for (Song song : songs) {
                 double revenue = song.getRevenue();
                 if (revenue > 0) {
-                    songsRevenueList.put(song.getName(), revenue);
+                    songsRevenueList.merge(song.getName(), revenue, Double::sum);
                     artist.addSongRevenue(revenue);
                 }
             }
