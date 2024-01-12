@@ -1,8 +1,8 @@
 package entities.audio.collections;
 
 import entities.audio.Song;
-import lombok.Getter;
 import entities.user.NormalUser;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -136,5 +136,16 @@ public final class Playlist extends Collection<Song> {
             removeFollower();
             iterator.remove();
         }
+    }
+
+    /**
+     * Checks if the playlist contains a song judging by the song name
+     *
+     * @param songName The name of the song
+     * @return {@code true} if the playlist contains a song with the given name,
+     * {@code false} otherwise
+     */
+    public boolean contains(final String songName) {
+        return collection.stream().anyMatch(song -> song.getName().equals(songName));
     }
 }

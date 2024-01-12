@@ -1,9 +1,10 @@
 package managers.normalUser;
 
 import commands.CommandType;
-import commands.normalUser.pageNavigation.ChangePage;
 import commands.normalUser.general.Subscribe;
+import commands.normalUser.pageNavigation.ChangePage;
 import commands.normalUser.pageNavigation.PageChangeInvoker;
+import entities.audio.Song;
 import entities.audio.collections.Playlist;
 import entities.user.NormalUser;
 import fileio.input.CommandInput;
@@ -47,6 +48,7 @@ public final class PageSystemManager implements CommandHandler {
         }
         return new Output(command, message);
     }
+
     /**
      * Performs the subscribe command
      * If user wasn't subscribed to current page's owner, they subscribe to that artist/host
@@ -61,6 +63,7 @@ public final class PageSystemManager implements CommandHandler {
         String message = Subscribe.toString(command.getUsername());
         return new Output(command, message);
     }
+
     /**
      * Performs the next page operation
      * If user can't go forward anymore nothing is done
@@ -118,15 +121,31 @@ public final class PageSystemManager implements CommandHandler {
         String message;
         if (user == null) {
             message = "wtf";
-        } else {
-            if (recommendationType.equals("fans_playlist")) {
+            return new Output(command, message);
+        }
+        switch (recommendationType) {
+            case "fans_playlist" -> {
                 Playlist playlist = Recommendation.fansRecommendations(user);
                 user.addRecommendedPlaylist(playlist);
             }
-            message = "The recommendations for user "
-                    + username
-                    + " have been updated successfully.";
+            case "random_playlist" -> {
+                Playlist playlist = Recommendation.randomPlaylist(user);
+                user.addRecommendedPlaylist(playlist);
+            }
+            case "random_song" -> {
+                Song song = Recommendation.randomSong(user);
+                if (song != null) {
+                    user.addRecommendedSong(song);
+                }
+            }
+            default -> {
+            }
         }
+
+        message = "The recommendations for user "
+                + username
+                + " have been updated successfully.";
+
         return new Output(command, message);
     }
 

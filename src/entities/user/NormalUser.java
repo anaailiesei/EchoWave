@@ -506,4 +506,12 @@ public final class NormalUser extends User implements Notifiable {
     public void addRecommendedPlaylist(final Playlist recommendation) {
         playlistRecommendations.add(recommendation);
     }
+    /**
+     * Adds a song in the recommended songs list
+     *
+     * @param recommendation The recommended playlist
+     */
+    public void addRecommendedSong(final Song recommendation) {
+        songsRecommendations.add(recommendation);
+    }
 }
