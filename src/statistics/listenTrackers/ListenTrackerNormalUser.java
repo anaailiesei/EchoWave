@@ -115,11 +115,11 @@ public final class ListenTrackerNormalUser {
     public HashMap<String, Object> topListensForEach() {
         HashMap<String, Object> result = new LinkedHashMap<>();
 
-        result.put("topArtists", artistsListenTracker.getTopFiveListens());
-        result.put("topGenres", genresListenTracker.getTopFiveListens());
-        result.put("topSongs", songsListenTracker.getTopFiveListens());
-        result.put("topAlbums", albumsListenTracker.getTopFiveListens());
-        result.put("topEpisodes", episodesListenTracker.getTopFiveListens());
+        result.put("topArtists", artistsListenTracker.getTopFiveListensNames());
+        result.put("topGenres", genresListenTracker.getTopFiveListensNames());
+        result.put("topSongs", songsListenTracker.getTopFiveListensNames());
+        result.put("topAlbums", albumsListenTracker.getTopFiveListensNames());
+        result.put("topEpisodes", episodesListenTracker.getTopFiveListensNames());
         return result;
     }
 

@@ -1,11 +1,16 @@
 package managers.normalUser;
 
 import commands.CommandType;
-import commands.normalUser.general.ChangePage;
+import commands.normalUser.pageNavigation.ChangePage;
 import commands.normalUser.general.Subscribe;
+import commands.normalUser.pageNavigation.PageChangeInvoker;
+import entities.audio.collections.Playlist;
+import entities.user.NormalUser;
 import fileio.input.CommandInput;
 import fileio.output.Output;
+import libraries.users.NormalUsersLibrary;
 import managers.commands.CommandHandler;
+import recommendation.Recommendation;
 
 public final class PageSystemManager implements CommandHandler {
     private static PageSystemManager instance;
@@ -30,11 +35,16 @@ public final class PageSystemManager implements CommandHandler {
      *
      * @param command the command that specifies the change page command parameters
      * @return an {@code Output} object with the command and message
-     * @see commands.normalUser.general.ChangePage
+     * @see ChangePage
      */
     public static Output performChangePage(final CommandInput command) {
-        ChangePage.execute(command.getUsername(), command.getNextPage());
+        String username = command.getUsername();
+        ChangePage.execute(username, command.getNextPage());
         String message = ChangePage.toString(command.getUsername(), command.getNextPage());
+        NormalUser user = NormalUsersLibrary.getInstance().getUserByName(username);
+        if (user != null) {
+            user.getPageChangeInvoker().clearRedoHistory();
+        }
         return new Output(command, message);
     }
     /**
@@ -51,6 +61,75 @@ public final class PageSystemManager implements CommandHandler {
         String message = Subscribe.toString(command.getUsername());
         return new Output(command, message);
     }
+    /**
+     * Performs the next page operation
+     * If user can't go forward anymore nothing is done
+     *
+     * @param command the command that specifies the next page command parameters
+     * @return an {@code Output} object with the command and message
+     * @see commands.normalUser.pageNavigation.ChangePageUser
+     */
+    public static Output performNextPage(final CommandInput command) {
+        String username = command.getUsername();
+        NormalUser user = NormalUsersLibrary.getInstance().getUserByName(username);
+        assert user != null;
+        PageChangeInvoker invoker = user.getPageChangeInvoker();
+        String message = invoker.redoOperation();
+        if (message == null) {
+            message = "There are no pages left to go forward.";
+        }
+        return new Output(command, message);
+    }
+
+    /**
+     * Performs the previous page operation
+     * If user can't go backward anymore nothing is done
+     *
+     * @param command the command that specifies the previous page command parameters
+     * @return an {@code Output} object with the command and message
+     * @see commands.normalUser.pageNavigation.ChangePageUser
+     */
+    public static Output performPreviousPage(final CommandInput command) {
+        String username = command.getUsername();
+        NormalUser user = NormalUsersLibrary.getInstance().getUserByName(username);
+        assert user != null;
+        PageChangeInvoker invoker = user.getPageChangeInvoker();
+        String message = invoker.undoOperation();
+        if (message == null) {
+            message = "There are no pages left to go back.";
+        }
+        return new Output(command, message);
+    }
+
+    /**
+     * Performs update recommendations
+     *
+     * @param command The input command for printing the current page.
+     * @return An Output containing the result of the print operation.
+     */
+    public Output performUpdateRecommendations(final CommandInput command) {
+        // TODO: delete this
+//        if (!app.isOnline()) {
+//            return new PageOutput(command, app.getUserOfflineMessage());
+//        }
+        String username = command.getUsername();
+        NormalUser user = NormalUsersLibrary.getInstance().getUserByName(username);
+        String recommendationType = command.getRecommendationType();
+        String message;
+        if (user == null) {
+            message = "wtf";
+        } else {
+            if (recommendationType.equals("fans_playlist")) {
+                Playlist playlist = Recommendation.fansRecommendations(user);
+                user.addRecommendedPlaylist(playlist);
+            }
+            message = "The recommendations for user "
+                    + username
+                    + " have been updated successfully.";
+        }
+        return new Output(command, message);
+    }
+
 
     @Override
     public Output performCommand(final CommandInput command) {
@@ -58,6 +137,9 @@ public final class PageSystemManager implements CommandHandler {
         return switch (type) {
             case changePage -> performChangePage(command);
             case subscribe -> performSubscribe(command);
+            case nextPage -> performNextPage(command);
+            case previousPage -> performPreviousPage(command);
+            case updateRecommendations -> performUpdateRecommendations(command);
             default -> throw new IllegalStateException("Unexpected command for "
                     + this.getClass().getSimpleName() + ": " + type);
         };

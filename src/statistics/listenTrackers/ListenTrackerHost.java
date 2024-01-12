@@ -60,7 +60,7 @@ public class ListenTrackerHost {
      */
     public HashMap<String, Object> topListensForEach() {
         HashMap<String, Object> result = new LinkedHashMap<>();
-        result.put("topEpisodes", episodesListenTracker.getTopFiveListens());
+        result.put("topEpisodes", episodesListenTracker.getTopFiveListensNames());
         result.put("listeners", fansListenTracker.getSize());
 
         return result;

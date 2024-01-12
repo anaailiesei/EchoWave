@@ -26,6 +26,7 @@ public final class CommandInput {
     private String date;
     private int price;
     private String nextPage;
+    private String recommendationType;
 
     /**
      * Get the filters from the command input
@@ -266,5 +267,13 @@ public final class CommandInput {
 
     public void setNextPage(final String nextPage) {
         this.nextPage = nextPage;
+    }
+
+    public String getRecommendationType() {
+        return recommendationType;
+    }
+
+    public void setRecommendationType(final String recommendationType) {
+        this.recommendationType = recommendationType;
     }
 }

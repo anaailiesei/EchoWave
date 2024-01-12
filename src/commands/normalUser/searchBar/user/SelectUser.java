@@ -1,9 +1,10 @@
 package commands.normalUser.searchBar.user;
 
+import commands.normalUser.pageNavigation.Page;
+import commands.normalUser.pageNavigation.PageType;
 import commands.normalUser.searchBar.Select;
 import libraries.users.NormalUsersLibrary;
 import managers.CheckClass;
-import managers.normalUser.AppManager;
 import managers.normalUser.SearchBarManager;
 import entities.user.Artist;
 import entities.user.Host;
@@ -35,14 +36,14 @@ public final class SelectUser extends Select<User> {
             Artist artist = (Artist) selectedObject;
             artist.incrementPageViewersCount();
             assert user != null;
-            user.getApp().setPage(AppManager.Page.artistPage);
-            user.getApp().setPageOwner(artist.getName());
+            Page page = new Page(PageType.artistPage, artist.getName());
+            user.getApp().setPage(page);
         } else if (selectedObject != null && CheckClass.isHost(selectedObject.getClass())) {
             Host host = (Host) selectedObject;
             host.incrementPageViewersCount();
             assert user != null;
-            user.getApp().setPage(AppManager.Page.hostPage);
-            user.getApp().setPageOwner(host.getName());
+            Page page = new Page(PageType.hostPage, host.getName());
+            user.getApp().setPage(page);
         }
     }
 }

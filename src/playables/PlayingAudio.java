@@ -113,8 +113,8 @@ public final class PlayingAudio<T extends Audio> implements Playing {
                 if (artist != null) {
                     Song song = (Song) playingObject;
                     String albumName = song.getAlbum();
-                    Album album = AlbumsLibrary.getInstance().getAlbumByName(albumName);
-                    artist.getListenTracker().addListenAll(album, song, user);
+                    Album songAlbum = AlbumsLibrary.getInstance().getAlbumByName(albumName);
+                    artist.getListenTracker().addListenAll(songAlbum, song, user);
                 } else if (host != null) {
                     host.getListenTracker().addListenAll((Episode) playingObject, user);
                 }
@@ -127,8 +127,11 @@ public final class PlayingAudio<T extends Audio> implements Playing {
                         (newRemainedTime / duration));
                 if (artist != null) {
                     artist.getListenTracker()
-                            .addListenAll(album, (Song) playingObject, user, newRemainedTime / duration);
-                } if (host != null) {
+                            .addListenAll(album,
+                                    (Song) playingObject,
+                                    user,
+                                    newRemainedTime / duration);
+                } else if (host != null) {
                     host.getListenTracker()
                             .addListenAll((Episode) playingObject, user);
                 }

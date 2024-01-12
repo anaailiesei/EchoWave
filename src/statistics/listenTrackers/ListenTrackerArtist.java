@@ -7,6 +7,7 @@ import libraries.audio.AlbumsLibrary;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 public final class ListenTrackerArtist {
     private final ListenTracker<Album> albumsListenTracker = new ListenTracker<>();
@@ -85,14 +86,26 @@ public final class ListenTrackerArtist {
     public HashMap<String, Object> topListensForEach() {
         HashMap<String, Object> result = new LinkedHashMap<>();
 
-        result.put("topAlbums", albumsListenTracker.getTopFiveListens());
-        result.put("topSongs", songsListenTracker.getTopFiveListens());
-        result.put("topFans", fansListenTracker.getTopFiveListens().keySet().stream().toList());
+        result.put("topAlbums", albumsListenTracker.getTopFiveListensNames());
+        result.put("topSongs", songsListenTracker.getTopFiveListensNames());
+        result.put("topFans", fansListenTracker.getTopFiveListensNames()
+                .keySet()
+                .stream()
+                .toList());
         result.put("listeners", fansListenTracker.getSize());
 
         return result;
     }
 
+    /**
+     * Gets a list with the top fans based on the number of times they listened to this artist
+     *
+     * @return The list with fans (users)
+     * @see NormalUser
+     */
+    public List<NormalUser> topFans() {
+        return fansListenTracker.getTopFiveListens();
+    }
     /**
      * Adds a listen for the following categories: Album, Song and User
      *
@@ -161,7 +174,10 @@ public final class ListenTrackerArtist {
      * @see Song
      * @see NormalUser
      */
-    public void addListenAll(final Album album, final Song song, final NormalUser user, final int count) {
+    public void addListenAll(final Album album,
+                             final Song song,
+                             final NormalUser user,
+                             final int count) {
         addListen(song, count);
         addListen(user, count);
         addListen(album, count);

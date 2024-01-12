@@ -1,16 +1,13 @@
-package commands.normalUser.general;
+package commands.normalUser.pageNavigation;
 
-import libraries.users.ArtistsLibrary;
-import libraries.users.HostsLibrary;
-import libraries.users.NormalUsersLibrary;
-import managers.normalUser.AppManager;
-import entities.user.Artist;
-import entities.user.Host;
 import entities.user.NormalUser;
+import libraries.users.NormalUsersLibrary;
 
 public final class ChangePage {
     private static final String HOME = "Home";
     private static final String LIKED = "LikedContent";
+    private static final String ARTIST = "Artist";
+    private static final String HOST = "Host";
     private static State state;
     private ChangePage() {
     }
@@ -18,30 +15,20 @@ public final class ChangePage {
     /**
      * Execute the change page command
      *
-     * @param username The entities.user that wants to change the page
-     * @param page     The page to be changed
+     * @param username The user that wants to change the page
+     * @param pageName     The page to be changed
      */
-    public static void execute(final String username, final String page) {
-        checkConditions(page);
+    public static void execute(final String username, final String pageName) {
+        checkConditions(pageName);
         if (state.equals(State.noPage)) {
             return;
         }
         NormalUser user = NormalUsersLibrary.getInstance().getUserByName(username);
         assert user != null;
-        AppManager app = user.getApp();
-        String owner = app.getPageOwner();
-        if (app.getPage().equals(AppManager.Page.hostPage)) {
-            Host host = HostsLibrary.getInstance().getHostByName(owner);
-            host.decrementPageViewersCount();
-        } else if (app.getPage().equals(AppManager.Page.artistPage)) {
-            Artist artist = ArtistsLibrary.getInstance().getArtistByName(owner);
-            artist.decrementPageViewersCount();
-        }
-        if (page.equals(HOME)) {
-            app.setPage(AppManager.Page.homePage);
-        } else {
-            app.setPage(AppManager.Page.likedContentPage);
-        }
+        PageChangeInvoker invoker = user.getPageChangeInvoker();
+        ChangePageUser changePage = new ChangePageUser(user, pageName);
+        invoker.executeOperation(changePage);
+        invoker.clearRedoHistory();
     }
 
     /**
@@ -51,7 +38,10 @@ public final class ChangePage {
      * @param page The page to be checked
      */
     private static void checkConditions(final String page) {
-        if (page.equals(HOME) || page.equals(LIKED)) {
+        if (page.equals(HOME)
+                || page.equals(LIKED)
+                || page.equals(HOST)
+                || page.equals(ARTIST)) {
             state = State.successfullyChanged;
         } else {
             state = State.noPage;

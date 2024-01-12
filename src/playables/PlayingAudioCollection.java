@@ -235,8 +235,8 @@ public final class PlayingAudioCollection<T extends Collection<? extends Audio>>
                                 (Song) getPlayingNowObject().getPlayingObject(),
                                 user);
                     } else if (host != null) {
-                        host.getListenTracker().addListenAll((Episode) getPlayingNowObject().getPlayingObject(),
-                                user);
+                        Episode episode = (Episode) getPlayingNowObject().getPlayingObject();
+                        host.getListenTracker().addListenAll(episode, user);
                     }
                 }
             }

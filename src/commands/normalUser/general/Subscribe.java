@@ -7,7 +7,7 @@ import entities.user.User;
 import libraries.users.NormalUsersLibrary;
 import libraries.users.UsersLibrariesStats;
 import managers.normalUser.AppManager;
-import managers.normalUser.AppManager.Page;
+import commands.normalUser.pageNavigation.PageType;
 
 public final class Subscribe {
     private static State state;
@@ -33,14 +33,14 @@ public final class Subscribe {
         assert user != null;
         AppManager app = user.getApp();
         if (state.equals(State.subscribed)) {
-            if (app.getPage().equals(AppManager.Page.hostPage)) {
+            if (app.getPage().equals(PageType.hostPage)) {
                 ((Host) subscribedToUser).addObserver(user);
             } else {
                 ((Artist) subscribedToUser).addObserver(user);
             }
             user.addSubscription(subscribedToUser);
         } else {
-            if (app.getPage().equals(AppManager.Page.hostPage)) {
+            if (app.getPage().equals(PageType.hostPage)) {
                 ((Host) subscribedToUser).removeObserver(user);
             } else {
                 ((Artist) subscribedToUser).removeObserver(user);
@@ -63,8 +63,8 @@ public final class Subscribe {
             return;
         }
         AppManager app = user.getApp();
-        Page page = app.getPage();
-        if (page.equals(Page.homePage) || page.equals(Page.likedContentPage)) {
+        PageType page = app.getPage().pageType();
+        if (page.equals(PageType.homePage) || page.equals(PageType.likedContentPage)) {
             state = State.noPage;
             return;
         }

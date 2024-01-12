@@ -5,6 +5,7 @@ import lombok.Getter;
 
 import java.util.Comparator;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
@@ -50,7 +51,7 @@ public class ListenTracker<E extends Entity> {
      *
      * @return The map
      */
-    public LinkedHashMap<String, Integer> getTopFiveListens() {
+    public LinkedHashMap<String, Integer> getTopFiveListensNames() {
         return listens.entrySet().stream()
                 .sorted(Map.Entry
                         .<E, Integer>comparingByValue()
@@ -60,6 +61,24 @@ public class ListenTracker<E extends Entity> {
                 .collect(Collectors
                         .toMap(entry -> entry.getKey().getName(),
                                 Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
+    }
+
+    /**
+     * Gets an ArrayList with the top five listens for the tracker
+     * (the entity)
+     *
+     * @return The map
+     */
+    public List<E> getTopFiveListens() {
+        return listens.entrySet().stream()
+                .sorted(Map.Entry
+                        .<E, Integer>comparingByValue()
+                        .reversed()
+                        .thenComparing(entry -> entry.getKey().getName()))
+                .limit(NUMBER_TOP_RESULTS)
+                .map(Map.Entry::getKey)
+                .collect(Collectors
+                        .toList());
     }
 
     /**

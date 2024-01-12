@@ -1,5 +1,7 @@
 package managers.normalUser;
 
+import commands.normalUser.pageNavigation.Page;
+import commands.normalUser.pageNavigation.PageType;
 import lombok.Getter;
 import statistics.listenTrackers.ListenTrackerNormalUser;
 
@@ -11,8 +13,7 @@ public final class AppManager {
     private final PlayerManager playerManager = new PlayerManager(this);
     private final SearchBarManager searchBarManager = new SearchBarManager(this);
     private final ListenTrackerNormalUser listenTracker = new ListenTrackerNormalUser();
-    private String pageOwner;
-    private Page page = Page.homePage;
+    private Page page = new Page(PageType.homePage, null);
     private AppStatus status = AppStatus.online;
     private boolean premium;
 
@@ -39,18 +40,19 @@ public final class AppManager {
         this.page = page;
     }
 
-    public void setPageOwner(final String pageOwner) {
-        this.pageOwner = pageOwner;
-    }
-
     public void setPremium(final boolean premium) {
         this.premium = premium;
     }
 
-    public enum Page {
-        homePage, likedContentPage, artistPage, hostPage
+    /**
+     * Gets the page owner of the page the user is at
+     * (returns null if the user is on the home page or liked content page)
+     *
+     * @return The name
+     */
+    public String getPageOwner() {
+        return page.ownerName();
     }
-
     public enum AppStatus {
         online, offline;
 
@@ -58,4 +60,5 @@ public final class AppManager {
             return this == online ? offline : online;
         }
     }
+
 }

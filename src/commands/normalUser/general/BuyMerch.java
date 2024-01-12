@@ -1,5 +1,6 @@
 package commands.normalUser.general;
 
+import commands.normalUser.pageNavigation.PageType;
 import entities.user.Artist;
 import entities.user.NormalUser;
 import libraries.users.ArtistsLibrary;
@@ -45,8 +46,8 @@ public final class BuyMerch {
             return;
         }
         AppManager app = user.getApp();
-        AppManager.Page page = app.getPage();
-        if (!page.equals(AppManager.Page.artistPage)) {
+        PageType page = app.getPage().pageType();
+        if (!page.equals(PageType.artistPage)) {
             state = State.noPage;
             return;
         }

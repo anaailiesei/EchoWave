@@ -1,5 +1,6 @@
 package entities.user;
 
+import commands.normalUser.pageNavigation.PageChangeInvoker;
 import entities.audio.Song;
 import entities.audio.collections.Collection;
 import entities.audio.collections.Playlist;
@@ -45,9 +46,15 @@ public final class NormalUser extends User implements Notifiable {
     private AppManager app;
     @Getter
     private boolean isPremium;
-    private Set<User> subscriptions = new HashSet<>();
+    private final Set<User> subscriptions = new HashSet<>();
     @Getter
     private ArrayList<String> merchandise = new ArrayList<>();
+    @Getter
+    private PageChangeInvoker pageChangeInvoker = new PageChangeInvoker();
+    @Getter
+    private ArrayList<Playlist> playlistRecommendations = new ArrayList<>();
+    @Getter
+    private ArrayList<Song> songsRecommendations = new ArrayList<>();
 
     public NormalUser(final UserInput userInput) {
         super(userInput);
@@ -243,10 +250,17 @@ public final class NormalUser extends User implements Notifiable {
                                 .limit(MAX_SIZE)
                                 .toList())
                 .orElse(List.of());
+        List<String> recommendedSongsNames = songsRecommendations.stream()
+                                .sorted(Comparator.comparingInt(Song::getLikes).reversed())
+                                .map(Song::getName)
+                                .toList();
 
+        List<String> recommendedPlaylistsNames = getPlaylistNames(getPlaylistRecommendations());
         List<String> followedPlaylistsNames = getPlaylistNames(getFollowedPlaylists());
-        return "Liked songs:\n\t" + likedSongsNames + "\n\nFollowed playlists:\n\t"
-                + followedPlaylistsNames;
+        return "Liked songs:\n\t" + likedSongsNames
+                + "\n\nFollowed playlists:\n\t" + followedPlaylistsNames
+                + "\n\nSong recommendations:\n\t" + recommendedSongsNames
+                + "\n\nPlaylists recommendations:\n\t" + recommendedPlaylistsNames;
     }
 
     /**
@@ -362,7 +376,7 @@ public final class NormalUser extends User implements Notifiable {
         if (!app.isOnline()) {
             return new PageOutput(command, app.getUserOfflineMessage());
         }
-        String message = switch (getApp().getPage()) {
+        String message = switch (getApp().getPage().pageType()) {
             case homePage -> printHomePage();
             case artistPage -> printArtistsPage();
             case hostPage -> printHostsPage();
@@ -482,5 +496,14 @@ public final class NormalUser extends User implements Notifiable {
      */
     public void addMerch(final String merchName) {
         merchandise.add(merchName);
+    }
+
+    /**
+     * Adds a playlist in the recommended playlists list
+     *
+     * @param recommendation The recommended playlist
+     */
+    public void addRecommendedPlaylist(final Playlist recommendation) {
+        playlistRecommendations.add(recommendation);
     }
 }

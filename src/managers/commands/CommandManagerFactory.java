@@ -40,7 +40,7 @@ public final class CommandManagerFactory {
                     -> ArtistCommandManager.getInstance();
             case switchConnectionStatus
                     -> ConnectionStatusManager.getInstance();
-            case changePage, subscribe
+            case changePage, subscribe, previousPage, nextPage, updateRecommendations
                     -> PageSystemManager.getInstance();
             case addAnnouncement, addPodcast, removeAnnouncement,
                     removePodcast
@@ -48,9 +48,9 @@ public final class CommandManagerFactory {
             case wrapped -> UserCommandManager.getInstance();
             case getNotifications -> NotificationsManager.getInstance();
             case buyMerch, seeMerch -> PurchaseManager.getInstance();
-            case updateRecommendations, previousPage, topAlbums, listeners,
+            case topAlbums, listeners,
                     topSongs, topFans, topEpisodes, songRevenue, merchRevenue, ranking,
-                    mostProfitableSong, loadRecommendations, nextPage -> null;
+                    mostProfitableSong, loadRecommendations -> null;
             default -> {
                 NormalUser user = NormalUsersLibrary.getInstance().getUserByName(username);
                 assert user != null;

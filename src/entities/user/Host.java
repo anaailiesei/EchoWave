@@ -6,7 +6,6 @@ import lombok.Getter;
 import notifications.Notifiable;
 import notifications.Notifier;
 import profile.host.Announcement;
-import statistics.listenTrackers.ListenTrackerArtist;
 import statistics.listenTrackers.ListenTrackerHost;
 
 import java.util.ArrayList;

@@ -18,4 +18,22 @@ public abstract class ActionCommand {
     public String getMessage() {
         return message;
     }
+
+    /**
+     * Executes the command
+     */
+    public void execute() {
+    }
+
+    /**
+     * Undo the command
+     */
+    public void undo() {
+    }
+
+    /**
+     * Redo the command
+     */
+    public void redo() {
+    }
 }
