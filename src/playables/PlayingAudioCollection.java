@@ -1,14 +1,17 @@
 package playables;
 
 import entities.audio.Audio;
+import entities.audio.Episode;
 import entities.audio.Song;
 import entities.audio.collections.Album;
 import entities.audio.collections.Collection;
 import commands.normalUser.player.RepeatType;
 import commands.normalUser.player.StatusFields;
+import entities.user.Host;
 import libraries.users.ArtistsLibrary;
 import entities.user.Artist;
 import entities.user.NormalUser;
+import libraries.users.HostsLibrary;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +28,8 @@ public final class PlayingAudioCollection<T extends Collection<? extends Audio>>
     private boolean finished = false;
     private final NormalUser user;
     private final Artist artist;
+    private final Host host;
+
 
     public PlayingAudioCollection(final Collection<? extends Audio> collection,
                                   final NormalUser user) {
@@ -35,6 +40,7 @@ public final class PlayingAudioCollection<T extends Collection<? extends Audio>>
         }
         this.user = user;
         artist = ArtistsLibrary.getInstance().getArtistByName(collection.getOwner());
+        host = HostsLibrary.getInstance().getHostByName(collection.getOwner());
     }
 
     /**
@@ -227,6 +233,9 @@ public final class PlayingAudioCollection<T extends Collection<? extends Audio>>
                     if (artist != null) {
                         artist.getListenTracker().addListenAll((Album) playingCollection,
                                 (Song) getPlayingNowObject().getPlayingObject(),
+                                user);
+                    } else if (host != null) {
+                        host.getListenTracker().addListenAll((Episode) getPlayingNowObject().getPlayingObject(),
                                 user);
                     }
                 }

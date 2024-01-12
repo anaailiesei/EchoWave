@@ -6,6 +6,8 @@ import lombok.Getter;
 import notifications.Notifiable;
 import notifications.Notifier;
 import profile.host.Announcement;
+import statistics.listenTrackers.ListenTrackerArtist;
+import statistics.listenTrackers.ListenTrackerHost;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,6 +18,8 @@ public final class Host extends User implements Notifier {
     private final LinkedHashSet<Podcast> podcasts = new LinkedHashSet<>();
     @Getter
     private final LinkedHashSet<Announcement> announcements = new LinkedHashSet<>();
+    @Getter
+    private final ListenTrackerHost listenTracker = new ListenTrackerHost();
     private final ArrayList<Notifiable> subscribers = new ArrayList<>();
     private int pageViewersCount = 0;
 
@@ -152,7 +156,7 @@ public final class Host extends User implements Notifier {
 
     @Override
     public HashMap<String, Object> wrapped() {
-        return new HashMap<>();
+        return listenTracker.topListensForEach();
     }
 
     @Override

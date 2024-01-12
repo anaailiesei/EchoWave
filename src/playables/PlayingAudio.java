@@ -1,12 +1,17 @@
 package playables;
 
 import entities.audio.Audio;
+import entities.audio.Episode;
 import entities.audio.Song;
 import commands.normalUser.player.RepeatType;
 import commands.normalUser.player.StatusFields;
+import entities.audio.collections.Album;
+import entities.user.Host;
+import libraries.audio.AlbumsLibrary;
 import libraries.users.ArtistsLibrary;
 import entities.user.Artist;
 import entities.user.NormalUser;
+import libraries.users.HostsLibrary;
 import lombok.Getter;
 
 import java.util.LinkedHashMap;
@@ -22,13 +27,25 @@ public final class PlayingAudio<T extends Audio> implements Playing {
      */
     @Getter
     private Map<StatusFields, Object> stats;
-    private Artist artist;
+    private final Artist artist;
+    private final Host host;
     private NormalUser user;
+    private final Album album;
     public PlayingAudio(final T playingObject, final NormalUser user) {
         setPlayingObject(playingObject);
         initStatsDefault();
         this.user = user;
         this.artist = ArtistsLibrary.getInstance().getArtistByName(playingObject.getOwner());
+        if (artist != null) {
+            Song song = (Song) playingObject;
+            String albumName = song.getAlbum();
+            // TODO: problem with method get album by name, as there can be duplicate albums!
+            // TODO: better use a method like get album by name adn username!
+            album = AlbumsLibrary.getInstance().getAlbumByName(albumName);
+        } else {
+            album = null;
+        }
+        this.host = HostsLibrary.getInstance().getHostByName(playingObject.getOwner());
     }
 
     /**
@@ -94,7 +111,12 @@ public final class PlayingAudio<T extends Audio> implements Playing {
                 // TODO: this doesnt add the album
                 playingObject.addListen(user.getApp().getListenTracker());
                 if (artist != null) {
-                    artist.getListenTracker().addListenAll((Song) playingObject, user);
+                    Song song = (Song) playingObject;
+                    String albumName = song.getAlbum();
+                    Album album = AlbumsLibrary.getInstance().getAlbumByName(albumName);
+                    artist.getListenTracker().addListenAll(album, song, user);
+                } else if (host != null) {
+                    host.getListenTracker().addListenAll((Episode) playingObject, user);
                 }
             }
         } else if (getRepeatValue().equals(RepeatType.repeatInfinite.getValue())
@@ -105,7 +127,10 @@ public final class PlayingAudio<T extends Audio> implements Playing {
                         (newRemainedTime / duration));
                 if (artist != null) {
                     artist.getListenTracker()
-                            .addListenAll((Song) playingObject, user, newRemainedTime / duration);
+                            .addListenAll(album, (Song) playingObject, user, newRemainedTime / duration);
+                } if (host != null) {
+                    host.getListenTracker()
+                            .addListenAll((Episode) playingObject, user);
                 }
                 newRemainedTime = (newRemainedTime % duration + duration) % duration;
 

@@ -150,7 +150,22 @@ public final class ListenTrackerArtist {
         addListen(song, count);
         addListen(user, count);
     }
-// TODO: Must check if he has made merch revenue
+
+    /**
+     * Adds the specified number of listens for the following categories: Album, Song and User
+     *
+     * @param song  The song for which we add a listen
+     * @param user  The user for which we add a listen
+     * @param album The album for which we add a listen
+     * @param count The number of listens we add
+     * @see Song
+     * @see NormalUser
+     */
+    public void addListenAll(final Album album, final Song song, final NormalUser user, final int count) {
+        addListen(song, count);
+        addListen(user, count);
+        addListen(album, count);
+    }
 
     /**
      * Check if the artist was listened

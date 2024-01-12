@@ -1,12 +1,15 @@
 package commands.normalUser.player;
 
 import entities.audio.Audio;
+import entities.audio.Episode;
 import entities.audio.Song;
 import entities.audio.collections.Album;
 import entities.audio.collections.Collection;
 import commands.ActionCommand;
 import commands.normalUser.searchBar.audio.SelectAudio;
+import entities.user.Host;
 import libraries.users.ArtistsLibrary;
+import libraries.users.HostsLibrary;
 import lombok.Getter;
 import managers.CheckClass;
 import managers.normalUser.PlayerManager;
@@ -15,6 +18,7 @@ import managers.normalUser.SearchBarManager;
 import playables.PlayingAudio;
 import playables.PlayingAudioCollection;
 import statistics.listenTrackers.ListenTrackerArtist;
+import statistics.listenTrackers.ListenTrackerHost;
 import statistics.listenTrackers.ListenTrackerNormalUser;
 import entities.user.Artist;
 import entities.user.NormalUser;
@@ -91,6 +95,7 @@ public final class LoadAudio extends ActionCommand {
                 Audio playingAudio = playingCollection.getPlayingNowObject().getPlayingObject();
 
                 // TODO: add listends here
+                // TODO: this is so ugly...
                 playingCollection.getPlayingCollection().addListen(listenTracker);
                 playingAudio.addListen(listenTracker);
 
@@ -103,12 +108,21 @@ public final class LoadAudio extends ActionCommand {
                             (Song) playingAudio,
                             user);
                 }
+                Host host = HostsLibrary.getInstance()
+                        .getHostByName(playingCollection.getPlayingCollection().getOwner());
+                if (host != null) {
+                    ListenTrackerHost listenTrackerHost = host.getListenTracker();
+                    listenTrackerHost
+                            .addListenAll((Episode) playingAudio,
+                                    user);
+                }
             } else {
                 playerManager.setPlayingCollection(null);
                 PlayingAudio<?> playingAudio = new PlayingAudio<>(selectedObject, user);
                 playerManager.setPlayingAudio(playingAudio);
 
                 // TODO: add listens here
+                // TODO: this is so ugly...
                 playingAudio.getPlayingObject().addListen(listenTracker);
                 Artist artist = ArtistsLibrary.getInstance()
                         .getArtistByName(playingAudio.getPlayingObject().getOwner());
@@ -119,6 +133,14 @@ public final class LoadAudio extends ActionCommand {
                             (Song) playingAudio.getPlayingObject(),
                             user);
                     user.getApp().getListenTracker().addListen(albumName);
+                }
+                Host host = HostsLibrary.getInstance()
+                        .getHostByName(playingAudio.getPlayingObject().getOwner());
+                if (host != null) {
+                    ListenTrackerHost listenTrackerHost = host.getListenTracker();
+                    listenTrackerHost
+                            .addListenAll((Episode) playingAudio.getPlayingObject(),
+                                    user);
                 }
             }
             playerManager.getPlayingAudio().resume();
