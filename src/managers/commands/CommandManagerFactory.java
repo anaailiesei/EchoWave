@@ -50,7 +50,7 @@ public final class CommandManagerFactory {
             case buyMerch, seeMerch -> PurchaseManager.getInstance();
             case topAlbums, listeners,
                     topSongs, topFans, topEpisodes, songRevenue, merchRevenue, ranking,
-                    mostProfitableSong, loadRecommendations -> null;
+                    mostProfitableSong -> null;
             default -> {
                 NormalUser user = NormalUsersLibrary.getInstance().getUserByName(username);
                 assert user != null;
@@ -59,7 +59,7 @@ public final class CommandManagerFactory {
                     case search, select
                             -> app.getSearchBarManager();
                     case addRemoveInPlaylist, backward, forward, like, load, next, prev,
-                            repeat, status, shuffle, playPause, switchVisibility
+                            repeat, status, shuffle, playPause, switchVisibility, loadRecommendations
                             -> app.getPlayerManager();
                     case createPlaylist, showPlaylists, follow, showPreferredSongs
                             -> app.getPlaylistManager();

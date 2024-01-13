@@ -52,8 +52,8 @@ public final class ChangePageUser extends ActionCommand {
             page = new Page(PageType.artistPage, artistName);
         } else if (pageName.equals(HOST)) {
             String hostName = user.getApp().getPlayerManager()
-                    .getPlayingAudio()
-                    .getPlayingObject()
+                    .getPlayingCollection()
+                    .getPlayingCollection()
                     .getOwner();
             Host host = HostsLibrary.getInstance().getHostByName(hostName);
             if (host == null) {

@@ -1,5 +1,6 @@
 package commands.normalUser.player;
 
+import commands.ActionCommand;
 import commands.normalUser.searchBar.audio.SelectAudio;
 import entities.audio.Audio;
 import entities.audio.collections.Collection;
@@ -10,13 +11,9 @@ import managers.normalUser.PlayerManager;
 import managers.normalUser.SearchBarManager;
 import statistics.listenTrackers.ListenTrackerNormalUser;
 
-/**
- * Implements the load operation
- */
-public final class LoadAudio extends Load {
-    private final SelectAudio select;
+public class LoadRecommendation extends Load {
+    private NormalUser user;
     private final PlayerManager playerManager;
-    private final SearchBarManager searchBarManager;
     /**
      * -- GETTER --
      *  Checks if source was successfully loaded
@@ -24,50 +21,42 @@ public final class LoadAudio extends Load {
     @Getter
     private boolean successfullyLoaded = false;
 
-    public LoadAudio(final PlayerManager playerManager,
+    public LoadRecommendation(final PlayerManager playerManager,
                      final SearchBarManager searchBarManager,
                      final Shuffle shuffle,
-                     final SelectAudio selectAudio,
                      final ListenTrackerNormalUser listenTracker) {
         super(playerManager,
                 shuffle,
                 listenTracker);
-        this.searchBarManager = searchBarManager;
-        this.select = selectAudio;
         this.playerManager = playerManager;
     }
 
     /**
-     * Sets the entities.user for the load operation
+     * Sets the user for the load operation
      *
-     * @param newUser The entities.user to be set
+     * @param newUser The user to be set
      * @return the current instance
      * @see NormalUser
      */
-    public LoadAudio setUser(final NormalUser newUser) {
+    public LoadRecommendation setUser(final NormalUser newUser) {
         super.setUser(newUser);
+        this.user = newUser;
         return this;
     }
 
     /**
      * Executes the load operation if the source was selected
      */
-    @Override
     public void execute() {
-        Audio selectedObject = select.getSelectedObject();
-        if (!searchBarManager.getStatus().equals(SearchBarManager.SearchBarStatus.selecting)) {
-            successfullyLoaded = false;
-            super.setMessage(toString());
-            return;
-        }
+        Audio selectedObject = user.getLastRecommendation();
         successfullyLoaded = super.execute(selectedObject);
-        super.setMessage(toString());
+        setMessage(toString());
     }
 
     @Override
     public String toString() {
         if (!successfullyLoaded) {
-            return "Please select a source before attempting to load.";
+            return "No recommendations available.";
         } else if (CheckClass.extendsCollection(playerManager.getLoadedObject().getClass())) {
             Collection<?> loadedCollection = (Collection<?>) playerManager
                     .getLoadedObject();

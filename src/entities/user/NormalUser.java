@@ -1,6 +1,7 @@
 package entities.user;
 
 import commands.normalUser.pageNavigation.PageChangeInvoker;
+import entities.audio.Audio;
 import entities.audio.Song;
 import entities.audio.collections.Collection;
 import entities.audio.collections.Playlist;
@@ -24,6 +25,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -55,7 +57,8 @@ public final class NormalUser extends User implements Notifiable {
     private ArrayList<Playlist> playlistRecommendations = new ArrayList<>();
     @Getter
     private ArrayList<Song> songsRecommendations = new ArrayList<>();
-
+    @Getter
+    private Audio lastRecommendation;
     public NormalUser(final UserInput userInput) {
         super(userInput);
     }
@@ -505,6 +508,7 @@ public final class NormalUser extends User implements Notifiable {
      */
     public void addRecommendedPlaylist(final Playlist recommendation) {
         playlistRecommendations.add(recommendation);
+        setLastRecommendation(recommendation);
     }
     /**
      * Adds a song in the recommended songs list
@@ -513,5 +517,10 @@ public final class NormalUser extends User implements Notifiable {
      */
     public void addRecommendedSong(final Song recommendation) {
         songsRecommendations.add(recommendation);
+        setLastRecommendation(recommendation);
+    }
+
+    public void setLastRecommendation(Audio lastRecommendation) {
+        this.lastRecommendation = lastRecommendation;
     }
 }

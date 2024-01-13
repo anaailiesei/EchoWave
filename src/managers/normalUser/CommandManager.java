@@ -5,6 +5,7 @@ import commands.normalUser.player.Backward;
 import commands.normalUser.player.Forward;
 import commands.normalUser.player.Like;
 import commands.normalUser.player.LoadAudio;
+import commands.normalUser.player.LoadRecommendation;
 import commands.normalUser.player.Next;
 import commands.normalUser.player.PlayPause;
 import commands.normalUser.player.Prev;
@@ -37,6 +38,7 @@ public final class CommandManager {
     private SelectAudio selectAudio = null;
     private SearchUser searchUser = null;
     private SelectUser selectUser = null;
+    private LoadRecommendation loadRecommendation = null;
 
     public CommandManager(final AppManager parentApp) {
         this.app = parentApp;
@@ -265,5 +267,21 @@ public final class CommandManager {
             selectUser = new SelectUser(app.getSearchBarManager());
         }
         return selectUser;
+    }
+
+    /**
+     * Get an instance for {@code Load} for the last recommendation
+     *
+     * @return the {@code Load} instance
+     * @see LoadRecommendation
+     */
+    public synchronized LoadRecommendation getLoadRecommendation() {
+        if (loadRecommendation == null) {
+            loadRecommendation = new LoadRecommendation(app.getPlayerManager(),
+                    app.getSearchBarManager(),
+                    getShuffle(),
+                    app.getListenTracker());
+        }
+        return loadRecommendation;
     }
 }

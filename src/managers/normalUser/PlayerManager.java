@@ -1,11 +1,14 @@
 package managers.normalUser;
 
+import commands.ActionCommand;
 import commands.CommandType;
 import commands.normalUser.player.AddRemoveInPlaylist;
 import commands.normalUser.player.Backward;
 import commands.normalUser.player.Forward;
 import commands.normalUser.player.Like;
+import commands.normalUser.player.Load;
 import commands.normalUser.player.LoadAudio;
+import commands.normalUser.player.LoadRecommendation;
 import commands.normalUser.player.Next;
 import commands.normalUser.player.PlayPause;
 import commands.normalUser.player.Prev;
@@ -193,6 +196,33 @@ public final class PlayerManager implements TimeChangeListener, CommandHandler {
     public Output performLoad(final CommandInput command) {
         LoadAudio load = commandManager.getLoad();
         NormalUser user = NormalUsersLibrary.getInstance().getUserByName(command.getUsername());
+        loadHelper(load, user);
+        String message = load.getMessage();
+        return new Output(command, message);
+    }
+
+    /**
+     * Perform the load recommendation operation
+     *
+     * @param command the command that specifies the load recommendation command parameters
+     * @return an {@code Output} object with the command and message info
+     * @see LoadAudio
+     */
+    public Output performLoadRecommendation(final CommandInput command) {
+        LoadRecommendation load = commandManager.getLoadRecommendation();
+        NormalUser user = NormalUsersLibrary.getInstance().getUserByName(command.getUsername());
+        loadHelper(load, user);
+        String message = load.getMessage();
+        return new Output(command, message);
+    }
+
+    /**
+     * Helps with load execution (either load audio or load recommendation, based on the given argument)
+     *
+     * @param load The load instance to use for loading
+     * @param user The user for which the load is performed
+     */
+    private void loadHelper(final Load load, NormalUser user) {
         if (playingAudio != null) {
             decrementLoadedCountForAudio();
             if (playingCollection != null) {
@@ -215,8 +245,6 @@ public final class PlayerManager implements TimeChangeListener, CommandHandler {
             incrementLoadedCountForCollection();
         }
         incrementLoadedCountForAudio();
-        String message = load.getMessage();
-        return new Output(command, message);
     }
 
     /**
@@ -513,6 +541,7 @@ public final class PlayerManager implements TimeChangeListener, CommandHandler {
             case forward -> performForward(command);
             case backward -> performBackward(command);
             case switchVisibility -> performSwitchVisibility(command);
+            case loadRecommendations -> performLoadRecommendation(command);
             default -> throw new IllegalStateException("Unexpected command for "
                     + this.getClass().getSimpleName() + ": " + commandType);
         };
