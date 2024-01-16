@@ -42,7 +42,6 @@ public final class Recommendation {
      * @return A playlist with the recommended songs
      */
     public static Playlist fansRecommendations(final NormalUser user) {
-        // TODO: make it so this doesnt have duplicates
         String artistName = user.getApp()
                 .getPlayerManager()
                 .getPlayingAudio()
@@ -59,6 +58,7 @@ public final class Recommendation {
             List<Song> likedSongs = liked.map(likedObj ->
                             likedObj.getCollection().stream()
                                     .sorted(Comparator.comparingInt(Song::getLikes).reversed())
+                                    .filter(song -> !fansPlaylist.contains(song.getName()))
                                     .limit(FAN_SONGS_COUNT)
                                     .toList())
                     .orElse(List.of());
@@ -204,8 +204,6 @@ public final class Recommendation {
         ArrayList<Song> songsForGenre = filterSongs.byGenre(genre).getFilteredObjects();
 
         Random random = new Random(elapsedTime);
-        // TODO: What if this is only for songs with
-        //  unique name aka u need a list where song names dont repeat
         int index = random.nextInt(songsForGenre.size());
         return songsForGenre.get(index);
     }

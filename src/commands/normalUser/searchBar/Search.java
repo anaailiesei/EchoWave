@@ -34,7 +34,6 @@ public abstract class Search<E> extends ActionCommand {
         initSearchTypeFilter();
         searchResults = new ArrayList<>();
         Filter<? extends E> filter = searchTypeFilter.get(searchType);
-        // TODO: fix this shit
         for (Map.Entry<Filters, Object> filter2 : filters.entrySet()) {
             Filters key = filter2.getKey();
             if (key == null) {

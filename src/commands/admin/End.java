@@ -1,11 +1,12 @@
 package commands.admin;
 
+import entities.user.Artist;
 import entities.user.NormalUser;
 import fileio.output.Output;
 import libraries.users.ArtistsLibrary;
-import entities.user.Artist;
 import libraries.users.NormalUsersLibrary;
 import statistics.calculator.ArtistCalculateRevenue;
+import statistics.calculator.FreeSongCalculateRevenue;
 import statistics.calculator.PremiumSongCalculateRevenue;
 import statistics.calculator.RevenueCalculator;
 
@@ -30,6 +31,11 @@ public final class End {
         ArrayList<NormalUser> users = NormalUsersLibrary.getInstance().getItems();
         for (NormalUser user : users) {
             calculator.calculateRevenue(new PremiumSongCalculateRevenue(user));
+            int adPrice = user.getApp().getPlayerManager().getAdPrice();
+            if (adPrice > 0) {
+                calculator.calculateRevenue(new FreeSongCalculateRevenue(user.getFreeSongs(),
+                        adPrice));
+            }
         }
 
         ArrayList<Artist> artists = ArtistsLibrary.getInstance().getItems();

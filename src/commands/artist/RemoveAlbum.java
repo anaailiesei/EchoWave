@@ -4,6 +4,8 @@ import entities.audio.collections.Album;
 import libraries.users.ArtistsLibrary;
 import libraries.users.UsersLibrariesStats;
 import entities.user.Artist;
+import statistics.calculator.ArtistCalculateRevenueAlbum;
+import statistics.calculator.RevenueCalculator;
 
 public final class RemoveAlbum {
     private static State state;
@@ -25,6 +27,8 @@ public final class RemoveAlbum {
             return;
         }
         Album album = artist.getAlbumByName(albumName);
+        RevenueCalculator calculator = new RevenueCalculator();
+        calculator.calculateRevenue(new ArtistCalculateRevenueAlbum(artist, album));
         artist.removeAlbum(album);
     }
 

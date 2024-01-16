@@ -1,7 +1,5 @@
 package commands.normalUser.player;
 
-import commands.ActionCommand;
-import commands.normalUser.searchBar.audio.SelectAudio;
 import entities.audio.Audio;
 import entities.audio.collections.Collection;
 import entities.user.NormalUser;
@@ -11,7 +9,7 @@ import managers.normalUser.PlayerManager;
 import managers.normalUser.SearchBarManager;
 import statistics.listenTrackers.ListenTrackerNormalUser;
 
-public class LoadRecommendation extends Load {
+public final class LoadRecommendation extends Load {
     private NormalUser user;
     private final PlayerManager playerManager;
     /**

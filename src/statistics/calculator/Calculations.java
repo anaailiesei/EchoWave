@@ -1,6 +1,9 @@
 package statistics.calculator;
 
 import entities.audio.Song;
+import entities.user.Artist;
+import libraries.audio.SongsLibrary;
+import libraries.users.ArtistsLibrary;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -24,8 +27,12 @@ public final class Calculations {
         for (Map.Entry<Song, Integer> entry : songs.entrySet()) {
             Song song = entry.getKey();
             Integer listens = entry.getValue();
-
             double revenue = revenueForSong(totalValue, totalListens, listens);
+            if (!SongsLibrary.getInstance().getItems().contains(song)) {
+                String owner = song.getOwner();
+                Artist artist = ArtistsLibrary.getInstance().getArtistByName(owner);
+                artist.addSongRevenue(revenue);
+            }
             song.addRevenue(revenue);
         }
     }

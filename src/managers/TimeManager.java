@@ -1,5 +1,7 @@
 package managers;
 
+import lombok.Getter;
+
 import java.util.ArrayList;
 
 /**
@@ -7,6 +9,7 @@ import java.util.ArrayList;
  */
 public final class TimeManager {
     private static TimeManager instance = null;
+    @Getter
     private int currentTime = 0;
     private final ArrayList<TimeChangeListener> timeChangeListeners = new ArrayList<>();
 

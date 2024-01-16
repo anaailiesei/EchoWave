@@ -1,9 +1,9 @@
 package entities.audio;
 
+import entities.user.NormalUser;
 import fileio.input.SongInput;
 import lombok.Getter;
 import statistics.listenTrackers.ListenTrackerNormalUser;
-import entities.user.NormalUser;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -315,5 +315,15 @@ public final class Song implements Audio {
      */
     public void addRevenue(final double amount) {
         revenue += amount;
+    }
+
+    /**
+     * checks if this song is equal to the song given asa  parameter
+     * @param song The song to check for equality
+     *
+     * @return {@code true} it the songs are equal, {@code false} otherwise
+     */
+    public boolean equals(final Song song) {
+        return song.getName().equals(getName());
     }
 }

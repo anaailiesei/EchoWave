@@ -1,6 +1,5 @@
 package managers.normalUser;
 
-import commands.ActionCommand;
 import commands.CommandType;
 import commands.normalUser.player.AddRemoveInPlaylist;
 import commands.normalUser.player.Backward;
@@ -51,6 +50,7 @@ public final class PlayerManager implements TimeChangeListener, CommandHandler {
     private final int adDuration = SongsLibrary.getAdDuration();
     private final RevenueCalculator calculator;
     private boolean adBreak = false;
+    @Getter
     private Integer adPrice = 0;
     private int adRemainedTime = 0;
     /**
@@ -100,17 +100,7 @@ public final class PlayerManager implements TimeChangeListener, CommandHandler {
             return;
         }
 
-        // TODO: this is shitty, change this cus on corner cases it will fail
         onTimeChangedHelper(remainedTime - 1);
-
-//        if (getPlayingAudio() != null) {
-//            stats = getPlayingAudio().getStats();
-//            int newRemainedTime = (int) stats.get(StatusFields.remainedTime);
-//            if (newRemainedTime > timeDifference - remainedTime + 1 && newRemainedTime != 0) {
-//                onTimeChanged(timeDifference - remainedTime);
-//            }
-//        }
-
         if (adRemainedTime == adDuration) {
             TreeMap<Song, Integer> freeSongs = app.getListenTracker().getFreeSongs();
             calculator.calculateRevenue(new FreeSongCalculateRevenue(freeSongs, adPrice));
@@ -217,12 +207,13 @@ public final class PlayerManager implements TimeChangeListener, CommandHandler {
     }
 
     /**
-     * Helps with load execution (either load audio or load recommendation, based on the given argument)
+     * Helps with load execution
+     * (either load audio or load recommendation, based on the given argument)
      *
      * @param load The load instance to use for loading
      * @param user The user for which the load is performed
      */
-    private void loadHelper(final Load load, NormalUser user) {
+    private void loadHelper(final Load load, final NormalUser user) {
         if (playingAudio != null) {
             decrementLoadedCountForAudio();
             if (playingCollection != null) {

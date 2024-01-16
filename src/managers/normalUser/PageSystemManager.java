@@ -7,9 +7,11 @@ import commands.normalUser.pageNavigation.PageChangeInvoker;
 import entities.audio.Song;
 import entities.audio.collections.Playlist;
 import entities.user.NormalUser;
+import entities.user.User;
 import fileio.input.CommandInput;
 import fileio.output.Output;
 import libraries.users.NormalUsersLibrary;
+import libraries.users.UsersLibrariesStats;
 import managers.commands.CommandHandler;
 import recommendation.Recommendation;
 
@@ -111,31 +113,44 @@ public final class PageSystemManager implements CommandHandler {
      * @return An Output containing the result of the print operation.
      */
     public Output performUpdateRecommendations(final CommandInput command) {
-        // TODO: delete this
-//        if (!app.isOnline()) {
-//            return new PageOutput(command, app.getUserOfflineMessage());
-//        }
         String username = command.getUsername();
-        NormalUser user = NormalUsersLibrary.getInstance().getUserByName(username);
-        String recommendationType = command.getRecommendationType();
+        User user = UsersLibrariesStats.getUserByName(username);
         String message;
+
         if (user == null) {
-            message = "wtf";
+            message = "The username " + username + " doesn't exist.";
             return new Output(command, message);
         }
+
+        NormalUser normalUser = NormalUsersLibrary.getInstance().getUserByName(username);
+
+        if (normalUser == null) {
+            message = username + " is not a normal user.";
+            return new Output(command, message);
+        }
+
+        String recommendationType = command.getRecommendationType();
         switch (recommendationType) {
             case "fans_playlist" -> {
-                Playlist playlist = Recommendation.fansRecommendations(user);
-                user.addRecommendedPlaylist(playlist);
+                Playlist playlist = Recommendation.fansRecommendations(normalUser);
+                normalUser.addRecommendedPlaylist(playlist);
+                if (playlist.getCollection().isEmpty()) {
+                    message = "No new recommendations were found";
+                    return new Output(command, message);
+                }
             }
             case "random_playlist" -> {
-                Playlist playlist = Recommendation.randomPlaylist(user);
-                user.addRecommendedPlaylist(playlist);
+                Playlist playlist = Recommendation.randomPlaylist(normalUser);
+                if (playlist.getCollection().isEmpty()) {
+                    message = "No new recommendations were found";
+                    return new Output(command, message);
+                }
+                normalUser.addRecommendedPlaylist(playlist);
             }
             case "random_song" -> {
-                Song song = Recommendation.randomSong(user);
+                Song song = Recommendation.randomSong(normalUser);
                 if (song != null) {
-                    user.addRecommendedSong(song);
+                    normalUser.addRecommendedSong(song);
                 }
             }
             default -> {

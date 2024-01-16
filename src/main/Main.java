@@ -81,15 +81,8 @@ public final class Main {
                 action(file.getName(), filepath);
             }
         }
-        // test00_etapa3_wrapped_one_user_one_artist.json
-        // test01_etapa3_wrapped_one_user_n_artist.json
-        // test04_etapa3_monetization_premium.json
-        // test05_etapa3_monetization_free.json
-        // test07_etapa3_notifications_simple.json
 
-
-
-//        String fileName = "test14_etapa3_page_navigation.json";
+//        String fileName = "test15_etapa3_complex.json";
 //        String filepath = CheckerConstants.OUT_PATH + fileName;
 //        File out = new File(filepath);
 //        boolean isCreated = out.createNewFile();

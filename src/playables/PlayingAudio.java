@@ -39,8 +39,6 @@ public final class PlayingAudio<T extends Audio> implements Playing {
         if (artist != null) {
             Song song = (Song) playingObject;
             String albumName = song.getAlbum();
-            // TODO: problem with method get album by name, as there can be duplicate albums!
-            // TODO: better use a method like get album by name adn username!
             album = AlbumsLibrary.getInstance().getAlbumByName(albumName);
         } else {
             album = null;
@@ -108,7 +106,6 @@ public final class PlayingAudio<T extends Audio> implements Playing {
                 newRemainedTime = Math.max(newRemainedTime + duration, 0);
                 setRepeatValue(RepeatType.noRepeat);
 
-                // TODO: this doesnt add the album
                 playingObject.addListen(user.getApp().getListenTracker());
                 if (artist != null) {
                     Song song = (Song) playingObject;
@@ -122,7 +119,7 @@ public final class PlayingAudio<T extends Audio> implements Playing {
         } else if (getRepeatValue().equals(RepeatType.repeatInfinite.getValue())
                 || getRepeatValue().equals(RepeatType.repeatCurrent.getValue())) {
             if (newRemainedTime < 0) {
-                // TODO: this doesnt add the album
+
                 playingObject.addListen(user.getApp().getListenTracker(),
                         (newRemainedTime / duration));
                 if (artist != null) {

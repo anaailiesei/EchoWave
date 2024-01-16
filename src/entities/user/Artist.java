@@ -3,6 +3,7 @@ package entities.user;
 import entities.audio.collections.Album;
 import fileio.input.UserInput;
 import libraries.audio.AlbumsLibrary;
+import libraries.audio.SongsLibrary;
 import lombok.Getter;
 import notifications.Notifiable;
 import notifications.Notifier;
@@ -121,6 +122,7 @@ public final class Artist extends User implements Notifier {
      */
     public void removeAlbum(final Album album) {
         album.removeAllLikes();
+        SongsLibrary.getInstance().removeSongsFromAlbum(album);
         AlbumsLibrary.getInstance().removeAlbum(album);
         albums.remove(album);
     }

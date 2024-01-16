@@ -15,7 +15,6 @@ import lombok.Getter;
 import managers.CheckClass;
 import managers.normalUser.PlayerManager;
 import managers.normalUser.ProgressManager;
-import managers.normalUser.SearchBarManager;
 import playables.PlayingAudio;
 import playables.PlayingAudioCollection;
 import statistics.listenTrackers.ListenTrackerArtist;
@@ -65,11 +64,6 @@ public class Load extends ActionCommand {
             if (CheckClass.extendsCollection(selection.getClass())) {
                 PlayingAudioCollection<? extends Collection<? extends Audio>> playingCollection =
                         progressManager.findInProgressCollections(selection);
-                // TODO: remove this
-//                if (playingCollection.isFinished()) {
-//                    playingCollection.replay(0);
-//                    playingCollection.setShuffleFalse();
-//                }
                 if (playingCollection == null) {
                     Collection<? extends Audio> selectedCollection
                             = (Collection<? extends Audio>) selection;
@@ -80,8 +74,6 @@ public class Load extends ActionCommand {
                 playerManager.setPlayingAudio(playingCollection.getPlayingNowObject());
                 Audio playingAudio = playingCollection.getPlayingNowObject().getPlayingObject();
 
-                // TODO: add listends here
-                // TODO: this is so ugly...
                 playingCollection.getPlayingCollection().addListen(listenTracker);
                 playingAudio.addListen(listenTracker);
 
@@ -106,9 +98,6 @@ public class Load extends ActionCommand {
                 playerManager.setPlayingCollection(null);
                 PlayingAudio<?> playingAudio = new PlayingAudio<>(selection, user);
                 playerManager.setPlayingAudio(playingAudio);
-
-                // TODO: add listens here
-                // TODO: this is so ugly...
                 playingAudio.getPlayingObject().addListen(listenTracker);
                 Artist artist = ArtistsLibrary.getInstance()
                         .getArtistByName(playingAudio.getPlayingObject().getOwner());

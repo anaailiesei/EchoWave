@@ -148,4 +148,33 @@ public final class Playlist extends Collection<Song> {
     public boolean contains(final String songName) {
         return collection.stream().anyMatch(song -> song.getName().equals(songName));
     }
+    @Override
+    public boolean equals(final Object obj) {
+        if (!(obj instanceof Playlist)) {
+            return false;
+        }
+        Playlist playlist = (Playlist) obj;
+
+        if (!getName().equals(playlist.getName())) {
+            return false;
+        }
+
+        if (!getOwner().equals(playlist.getOwner())) {
+            return false;
+        }
+
+        for (Song song1 : playlist.getCollection()) {
+            for (Song song2 : this.getCollection()) {
+                if (!song1.equals(song2)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
 }

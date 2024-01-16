@@ -25,7 +25,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -316,7 +315,8 @@ public final class NormalUser extends User implements Notifiable {
     }
 
     /**
-     * Converts an ArrayList of Song objects to a formatted string representation.
+     * Converts an ArrayList of Song objects to a formatted string
+     * representation.
      *
      * @param songs The list of songs to be converted to a string.
      * @return A formatted string representation of the songs.
@@ -445,6 +445,13 @@ public final class NormalUser extends User implements Notifiable {
     }
 
     /**
+     * Gets the songs listened during free subscription and their corresponding listen count
+     * @return A tree map with songs and their listen count
+     */
+    public TreeMap<Song, Integer> getFreeSongs() {
+        return getApp().getListenTracker().getFreeSongs();
+    }
+    /**
      * Inserts and add in the player
      */
     public void insertAd(final int adPrice) {
@@ -520,7 +527,7 @@ public final class NormalUser extends User implements Notifiable {
         setLastRecommendation(recommendation);
     }
 
-    public void setLastRecommendation(Audio lastRecommendation) {
+    public void setLastRecommendation(final Audio lastRecommendation) {
         this.lastRecommendation = lastRecommendation;
     }
 }

@@ -194,7 +194,7 @@ public final class PlayingAudioCollection<T extends Collection<? extends Audio>>
         }
         int oldRemainedTime = (int) stats.get(StatusFields.remainedTime);
         String oldRepeatValue = playingNowObject.getRepeatValue();
-        // TODO: Add to artists album count when a song is on repeat
+
         playingNowObject.addTimePassed(timePassed);
         if (oldRepeatValue.equals(RepeatType.repeatInfinite.getValue())
                 || oldRepeatValue.equals(RepeatType.repeatCurrent.getValue())) {
@@ -225,7 +225,6 @@ public final class PlayingAudioCollection<T extends Collection<? extends Audio>>
             }
             if (!finished) {
                 int newPlayingNowIndex = playingNowIndex;
-                // TODO: add listends here
                 if (oldPlayingNowIndex != newPlayingNowIndex) {
                     getPlayingNowObject().getPlayingObject()
                             .addListen(user.getApp().getListenTracker());
