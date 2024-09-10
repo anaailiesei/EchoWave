@@ -1,4 +1,4 @@
-# Project GlobalWaves - Pagination
+# Project Rhythmia - Pagination
 This project involves the implementation of an application with features akin to Spotify.
 ## Author
 Ana Ailiesei
